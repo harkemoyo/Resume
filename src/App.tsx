@@ -45,10 +45,24 @@ const App: React.FC = () => {
     }
   };
 
+  /**
+   * Handle contact button click
+   * Sets the active tab to 'contact' and scrolls to the content area
+   */
+  const handleContactClick = () => {
+    setActiveTab('contact');
+    // Scroll to the content area with a smooth animation
+    document.querySelector('.main-content')?.scrollIntoView({ behavior: 'smooth' });
+  };
+
   // Main application layout with header, navigation, content area, and footer
   return (
     <div className="app">
-      <Header />
+      <Header 
+        profileImage="/images/passport.jpg" 
+        name="Hark" 
+        onContactClick={handleContactClick} 
+      />
       <Navigation activeTab={activeTab} setActiveTab={setActiveTab} />
       <main className="main-content">
         {renderContent()}
