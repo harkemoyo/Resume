@@ -1,5 +1,7 @@
 import React, { useState } from 'react';
 import { useToast } from '../../hooks/use-toast';
+import PDFUploader from '../PDFUploader';
+import { PDFContent } from '../../utils/pdfProcessor';
 
 /**
  * Contact Component
@@ -25,6 +27,8 @@ const Contact: React.FC = () => {
     message: ''
   });
   const [isSubmitting, setIsSubmitting] = useState(false);
+  const [extractedSections, setExtractedSections] = useState<Record<string, string>>({});
+  const [hasExtractedContent, setHasExtractedContent] = useState(false);
 
   const handleChange = (e: React.ChangeEvent<HTMLInputElement | HTMLTextAreaElement>) => {
     const { name, value } = e.target;
@@ -163,6 +167,50 @@ const Contact: React.FC = () => {
             {isSubmitting ? 'Sending...' : 'Send Message'}
           </button>
         </form>
+      </div>
+      
+      <div className="section-divider"></div>
+      
+      <div className="resume-upload-section">
+        <div className="section-header">
+          <h2>Share Your Resume</h2>
+          <p className="section-subtitle">Upload your CV or resume for consideration</p>
+        </div>
+        <PDFUploader 
+          onFileUpload={(file) => {
+            success(`Successfully uploaded: ${file.name}`);
+            console.log('File uploaded:', file);
+          }}
+          onContentExtracted={(content: PDFContent, sections: Record<string, string>) => {
+            setExtractedSections(sections);
+            setHasExtractedContent(true);
+            success('Successfully extracted content from your resume!');
+            console.log('Extracted sections:', sections);
+            console.log('Extracted images:', content.images.length);
+          }}
+        />
+        
+        {hasExtractedContent && (
+          <div className="extracted-content-preview">
+            <h3>Extracted Resume Content</h3>
+            {Object.entries(extractedSections).map(([section, content]) => (
+              <div key={section} className="extracted-section">
+                <h4>{section}</h4>
+                <p>{content.substring(0, 150)}...</p>
+                <button 
+                  className="use-content-button"
+                  onClick={() => {
+                    success(`Content from section "${section}" can now be used in your resume app`);
+                    // Here you would typically handle using this content in your app
+                    // For example, updating state in a parent component or storing in context
+                  }}
+                >
+                  Use This Content
+                </button>
+              </div>
+            ))}
+          </div>
+        )}
       </div>
     </div>
   );

@@ -1,7 +1,7 @@
 /* Global Styles */
 :root {
-  --primary-color: #2563eb;
-  --secondary-color: #1e40af;
+  --primary-color: #1f2937;
+  --secondary-color: #1f2937;
   --text-color: #1f2937;
   --text-light: #6b7280;
   --background: #ffffff;
@@ -240,9 +240,6 @@ body {
 .content-section {
   background: white;
   border-radius: 0.5rem;
-  box-shadow: var(--shadow);
-  padding: 2rem;
-  margin-bottom: 2rem;
 }
 
 .section-header {

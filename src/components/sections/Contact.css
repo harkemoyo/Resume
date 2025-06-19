@@ -171,6 +171,23 @@
   }
 }
 
+/* Section Divider */
+.section-divider {
+  margin: 3rem 0;
+  height: 1px;
+  background: linear-gradient(to right, transparent, var(--border-color), transparent);
+}
+
+/* Resume Upload Section */
+.resume-upload-section {
+  margin-top: 2rem;
+  animation: fadeIn 0.5s ease-in-out;
+}
+
+.resume-upload-section .section-header {
+  margin-bottom: 2rem;
+}
+
 /* Dark mode adjustments */
 [data-theme='dark'] .form-group input,
 [data-theme='dark'] .form-group textarea {
@@ -182,4 +199,88 @@
 [data-theme='dark'] .contact-form {
   background: #2d2d2d;
   box-shadow: 0 2px 4px rgba(0, 0, 0, 0.3);
+}
+
+[data-theme='dark'] .drop-area {
+  background-color: #2d2d2d;
+  border-color: #444;
+}
+
+[data-theme='dark'] .drop-area:hover,
+[data-theme='dark'] .drop-area.dragging {
+  background-color: #333;
+  border-color: var(--primary-color);
+}
+
+/* Extracted Content Preview Styles */
+.extracted-content-preview {
+  margin-top: 30px;
+  padding: 20px;
+  border-radius: 8px;
+  background-color: #f0f4f8;
+  border: 1px solid #cad5e2;
+  animation: fadeIn 0.5s ease-in-out;
+}
+
+.extracted-content-preview h3 {
+  color: #0a2472;
+  margin-top: 0;
+  margin-bottom: 20px;
+  text-align: center;
+}
+
+.extracted-section {
+  background-color: white;
+  border-radius: 8px;
+  padding: 15px;
+  margin-bottom: 15px;
+  box-shadow: 0 2px 4px rgba(0, 0, 0, 0.05);
+  transition: transform 0.3s ease, box-shadow 0.3s ease;
+}
+
+.extracted-section:hover {
+  transform: translateY(-3px);
+  box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+}
+
+.extracted-section h4 {
+  color: #0a2472;
+  margin-top: 0;
+  margin-bottom: 10px;
+  font-weight: 600;
+}
+
+.extracted-section p {
+  color: #345995;
+  margin-bottom: 15px;
+  font-size: 0.9rem;
+  line-height: 1.5;
+}
+
+.use-content-button {
+  background-color: #0a2472;
+  color: white;
+  border: none;
+  padding: 8px 16px;
+  border-radius: 4px;
+  font-weight: 500;
+  cursor: pointer;
+  transition: all 0.2s ease;
+}
+
+.use-content-button:hover {
+  background-color: #001c55;
+}
+
+[data-theme='dark'] .extracted-content-preview {
+  background-color: #2d2d2d;
+  border-color: #444;
+}
+
+[data-theme='dark'] .extracted-section {
+  background-color: #333;
+}
+
+[data-theme='dark'] .extracted-section p {
+  color: #ccc;
 }
