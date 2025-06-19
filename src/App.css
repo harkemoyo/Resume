@@ -1,12 +1,13 @@
 /* Global Styles */
 :root {
-  --primary-color: #1f2937;
-  --secondary-color: #1f2937;
-  --text-color: #1f2937;
-  --text-light: #6b7280;
+  /* Navy blue color scheme from memories */
+  --primary-color: #0a2472;       /* Dark navy blue */
+  --secondary-color: #001c55;    /* Deeper navy blue */
+  --text-color: #0a2472;          /* Navy blue for text */
+  --text-light: #345995;          /* Lighter navy blue */
   --background: #ffffff;
-  --background-alt: #f9fafb;
-  --border-color: #e5e7eb;
+  --background-alt: #f0f4f8;      /* Light blue-gray background */
+  --border-color: #cad5e2;        /* Light blue-gray border */
   --shadow: 0 4px 6px -1px rgba(0, 0, 0, 0.1), 0 2px 4px -1px rgba(0, 0, 0, 0.06);
 }
 
@@ -206,9 +207,6 @@ body {
 
 /* Navigation */
 .navigation {
-  background-color: var(--background-alt);
-  border-bottom: 1px solid var(--border-color);
-  padding: 0 1rem;
   display: flex;
   overflow-x: auto;
   -webkit-overflow-scrolling: touch;

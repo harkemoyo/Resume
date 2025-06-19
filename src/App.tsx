@@ -61,9 +61,10 @@ const App: React.FC = () => {
       <Header 
         profileImage="/images/passport.jpg" 
         name="Hark" 
-        onContactClick={handleContactClick} 
-      />
-      <Navigation activeTab={activeTab} setActiveTab={setActiveTab} />
+        onContactClick={handleContactClick}
+      >
+        <Navigation activeTab={activeTab} setActiveTab={setActiveTab} />
+      </Header>
       <main className="main-content">
         {renderContent()}
       </main>
