@@ -1,0 +1,59 @@
+/* Navigation Component Styles */
+.navigation {
+  display: flex;
+  gap: 1rem;
+  flex-wrap: wrap;
+  justify-content: flex-end;
+}
+
+.nav-tab {
+  background: none;
+  border: none;
+  color: var(--text-light);
+  font-size: 0.95rem;
+  font-weight: 500;
+  padding: 0.5rem 0.75rem;
+  cursor: pointer;
+  border-radius: 0.25rem;
+  transition: all 0.2s ease;
+  position: relative;
+}
+
+.nav-tab::after {
+  content: '';
+  position: absolute;
+  bottom: 0;
+  left: 50%;
+  transform: translateX(-50%);
+  width: 0;
+  height: 2px;
+  background-color: var(--primary-color);
+  transition: width 0.2s ease;
+}
+
+.nav-tab:hover {
+  color: var(--primary-color);
+}
+
+.nav-tab:hover::after,
+.nav-tab.active::after {
+  width: calc(100% - 1.5rem);
+}
+
+.nav-tab.active {
+  color: var(--primary-color);
+  font-weight: 600;
+}
+
+/* Responsive adjustments */
+@media (max-width: 768px) {
+  .navigation {
+    justify-content: center;
+    margin-top: 1rem;
+  }
+  
+  .nav-tab {
+    font-size: 0.9rem;
+    padding: 0.4rem 0.6rem;
+  }
+}
