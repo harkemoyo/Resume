@@ -31,20 +31,67 @@ const AIChat: React.FC = () => {
     };
 
     setMessages(prev => [...prev, userMessage]);
+    const currentInput = inputText;
     setInputText('');
     setIsLoading(true);
 
-    // Simulate AI response (replace with actual AI API call)
-    setTimeout(() => {
+    try {
+      // Call OpenAI API
+      const response = await fetch('https://api.openai.com/v1/chat/completions', {
+        method: 'POST',
+        headers: {
+          'Content-Type': 'application/json',
+          'Authorization': `Bearer ${process.env.REACT_APP_OPENAI_API_KEY}`
+        },
+        body: JSON.stringify({
+          model: 'gpt-3.5-turbo',
+          messages: [
+            {
+              role: 'system',
+              content: `You are Hark's AI assistant for his resume. Answer questions about his background professionally. Key info: 
+              - 3+ years Shopify developer and frontend engineer
+              - Certified Shopify Partner
+              - Skills: JavaScript, Shopify development, Java, digital electronics
+              - Increased client sales by 40% on average
+              - Available for freelance work
+              Keep responses concise and professional.`
+            },
+            {
+              role: 'user',
+              content: currentInput
+            }
+          ],
+          max_tokens: 150,
+          temperature: 0.7
+        })
+      });
+
+      if (!response.ok) {
+        throw new Error('AI service unavailable');
+      }
+
+      const data = await response.json();
+      const aiText = data.choices[0]?.message?.content || 'Sorry, I could not process that request.';
+
       const aiResponse: Message = {
         id: (Date.now() + 1).toString(),
-        text: generateAIResponse(inputText),
+        text: aiText,
         isUser: false,
         timestamp: new Date()
       };
       setMessages(prev => [...prev, aiResponse]);
+    } catch (error) {
+      // Fallback to local responses if API fails
+      const aiResponse: Message = {
+        id: (Date.now() + 1).toString(),
+        text: generateAIResponse(currentInput),
+        isUser: false,
+        timestamp: new Date()
+      };
+      setMessages(prev => [...prev, aiResponse]);
+    } finally {
       setIsLoading(false);
-    }, 1000);
+    }
   };
 
   const generateAIResponse = (question: string): string => {
