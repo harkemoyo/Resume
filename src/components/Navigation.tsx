@@ -11,6 +11,7 @@ const Navigation: React.FC<NavigationProps> = ({ activeTab, setActiveTab }) => {
     { id: 'bio', label: 'Professional Bio' },
     { id: 'company', label: 'What I Bring' },
     { id: 'freelance', label: 'Freelance' },
+    { id: 'ai-chat', label: 'AI Assistant' },
     { id: 'contact', label: 'Contact' }
   ];
 
