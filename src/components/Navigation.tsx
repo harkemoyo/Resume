@@ -26,7 +26,13 @@ const Navigation: React.FC<NavigationProps> = ({ activeTab, setActiveTab }) => {
       setActiveTab(tabId);
     }
   };
-
+  const tabs = [
+    { id: 'bio', label: 'Professional Bio' },
+    { id: 'company', label: 'What I Bring' },
+    { id: 'freelance', label: 'Freelance' },
+    { id: 'ai-chat', label: 'AI Assistant' },
+    { id: 'contact', label: 'Contact' }
+  ];
   return (
     <nav className="navigation" role="navigation" aria-label="Main navigation">
       {tabs.map((tab) => (

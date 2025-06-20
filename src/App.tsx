@@ -9,6 +9,7 @@ import ProfessionalBio from './components/sections/ProfessionalBio';
 import CompanyValue from './components/sections/CompanyValue';
 import FreelanceIntro from './components/sections/FreelanceIntro';
 import Experience from './components/sections/Experience';
+import AIChat from './components/sections/AIChat';
 import Contact from './components/sections/Contact';
 import Footer from './components/Footer';
 
@@ -65,6 +66,8 @@ const App: React.FC = () => {
         return <FreelanceIntro />;
       case 'experience':
         return <Experience />;
+      case 'ai-chat':
+        return <AIChat />;
       case 'contact':
         return <Contact />;
       case 'bio':
