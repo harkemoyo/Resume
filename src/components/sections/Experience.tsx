@@ -227,7 +227,7 @@ const Experience: React.FC = () => {
         <h2>Experience</h2>
         <p className="section-subtitle">Professional Journey</p>
       </div>
-      <div className="error-message">{error}</div>
+      <div className="error-message">Error loading experience data: {error.message}</div>
     </div>
   );
 

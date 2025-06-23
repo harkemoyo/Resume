@@ -1134,8 +1134,8 @@ a {
   }
 
   .contact-form {
-Adding styles for the Toden Industries component, integrating it into the existing CSS structure.padding: 1.5rem;
-}
+    padding: 1.5rem;
+  }
 }
 
 /* Utility Classes */
