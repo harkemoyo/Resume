@@ -9,39 +9,59 @@ interface ExperienceItem {
   endDate: string;
   description: string;
   skills: string[];
+  achievements?: string[];
 }
 
-// Mock data for demonstration
+// Enhanced experience data with detailed project information
 const mockExperiences = [
   {
     id: '1',
-    title: 'Frontend Developer',
+    title: 'Frontend Developer & Shopify Specialist',
     company: 'Vazi App',
     location: 'Nairobi, Kenya',
     startDate: '2023-01-01',
     endDate: 'Present',
-    description: 'Building modern web applications with React, TypeScript, and Shopify integrations. Focused on creating responsive and accessible user interfaces.',
-    skills: ['React', 'TypeScript', 'Shopify', 'CSS3', 'HTML5']
+    description: 'Leading frontend development and Shopify integrations for multiple client projects. Built custom e-commerce solutions including CC Resorts booking system, AOS Magazine subscription platform, and Counterpart Store multi-vendor marketplace. Specialized in creating responsive, conversion-optimized user interfaces and custom Shopify theme development.',
+    skills: ['React', 'TypeScript', 'Shopify', 'Liquid', 'CSS3', 'HTML5', 'API Integration', 'E-commerce'],
+    achievements: [
+      'Developed CC Resorts booking and reservation system',
+      'Built AOS Magazine subscription and content management platform',
+      'Created Counterpart Store multi-vendor marketplace',
+      'Implemented custom Shopify theme modifications for 10+ clients'
+    ]
   },
   {
     id: '2',
-    title: 'JavaScript Developer',
+    title: 'Shopify Developer & Consultant',
     company: 'Freelance',
     location: 'Remote',
     startDate: '2021-01-01',
     endDate: '2022-12-31',
-    description: 'Developed custom e-commerce solutions and web applications for various clients. Specialized in Shopify theme development and custom app integrations.',
-    skills: ['JavaScript', 'Shopify', 'Liquid', 'CSS3', 'HTML5']
+    description: 'Provided comprehensive Shopify development services including custom theme development, app integrations, and performance optimization. Specialized in creating unique e-commerce experiences for businesses across various industries including healthcare (Gentle Jaw), funeral services (Houston Funeral Homes), and image management solutions (Found Image).',
+    skills: ['JavaScript', 'Shopify', 'Liquid', 'CSS3', 'HTML5', 'Shopify API', 'Performance Optimization', 'SEO'],
+    achievements: [
+      'Developed Gentle Jaw dental practice management system',
+      'Created Houston Funeral Homes review and consultation platform',
+      'Built Found Image documentation and link management system',
+      'Implemented Segment Extensions for enhanced analytics tracking',
+      'Improved client store performance by 40% on average'
+    ]
   },
   {
     id: '3',
-    title: 'Junior Developer',
+    title: 'Junior Full-Stack Developer',
     company: 'Tech Startup',
     location: 'Nairobi, Kenya',
     startDate: '2020-06-01',
     endDate: '2020-12-31',
-    description: 'Worked as part of a small team to develop and maintain web applications. Gained experience in full-stack development and agile methodologies.',
-    skills: ['JavaScript', 'Node.js', 'MongoDB', 'Express', 'React']
+    description: 'Started as a junior developer in a supportive mentorship environment. Gained foundational experience in full-stack development, contributing to web applications and learning agile methodologies. Focused on building strong coding fundamentals and collaborative development practices.',
+    skills: ['JavaScript', 'Node.js', 'MongoDB', 'Express', 'React', 'Git', 'Agile Methodology'],
+    achievements: [
+      'Completed 6-month mentorship program with senior developers',
+      'Built binary arithmetic calculator demonstrating algorithmic thinking',
+      'Contributed to team knowledge sharing sessions',
+      'Developed problem-solving skills through diverse project challenges'
+    ]
   }
 ];
 
@@ -116,6 +136,16 @@ const Experience: React.FC = () => {
             <div className="experience-description">
               {exp.description}
             </div>
+            {exp.achievements && exp.achievements.length > 0 && (
+              <div className="experience-achievements">
+                <h4>Key Achievements:</h4>
+                <ul>
+                  {exp.achievements.map((achievement: string, index: number) => (
+                    <li key={index}>{achievement}</li>
+                  ))}
+                </ul>
+              </div>
+            )}
             {exp.skills && exp.skills.length > 0 && (
               <div className="experience-skills">
                 {exp.skills.map((skill: string, index: number) => (
