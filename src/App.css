@@ -1090,7 +1090,6 @@ a {
     max-width: 95vw;
     max-height: 95vh;
   }
-}m;
 }
 
 /* Loading and Error States */
@@ -1100,7 +1099,7 @@ a {
   align-items: center;
   padding: 2rem;
   color: var(--text-light);
-  font-style: italic;
+  font-style: italic;c;
 }
 
 .error-message {
