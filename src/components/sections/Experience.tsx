@@ -40,9 +40,9 @@ const mockExperiences = [
     projectImages: [
       {
         id: 'cc-resorts-1',
-        src: '/images/cc-resorts-homepage.jpg',
-        alt: 'CC Resorts Homepage Design',
-        title: 'CC Resorts Homepage',
+        src: '/images/cc-resorts-product.png',
+        alt: 'CC Resorts Product Page with Color Variant Selector',
+        title: 'CC Resorts Product Page',
         category: 'E-commerce Design'
       },
       {
