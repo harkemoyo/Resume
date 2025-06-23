@@ -1,4 +1,5 @@
 import React, { useState, useEffect } from 'react';
+import ProjectGallery from './ProjectGallery';
 
 interface ExperienceItem {
   id: string;
@@ -10,6 +11,13 @@ interface ExperienceItem {
   description: string;
   skills: string[];
   achievements?: string[];
+  projectImages?: {
+    id: string;
+    src: string;
+    alt: string;
+    title: string;
+    category: string;
+  }[];
 }
 
 // Enhanced experience data with detailed project information
@@ -28,6 +36,29 @@ const mockExperiences = [
       'Built AOS Magazine subscription and content management platform',
       'Created Counterpart Store multi-vendor marketplace',
       'Implemented custom Shopify theme modifications for 10+ clients'
+    ],
+    projectImages: [
+      {
+        id: 'cc-resorts-1',
+        src: '/images/cc-resorts-homepage.jpg',
+        alt: 'CC Resorts Homepage Design',
+        title: 'CC Resorts Homepage',
+        category: 'E-commerce Design'
+      },
+      {
+        id: 'aos-magazine-1',
+        src: '/images/aos-magazine-layout.jpg',
+        alt: 'AOS Magazine Layout',
+        title: 'AOS Magazine Platform',
+        category: 'Content Management'
+      },
+      {
+        id: 'counterpart-store-1',
+        src: '/images/counterpart-store-dashboard.jpg',
+        alt: 'Counterpart Store Dashboard',
+        title: 'Multi-vendor Marketplace',
+        category: 'E-commerce Platform'
+      }
     ]
   },
   {
@@ -45,6 +76,29 @@ const mockExperiences = [
       'Built Found Image documentation and link management system',
       'Implemented Segment Extensions for enhanced analytics tracking',
       'Improved client store performance by 40% on average'
+    ],
+    projectImages: [
+      {
+        id: 'gentle-jaw-1',
+        src: '/images/gentle-jaw-interface.jpg',
+        alt: 'Gentle Jaw Practice Management Interface',
+        title: 'Gentle Jaw System',
+        category: 'Healthcare Management'
+      },
+      {
+        id: 'houston-funeral-1',
+        src: '/images/houston-funeral-reviews.jpg',
+        alt: 'Houston Funeral Homes Review System',
+        title: 'Review Platform',
+        category: 'Service Platform'
+      },
+      {
+        id: 'found-image-1',
+        src: '/images/found-image-dashboard.jpg',
+        alt: 'Found Image Management Dashboard',
+        title: 'Image Management System',
+        category: 'Content Management'
+      }
     ]
   },
   {
@@ -145,6 +199,9 @@ const Experience: React.FC = () => {
                   ))}
                 </ul>
               </div>
+            )}
+            {exp.projectImages && exp.projectImages.length > 0 && (
+              <ProjectGallery images={exp.projectImages} projectTitle={exp.title} />
             )}
             {exp.skills && exp.skills.length > 0 && (
               <div className="experience-skills">
