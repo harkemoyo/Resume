@@ -1,5 +1,8 @@
 import React, { useState, useEffect } from 'react';
+import { useQuery } from '@apollo/client';
 import ProjectGallery from './ProjectGallery';
+import TodenIndustries from './TodenIndustries';
+import { GET_EXPERIENCE_METAOBJECTS, GET_PROJECT_METAOBJECTS } from '../../graphql/queries';
 
 interface ExperienceItem {
   id: string;
@@ -121,31 +124,92 @@ const mockExperiences = [
 
 const Experience: React.FC = () => {
   const [experiences, setExperiences] = useState<any[]>([]);
-  const [loading, setLoading] = useState(true);
-  const [error, setError] = useState<string | null>(null);
+  const { data: experienceData, loading: expLoading, error: expError } = useQuery(GET_EXPERIENCE_METAOBJECTS);
+  const { data: projectData, loading: projLoading, error: projError } = useQuery(GET_PROJECT_METAOBJECTS);
+
+  const loading = expLoading || projLoading;
+  const error = expError || projError;
 
   useEffect(() => {
-    // Simulate API call
-    const fetchExperiences = async () => {
-      try {
-        // In a real implementation, this would be the GraphQL query
-        // const { data } = await client.query({ query: EXPERIENCE_QUERY });
-        // const experiences = data?.metaobjects?.edges?.map(/* ... */) || [];
+    if (experienceData?.metaobjects?.edges) {
+      // Transform Shopify metaobjects to experience format
+      const shopifyExperiences = experienceData.metaobjects.edges.map((edge: any) => {
+        const fields = edge.node.fields;
+        const experience: any = { id: edge.node.id };
         
-        // For now, use mock data
-        setTimeout(() => {
-          setExperiences(mockExperiences);
-          setLoading(false);
-        }, 500);
-      } catch (err) {
-        setError('Failed to load experience data');
-        setLoading(false);
-        console.error('Error fetching experience data:', err);
-      }
-    };
+        fields.forEach((field: any) => {
+          switch (field.key) {
+            case 'title':
+              experience.title = field.value;
+              break;
+            case 'company':
+              experience.company = field.value;
+              break;
+            case 'location':
+              experience.location = field.value;
+              break;
+            case 'start_date':
+              experience.startDate = field.value;
+              break;
+            case 'end_date':
+              experience.endDate = field.value;
+              break;
+            case 'description':
+              experience.description = field.value;
+              break;
+            case 'skills':
+              experience.skills = field.value ? field.value.split(',').map((s: string) => s.trim()) : [];
+              break;
+            case 'achievements':
+              experience.achievements = field.value ? field.value.split('\n').filter((a: string) => a.trim()) : [];
+              break;
+          }
+        });
 
-    fetchExperiences();
-  }, []);
+        return experience;
+      });
+
+      // Combine with project images if available
+      if (projectData?.metaobjects?.edges) {
+        const projectImages = projectData.metaobjects.edges.map((edge: any) => {
+          const fields = edge.node.fields;
+          const project: any = { id: edge.node.id };
+          
+          fields.forEach((field: any) => {
+            switch (field.key) {
+              case 'title':
+                project.title = field.value;
+                break;
+              case 'category':
+                project.category = field.value;
+                break;
+              case 'image_url':
+                project.src = field.reference?.url || field.value;
+                break;
+              case 'alt_text':
+                project.alt = field.value;
+                break;
+              case 'experience_id':
+                project.experienceId = field.value;
+                break;
+            }
+          });
+          
+          return project;
+        });
+
+        // Attach project images to experiences
+        shopifyExperiences.forEach((exp: any) => {
+          exp.projectImages = projectImages.filter((img: any) => img.experienceId === exp.id);
+        });
+      }
+
+      setExperiences([...shopifyExperiences, ...mockExperiences]);
+    } else {
+      // Fallback to mock data if no metaobjects
+      setExperiences(mockExperiences);
+    }
+  }, [experienceData, projectData]);
 
   if (loading) return (
     <div className="content-section">
@@ -173,6 +237,9 @@ const Experience: React.FC = () => {
         <h2>Experience</h2>
         <p className="section-subtitle">Professional Journey</p>
       </div>
+      
+      {/* Featured Project: Toden Industries */}
+      <TodenIndustries />
       
       <div className="experience-container">
         {experiences.map((exp: ExperienceItem) => (
