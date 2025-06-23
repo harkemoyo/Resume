@@ -29,10 +29,10 @@ const mockExperiences = [
     location: 'Nairobi, Kenya',
     startDate: '2023-01-01',
     endDate: 'Present',
-    description: 'Leading frontend development and Shopify integrations for multiple client projects. Built custom e-commerce solutions including CC Resorts booking system, AOS Magazine subscription platform, and Counterpart Store multi-vendor marketplace. Specialized in creating responsive, conversion-optimized user interfaces and custom Shopify theme development.',
+    description: 'Leading frontend development and Shopify integrations for multiple client projects. Built custom e-commerce solutions including CC Resorts product catalog with advanced color variant selectors, AOS Magazine subscription platform, and Counterpart Store multi-vendor marketplace. Specialized in creating responsive, conversion-optimized user interfaces and custom Shopify theme development.',
     skills: ['React', 'TypeScript', 'Shopify', 'Liquid', 'CSS3', 'HTML5', 'API Integration', 'E-commerce'],
     achievements: [
-      'Developed CC Resorts booking and reservation system',
+      'Developed CC Resorts product catalog with interactive color variant selectors and product options',
       'Built AOS Magazine subscription and content management platform',
       'Created Counterpart Store multi-vendor marketplace',
       'Implemented custom Shopify theme modifications for 10+ clients'
