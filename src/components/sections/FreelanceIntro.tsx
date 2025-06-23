@@ -1,78 +1,63 @@
 import React from 'react';
 
-interface FreelanceIntroProps {
-  // Add any props that the component might receive
-}
+/**
+ * FreelanceIntro Component
+ * 
+ * Displays information about freelance services and approach.
+ * 
+ * @component
+ * @returns {JSX.Element} Rendered FreelanceIntro component
+ */
 
-const FreelanceIntro: React.FC<FreelanceIntroProps> = () => (
-  <div className="content-section">
-    <div className="section-header">
-      <h2>Freelance Introduction</h2>
-      <p className="section-subtitle">How I Can Help Your Business</p>
-    </div>
-    
-    <div className="freelance-card">
-      <div className="freelance-intro">
-        <p>
-          I'm currently available for freelance Shopify development projects. Whether you're a business 
-          looking to launch a new online store, need custom theme development, or require specific 
-          functionality for your Shopify store, I can help bring your vision to life.
-        </p>
-        
+const FreelanceIntro: React.FC = () => {
+  return (
+    <div className="content-section">
+      <div className="section-header">
+        <h2>Freelance Services</h2>
+        <p className="section-subtitle">Custom Shopify Solutions & Development</p>
+      </div>
+
+      <div className="freelance-content">
+        <div className="service-intro">
+          <h3>What I Offer</h3>
+          <p>
+            As a Shopify Partner with 3+ years of experience, I provide comprehensive 
+            eCommerce solutions that help businesses grow and succeed online.
+          </p>
+        </div>
+
         <div className="services-grid">
           <div className="service-card">
-            <h3>Custom Theme Development</h3>
-            <p>
-              Need a unique, responsive Shopify theme that stands out? I create custom themes 
-              tailored to your brand identity and business needs.
-            </p>
-            <ul className="service-features">
-              <li>Mobile-first, responsive design</li>
-              <li>Custom sections and templates</li>
-              <li>Performance optimization</li>
-              <li>SEO best practices</li>
-            </ul>
+            <h4>Theme Customization</h4>
+            <p>Custom Shopify theme modifications and optimizations tailored to your brand.</p>
           </div>
-          
+
           <div className="service-card">
-            <h3>Theme Customization</h3>
-            <p>
-              Already have a theme but need adjustments? I can customize existing themes to 
-              match your specific requirements.
-            </p>
-            <ul className="service-features">
-              <li>Custom features and functionality</li>
-              <li>Third-party app integrations</li>
-              <li>Performance improvements</li>
-              <li>Bug fixes and updates</li>
-            </ul>
+            <h4>API Integration</h4>
+            <p>Seamless integration with Shopify APIs and third-party services.</p>
           </div>
-          
+
           <div className="service-card">
-            <h3>Shopify Apps</h3>
-            <p>
-              Need custom functionality that doesn't exist in the app store? I can develop 
-              private apps tailored to your specific business needs.
-            </p>
-            <ul className="service-features">
-              <li>Custom app development</li>
-              <li>API integrations</li>
-              <li>Workflow automation</li>
-              <li>Data import/export solutions</li>
-            </ul>
+            <h4>Performance Optimization</h4>
+            <p>Speed optimization and conversion rate improvements for your store.</p>
+          </div>
+
+          <div className="service-card">
+            <h4>Custom Apps</h4>
+            <p>Bespoke Shopify applications to extend your store's functionality.</p>
           </div>
         </div>
-        
+
         <div className="cta-section">
-          <p className="cta-text">
-            Ready to take your Shopify store to the next level? Let's discuss how I can help 
-            you achieve your business goals.
-          </p>
-          <button className="cta-button">Get in Touch</button>
+          <h3>Ready to Start Your Project?</h3>
+          <p>Let's discuss how I can help bring your eCommerce vision to life.</p>
+          <button className="cta-button" onClick={() => document.querySelector('[data-tab="contact"]')?.click()}>
+            Get In Touch
+          </button>
         </div>
       </div>
     </div>
-  </div>
-);
+  );
+};
 
 export default FreelanceIntro;
