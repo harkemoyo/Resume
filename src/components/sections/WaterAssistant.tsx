@@ -1,6 +1,5 @@
-
 import React, { useState, useRef, useEffect } from 'react';
-import './AIChat.css';
+import './WaterAssistant.css';
 
 interface Message {
   id: string;
@@ -9,15 +8,8 @@ interface Message {
   timestamp: Date;
 }
 
-const AIChat: React.FC = () => {
-  const [messages, setMessages] = useState<Message[]>([
-    {
-      id: '1',
-      text: "Hi! I'm Hark's AI assistant. Ask me anything about his experience, skills, or projects!",
-      isUser: false,
-      timestamp: new Date()
-    }
-  ]);
+const WaterAssistant: React.FC = () => {
+  const [messages, setMessages] = useState<Message[]>([]);
   const [inputText, setInputText] = useState('');
   const [isLoading, setIsLoading] = useState(false);
   const messagesEndRef = useRef<HTMLDivElement>(null);
@@ -43,7 +35,7 @@ const AIChat: React.FC = () => {
       setTimeout(() => {
         setBubbles(prev => prev.filter(bubble => bubble.id !== newBubble.id));
       }, newBubble.duration * 1000);
-    }, 1000);
+    }, 800);
 
     return () => clearInterval(interval);
   }, []);
@@ -64,77 +56,60 @@ const AIChat: React.FC = () => {
     setIsLoading(true);
 
     try {
-      // Call OpenAI API
-      const response = await fetch('https://api.openai.com/v1/chat/completions', {
-        method: 'POST',
-        headers: {
-          'Content-Type': 'application/json',
-          'Authorization': `Bearer ${process.env.REACT_APP_OPENAI_API_KEY}`
-        },
-        body: JSON.stringify({
-          model: 'gpt-3.5-turbo',
-          messages: [
-            {
-              role: 'system',
-              content: `You are Hark's AI assistant for his resume. Answer questions about his background professionally. Key info: 
-              - 3+ years Shopify developer and frontend engineer
-              - Certified Shopify Partner
-              - Skills: JavaScript, Shopify development, Java, digital electronics
-              - Increased client sales by 40% on average
-              - Available for freelance work
-              Keep responses concise and professional.`
-            },
-            {
-              role: 'user',
-              content: currentInput
-            }
-          ],
-          max_tokens: 150,
-          temperature: 0.7
-        })
-      });
-
-      if (!response.ok) {
-        throw new Error('AI service unavailable');
-      }
-
-      const data = await response.json();
-      const aiText = data.choices[0]?.message?.content || 'Sorry, I could not process that request.';
-
+      // Simulate AI thinking with water-themed responses
+      await new Promise(resolve => setTimeout(resolve, 1000));
+      
       const aiResponse: Message = {
         id: (Date.now() + 1).toString(),
-        text: aiText,
+        text: generateWaterResponse(currentInput),
         isUser: false,
         timestamp: new Date()
       };
       setMessages(prev => [...prev, aiResponse]);
     } catch (error) {
-      // Fallback to local responses if API fails
-      const aiResponse: Message = {
+      console.error('Error:', error);
+      const errorResponse: Message = {
         id: (Date.now() + 1).toString(),
-        text: generateAIResponse(currentInput),
+        text: "I'm experiencing some waves of trouble. Please try again later.",
         isUser: false,
         timestamp: new Date()
       };
-      setMessages(prev => [...prev, aiResponse]);
+      setMessages(prev => [...prev, errorResponse]);
     } finally {
       setIsLoading(false);
     }
   };
 
-  const generateAIResponse = (question: string): string => {
+  const generateWaterResponse = (question: string): string => {
     const lowerQuestion = question.toLowerCase();
-    
-    if (lowerQuestion.includes('experience') || lowerQuestion.includes('years')) {
-      return "Hark has 3+ years of experience as a Shopify developer and frontend engineer, specializing in custom eCommerce solutions and theme development.";
-    } else if (lowerQuestion.includes('skills') || lowerQuestion.includes('technology')) {
-      return "His core skills include JavaScript, Shopify development, frontend technologies, Java, and digital electronics. He's also a certified Shopify Partner.";
-    } else if (lowerQuestion.includes('project') || lowerQuestion.includes('work')) {
-      return "He's worked on various projects including binary arithmetic calculators, AI-powered transcription tools, and custom Shopify integrations that have increased client sales by an average of 40%.";
-    } else if (lowerQuestion.includes('contact') || lowerQuestion.includes('hire')) {
-      return "You can contact Hark through the Contact section of this resume or connect with him on LinkedIn. He's currently available for freelance opportunities!";
+    const waterResponses = [
+      "The ocean's wisdom reminds us that even the mightiest waves start as gentle ripples. What else would you like to know?",
+      "Like a river finding its way to the sea, I'm here to guide you. Tell me more about what you're looking for.",
+      "In the vast ocean of information, I'm here to help you find the answers you seek. What's on your mind?",
+      "Water teaches us patience and persistence. I'm here to help you navigate your questions.",
+      "Just as water adapts to its container, I'm here to adapt to your needs. How can I assist you further?"
+    ];
+
+    const waterFacts = [
+      "Did you know that water covers about 71% of the Earth's surface?",
+      "Water is the only substance that naturally exists in three states: solid, liquid, and gas.",
+      "The human body is about 60% water, and the brain is composed of about 75% water.",
+      "Water expands by 9% when it freezes, which is why ice floats on water.",
+      "The water you drink today could be the same water that dinosaurs drank millions of years ago!"
+    ];
+
+    if (lowerQuestion.includes('hello') || lowerQuestion.includes('hi') || lowerQuestion.includes('hey')) {
+      return "Hello! I'm your water-themed assistant. Like a gentle stream, I'm here to help you navigate your questions. What would you like to know?";
+    } else if (lowerQuestion.includes('water') || lowerQuestion.includes('ocean') || lowerQuestion.includes('sea')) {
+      return waterFacts[Math.floor(Math.random() * waterFacts.length)];
+    } else if (lowerQuestion.includes('help')) {
+      return "I'm here to help! You can ask me about water, the ocean, or anything else on your mind. I'll do my best to provide a thoughtful response.";
+    } else if (lowerQuestion.includes('thank')) {
+      return "You're welcome! Like the ocean's endless waves, I'm here whenever you need assistance.";
+    } else if (lowerQuestion.includes('bye') || lowerQuestion.includes('goodbye')) {
+      return "Farewell! May your journey be as smooth as a calm sea. Feel free to return with more questions!";
     } else {
-      return "That's a great question! Feel free to ask me about Hark's experience, skills, projects, or how to get in touch with him.";
+      return waterResponses[Math.floor(Math.random() * waterResponses.length)];
     }
   };
 
@@ -164,14 +139,14 @@ const AIChat: React.FC = () => {
         <div className="chat-container">
           <div className="chat-header">
             <div className="water-drop-icon">💧</div>
-            <h2>Hark's AI Assistant</h2>
-            <p>Ask me anything about Hark's experience and skills</p>
+            <h2>Water Assistant</h2>
+            <p>Dive into conversation with me!</p>
           </div>
           
           <div className="chat-messages">
             {messages.length === 0 ? (
               <div className="welcome-message">
-                <p>💬 Welcome! I can tell you about Hark's professional background, skills, and experience.</p>
+                <p>🌊 Welcome to your water-themed assistant! Ask me anything, and I'll respond with wisdom from the depths.</p>
               </div>
             ) : (
               messages.map(message => (
@@ -228,4 +203,4 @@ const AIChat: React.FC = () => {
   );
 };
 
-export default AIChat;
+export default WaterAssistant;
