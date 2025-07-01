@@ -1,8 +1,6 @@
 import React, { useState, useEffect } from 'react';
-import { useQuery } from '@apollo/client';
 import ProjectGallery from './ProjectGallery';
 import TodenIndustries from './TodenIndustries';
-import { GET_EXPERIENCE_METAOBJECTS, GET_PROJECT_METAOBJECTS } from '../../graphql/queries';
 
 interface ExperienceItem {
   id: string;
@@ -66,38 +64,38 @@ const mockExperiences = [
   },
   {
     id: '2',
-    title: 'Shopify Developer & Consultant',
+    title: 'Shopify Developer & Web Solutions Specialist',
     company: 'Freelance',
     location: 'Remote',
     startDate: '2021-01-01',
     endDate: '2022-12-31',
-    description: 'Provided comprehensive Shopify development services including custom theme development, app integrations, and performance optimization. Specialized in creating unique e-commerce experiences for businesses across various industries including healthcare (Gentle Jaw), funeral services (Houston Funeral Homes), and image management solutions (Found Image).',
-    skills: ['JavaScript', 'Shopify', 'Liquid', 'CSS3', 'HTML5', 'Shopify API', 'Performance Optimization', 'SEO'],
+    description: 'Developed custom e-commerce solutions with a focus on Shopify platform. Specialized in creating dynamic, data-driven experiences using Shopify metafields and metaobjects. Worked across various industries including healthcare (Gentle Jaw), industrial manufacturing (Toden Industries), and digital asset management (Found Image).',
+    skills: ['Shopify', 'Liquid', 'Metafields', 'Metaobjects', 'JavaScript', 'HTML5', 'CSS3', 'GraphQL', 'REST API', 'Responsive Design'],
     achievements: [
-      'Developed Gentle Jaw dental practice management system',
-      'Created Houston Funeral Homes review and consultation platform',
-      'Built Found Image documentation and link management system',
-      'Implemented Segment Extensions for enhanced analytics tracking',
-      'Improved client store performance by 40% on average'
+      'Architected and implemented custom metaobjects for Toden Industries product catalog, enabling dynamic content management',
+      'Developed a metafield-based configuration system for product variants and specifications',
+      'Created reusable metaobject definitions for consistent data structures across the platform',
+      'Built custom admin interfaces for managing complex product relationships using metafields',
+      'Optimized GraphQL queries for efficient metaobject data retrieval and display'
     ],
     projectImages: [
       {
         id: 'gentle-jaw-1',
-        src: '/images/gentle-jaw-interface.jpg',
+        src: '/images/gentle-jaw.png',
         alt: 'Gentle Jaw Practice Management Interface',
         title: 'Gentle Jaw System',
         category: 'Healthcare Management'
       },
       {
-        id: 'houston-funeral-1',
-        src: '/images/houston-funeral-reviews.jpg',
-        alt: 'Houston Funeral Homes Review System',
-        title: 'Review Platform',
-        category: 'Service Platform'
+        id: 'toden-shopify',
+        src: '/images/toden.png',
+        alt: 'Toden Industries Shopify Implementation',
+        title: 'Shopify E-commerce Platform',
+        category: 'E-commerce Development'
       },
       {
         id: 'found-image-1',
-        src: '/images/found-image-dashboard.jpg',
+        src: '/images/found.png',
         alt: 'Found Image Management Dashboard',
         title: 'Image Management System',
         category: 'Content Management'
@@ -123,113 +121,24 @@ const mockExperiences = [
 ];
 
 const Experience: React.FC = () => {
-  const [experiences, setExperiences] = useState<any[]>([]);
-  const { data: experienceData, loading: expLoading, error: expError } = useQuery(GET_EXPERIENCE_METAOBJECTS);
-  const { data: projectData, loading: projLoading, error: projError } = useQuery(GET_PROJECT_METAOBJECTS);
-
-  const loading = expLoading || projLoading;
-  const error = expError || projError;
+  const [experiences, setExperiences] = useState<ExperienceItem[]>([]);
 
   useEffect(() => {
-    if (experienceData?.metaobjects?.edges) {
-      // Transform Shopify metaobjects to experience format
-      const shopifyExperiences = experienceData.metaobjects.edges.map((edge: any) => {
-        const fields = edge.node.fields;
-        const experience: any = { id: edge.node.id };
-        
-        fields.forEach((field: any) => {
-          switch (field.key) {
-            case 'title':
-              experience.title = field.value;
-              break;
-            case 'company':
-              experience.company = field.value;
-              break;
-            case 'location':
-              experience.location = field.value;
-              break;
-            case 'start_date':
-              experience.startDate = field.value;
-              break;
-            case 'end_date':
-              experience.endDate = field.value;
-              break;
-            case 'description':
-              experience.description = field.value;
-              break;
-            case 'skills':
-              experience.skills = field.value ? field.value.split(',').map((s: string) => s.trim()) : [];
-              break;
-            case 'achievements':
-              experience.achievements = field.value ? field.value.split('\n').filter((a: string) => a.trim()) : [];
-              break;
-          }
-        });
+    // Use mock data directly
+    setExperiences(mockExperiences);
+  }, []);
 
-        return experience;
-      });
-
-      // Combine with project images if available
-      if (projectData?.metaobjects?.edges) {
-        const projectImages = projectData.metaobjects.edges.map((edge: any) => {
-          const fields = edge.node.fields;
-          const project: any = { id: edge.node.id };
-          
-          fields.forEach((field: any) => {
-            switch (field.key) {
-              case 'title':
-                project.title = field.value;
-                break;
-              case 'category':
-                project.category = field.value;
-                break;
-              case 'image_url':
-                project.src = field.reference?.url || field.value;
-                break;
-              case 'alt_text':
-                project.alt = field.value;
-                break;
-              case 'experience_id':
-                project.experienceId = field.value;
-                break;
-            }
-          });
-          
-          return project;
-        });
-
-        // Attach project images to experiences
-        shopifyExperiences.forEach((exp: any) => {
-          exp.projectImages = projectImages.filter((img: any) => img.experienceId === exp.id);
-        });
-      }
-
-      setExperiences([...shopifyExperiences, ...mockExperiences]);
-    } else {
-      // Fallback to mock data if no metaobjects
-      setExperiences(mockExperiences);
-    }
-  }, [experienceData, projectData]);
-
-  if (loading) return (
-    <div className="content-section">
-      <div className="section-header">
-        <h2>Experience</h2>
-        <p className="section-subtitle">Loading professional journey...</p>
+  if (experiences.length === 0) {
+    return (
+      <div className="content-section">
+        <div className="section-header">
+          <h2>Experience</h2>
+          <p className="section-subtitle">Loading professional journey...</p>
+        </div>
+        <div className="loading-spinner">Loading...</div>
       </div>
-      <div className="loading-spinner">Loading...</div>
-    </div>
-  );
-
-  if (error) return (
-    <div className="content-section">
-      <div className="section-header">
-        <h2>Experience</h2>
-        <p className="section-subtitle">Professional Journey</p>
-      </div>
-      <div className="error-message">Error loading experience data: {error.message}</div>
-    </div>
-  );
+    );
+  }
 
   return (
     <div className="content-section">

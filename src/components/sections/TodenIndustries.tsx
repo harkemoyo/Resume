@@ -2,6 +2,7 @@
 import React, { useState, useEffect } from 'react';
 import { useQuery } from '@apollo/client';
 import { GET_TODEN_FEATURES } from '../../graphql/queries';
+import ProjectGallery from './ProjectGallery';
 
 interface TodenFeature {
   id: string;
@@ -60,8 +61,26 @@ const TodenIndustries: React.FC = () => {
     }
   }, [data]);
 
+  // Toden Industries project images
+  const todenImages = [
+    {
+      id: 'toden-1',
+      src: '/images/toden.png',
+      alt: 'Toden Industries Heavy-Duty Storage Solutions',
+      title: 'Toden Industries',
+      category: 'E-commerce Platform'
+    },
+    {
+      id: 'toden-2',
+      src: '/images/found.png',
+      alt: 'Found Image',
+      title: 'Found',
+      category: 'Additional Image'
+    }
+  ];
+
   if (loading) return <div className="loading-spinner">Loading Toden Industries data...</div>;
-  if (error) return <div className="error-message">Error loading Toden Industries features</div>;
+  if (error) return <div className="error-message">Error loading Toden Industries features. Showing static content.</div>;
 
   return (
     <div className="toden-industries-section">
@@ -69,6 +88,9 @@ const TodenIndustries: React.FC = () => {
         <h2>Toden Industries</h2>
         <p className="section-subtitle">Heavy-Duty Storage Solutions</p>
       </div>
+      
+      {/* Toden Industries Project Gallery */}
+      <ProjectGallery images={todenImages} projectTitle="Toden Industries" />
 
       {features.map((feature) => (
         <div key={feature.id} className="toden-feature-card">
