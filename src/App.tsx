@@ -1,4 +1,5 @@
 import React, { useState } from 'react';
+import { BrowserRouter as Router, Routes, Route, Navigate } from 'react-router-dom';
 import { ApolloClient, InMemoryCache, ApolloProvider, createHttpLink } from '@apollo/client';
 import { setContext } from '@apollo/client/link/context';
 // Importing components
@@ -49,59 +50,32 @@ const client = new ApolloClient({
  */
 
 const App: React.FC = () => {
-  // State to track the currently active tab
-  // Possible values: 'bio', 'company', 'freelance', 'experience', 'contact'
-  const [activeTab, setActiveTab] = useState('bio');
+  const activeTab = window.location.pathname === '/' ? 'bio' : window.location.pathname.substring(1);
 
-  /**
-   * Renders the appropriate content component based on the active tab
-   * @returns {JSX.Element} The component corresponding to the active tab
-   */
-
-  const renderContent = () => {
-    switch (activeTab) {
-      case 'company':
-        return <CompanyValue />;
-      case 'freelance':
-        return <FreelanceIntro />;
-      case 'experience':
-        return <Experience />;
-      case 'ai-chat':
-        return <AIChat />;
-      case 'contact':
-        return <Contact />;
-      case 'bio':
-      default:
-        return <ProfessionalBio />;
-    }
-  };
-
-  /**
-   * Handle contact button click
-   * Sets the active tab to 'contact' and scrolls to the content area
-   */
-  const handleContactClick = () => {
-    setActiveTab('contact');
-    // Scroll to the content area with a smooth animation
-    document.querySelector('.main-content')?.scrollIntoView({ behavior: 'smooth' });
-  };
-
-  // Main application layout with header, navigation, content area, and footer
   return (
     <ApolloProvider client={client}>
-      <div className="app">
-        <Header 
-          profileImage="/images/passport.jpg" 
-          name="Hark" 
-          onContactClick={handleContactClick}
-        >
-          <Navigation activeTab={activeTab} setActiveTab={setActiveTab} />
-        </Header>
-        <main className="main-content">
-          {renderContent()}
-        </main>
-        <Footer />
-      </div>
+      <Router>
+        <div className="app">
+          <Header 
+            profileImage="/images/passport.jpg" 
+            name="Hark" 
+          >
+            <Navigation activeTab={activeTab} />
+          </Header>
+          <main className="main-content">
+            <Routes>
+              <Route path="/" element={<ProfessionalBio />} />
+              <Route path="/work" element={<Experience />} />
+              <Route path="/contact" element={<Contact />} />
+              <Route path="/company" element={<CompanyValue />} />
+              <Route path="/freelance" element={<FreelanceIntro />} />
+              <Route path="/ai-chat" element={<AIChat />} />
+              <Route path="*" element={<Navigate to="/" replace />} />
+            </Routes>
+          </main>
+          <Footer />
+        </div>
+      </Router>
     </ApolloProvider>
   );
 };
