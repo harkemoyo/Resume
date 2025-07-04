@@ -37,7 +37,7 @@ const Footer: React.FC = () => (
       <div className="footer-section">
         <h3>Quick Links</h3>
         <ul className="footer-links">
-          <li><a href="#bio">Professional Bio</a></li>
+          <li><a href="#bio">Home</a></li>
           <li><a href="#company">What I Bring</a></li>
           <li><a href="#freelance">Freelance Services</a></li>
           <li><a href="#contact">Contact Me</a></li>

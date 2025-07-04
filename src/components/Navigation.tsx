@@ -12,7 +12,7 @@ interface NavigationProps {
 }
 
 const tabs: TabType[] = [
-  { id: 'bio', label: 'Professional Bio' },
+  { id: 'bio', label: 'Home' },
   { id: 'work', label: 'Experience' },
   { id: 'company', label: 'What I Bring' },
   { id: 'freelance', label: 'Freelance' },
