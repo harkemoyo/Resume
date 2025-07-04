@@ -1,5 +1,5 @@
-import React, { useState } from 'react';
-import { BrowserRouter as Router, Routes, Route, Navigate } from 'react-router-dom';
+import React, { useEffect } from 'react';
+import { BrowserRouter as Router, Routes, Route, Navigate, useLocation } from 'react-router-dom';
 import { ApolloClient, InMemoryCache, ApolloProvider, createHttpLink } from '@apollo/client';
 import { setContext } from '@apollo/client/link/context';
 // Importing components
@@ -49,32 +49,77 @@ const client = new ApolloClient({
  * @returns {JSX.Element} The main application component
  */
 
-const App: React.FC = () => {
-  const activeTab = window.location.pathname === '/' ? 'bio' : window.location.pathname.substring(1);
+// Component to handle scrolling to top on route changes
+const ScrollToTop = () => {
+  const { pathname } = useLocation();
 
+  useEffect(() => {
+    // Scroll to top when path changes
+    window.scrollTo(0, 0);
+  }, [pathname]);
+
+  return null;
+};
+
+// Layout component to wrap all pages with consistent header and footer
+const Layout: React.FC<{ children: React.ReactNode }> = ({ children }) => {
+  const location = useLocation();
+  const activeTab = location.pathname === '/' ? 'bio' : location.pathname.substring(1);
+  
+  return (
+    <div className="app">
+      <Header 
+        profileImage="/images/passport.jpg" 
+        name="Hark" 
+      >
+        <Navigation activeTab={activeTab} />
+      </Header>
+      <ScrollToTop />
+      <main className="main-content">
+        {children}
+      </main>
+      <Footer />
+    </div>
+  );
+};
+
+const App: React.FC = () => {
   return (
     <ApolloProvider client={client}>
       <Router>
-        <div className="app">
-          <Header 
-            profileImage="/images/passport.jpg" 
-            name="Hark" 
-          >
-            <Navigation activeTab={activeTab} />
-          </Header>
-          <main className="main-content">
-            <Routes>
-              <Route path="/" element={<ProfessionalBio />} />
-              <Route path="/work" element={<Experience />} />
-              <Route path="/contact" element={<Contact />} />
-              <Route path="/company" element={<CompanyValue />} />
-              <Route path="/freelance" element={<FreelanceIntro />} />
-              <Route path="/ai-chat" element={<AIChat />} />
-              <Route path="*" element={<Navigate to="/" replace />} />
-            </Routes>
-          </main>
-          <Footer />
-        </div>
+        <Routes>
+          <Route path="/" element={
+            <Layout>
+              <ProfessionalBio />
+            </Layout>
+          } />
+          <Route path="/work" element={
+            <Layout>
+              <Experience />
+            </Layout>
+          } />
+          <Route path="/contact" element={
+            <Layout>
+              <Contact />
+            </Layout>
+          } />
+          <Route path="/company" element={
+            <Layout>
+              <CompanyValue />
+            </Layout>
+          } />
+          <Route path="/freelance" element={
+            <Layout>
+              <FreelanceIntro />
+            </Layout>
+          } />
+          <Route path="/ai-chat" element={
+            <Layout>
+              <AIChat />
+            </Layout>
+          } />
+          <Route path="*" element={<Navigate to="/" replace />} />
+        </Routes>
       </Router>
     </ApolloProvider>
   );
