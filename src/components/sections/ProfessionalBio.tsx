@@ -21,15 +21,6 @@ const ProfessionalBio: React.FC = () => (
     <div className="bio-card">
       <div className="skills-tags">
         <a 
-          href="https://vazi.app" 
-          target="_blank" 
-          rel="noopener noreferrer" 
-          className="skill-tag"
-          title="View Vazi.app - A project using JavaScript"
-        >
-          JavaScript
-        </a>
-        <a 
           href="https://www.shopify.com/partners" 
           target="_blank" 
           rel="noopener noreferrer" 
