@@ -7,42 +7,37 @@
 }
 
 .nav-tab {
-  background: none;
-  border: none;
-  color: var(--text-light);
+  background-color: rgba(10, 36, 114, 0.08);
+  border: 1px solid rgba(10, 36, 114, 0.1);
+  color: var(--primary-color);
   font-size: 0.95rem;
   font-weight: 500;
-  padding: 0.5rem 0.75rem;
+  padding: 0.5rem 1.25rem;
   cursor: pointer;
-  border-radius: 0.25rem;
+  border-radius: 999px;
   transition: all 0.2s ease;
   position: relative;
+  text-decoration: none;
+  box-shadow: 0 2px 4px rgba(0, 0, 0, 0.05);
 }
 
 .nav-tab::after {
-  content: '';
-  position: absolute;
-  bottom: 0;
-  left: 50%;
-  transform: translateX(-50%);
-  width: 0;
-  height: 2px;
-  background-color: var(--primary-color);
-  transition: width 0.2s ease;
+  display: none;
 }
 
 .nav-tab:hover {
-  color: var(--primary-color);
+  background-color: rgba(10, 36, 114, 0.15);
+  transform: translateY(-1px);
+  box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
 }
 
-.nav-tab:hover::after,
-.nav-tab.active::after {
-  width: calc(100% - 1.5rem);
-}
+/* No need for the underline effect with the new design */
 
 .nav-tab.active {
-  color: var(--primary-color);
-  font-weight: 600;
+  background-color: var(--primary-color);
+  color: white;
+  font-weight: 500;
+  box-shadow: 0 4px 8px rgba(10, 36, 114, 0.2);
 }
 
 /* Responsive adjustments */
