@@ -1895,6 +1895,7 @@ a {
 .content-section {
   display: flex;
   justify-content: center;
+  gap: 2rem;
   padding: 2rem;
   background-color: #f9fafb; /* light background */
 }
@@ -1914,7 +1915,6 @@ a {
   flex-wrap: wrap;
   justify-content: center;
   gap: 1rem;
-  margin-top: 1.5rem;
 }
 
 .skill-tag {

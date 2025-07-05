@@ -1,4 +1,5 @@
 import React from 'react';
+import { FaMapMarkerAlt } from 'react-icons/fa';
 
 /**
  * ProfessionalBio Component
@@ -45,24 +46,6 @@ const ProfessionalBio: React.FC = () => (
           title="View Vazi.app - A frontend development project"
         >
           Frontend Development
-        </a>
-        <a 
-          href="https://github.com/harkemoyo?tab=repositories&q=java&type=source" 
-          target="_blank" 
-          rel="noopener noreferrer" 
-          className="skill-tag"
-          title="View Java projects on GitHub"
-        >
-          Java
-        </a>
-        <a 
-          href="https://github.com/harkemoyo?tab=repositories&q=electronics" 
-          target="_blank" 
-          rel="noopener noreferrer" 
-          className="skill-tag"
-          title="View Digital Electronics projects"
-        >
-          Digital Electronics
         </a>
       </div>
     </div>

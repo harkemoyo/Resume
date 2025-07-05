@@ -80,7 +80,7 @@ const TodenIndustries: React.FC = () => {
   ];
 
   if (loading) return <div className="loading-spinner">Loading Toden Industries data...</div>;
-  if (error) return <div className="error-message">Error loading Toden Industries features. Showing static content.</div>;
+  if (error) return <div></div>;
 
   return (
     <div className="toden-industries-section">
