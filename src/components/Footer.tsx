@@ -51,7 +51,7 @@ const Footer: React.FC = () => (
       <div className="footer-section">
         <h3>Quick Links</h3>
         <ul className="footer-links">
-          <li><a href="/bio" className={`footer-link ${window.location.pathname === '/' || window.location.pathname === '/bio' ? 'active' : ''}`}>Home</a></li>
+          <li><a href="/" className={`footer-link ${window.location.pathname === '/' || window.location.pathname === '/bio' ? 'active' : ''}`}>Home</a></li>
           <li><a href="/company" className={`footer-link ${window.location.pathname === '/company' ? 'active' : ''}`}>What I Bring</a></li>
           <li><a href="/freelance" className={`footer-link ${window.location.pathname === '/freelance' ? 'active' : ''}`}>Freelance Services</a></li>
           <li><a href="/contact" className={`footer-link ${window.location.pathname === '/contact' ? 'active' : ''}`}>Contact Me</a></li>
@@ -65,7 +65,7 @@ const Footer: React.FC = () => (
           <span className="availability-dot"></span>
           <span className="availability-text">Currently accepting new projects</span>
         </p>
-        <button className="contact-button">Get in Touch</button>
+        <button onClick={() => window.location.href = '/contact'} className="contact-button">Get in Touch</button>
       </div>
     </div>
     

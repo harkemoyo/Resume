@@ -730,10 +730,15 @@ a {
   display: flex;
   flex-direction: column;
   align-items: center;
+  justify-content: space-between;
   text-align: center;
   gap: 1rem;
 }
-
+@media (min-width: 768px) {
+  .footer-bottom {
+    flex-direction: row;
+  }
+}
 .footer-legal {
   display: flex;
   gap: 1rem;
@@ -852,11 +857,6 @@ a {
   .profile-avatar {
     margin: 0 auto 1rem;
   }
-
-  .social-links {
-    justify-content: center;
-  }
-
   .navigation {
     justify-content: flex-start;
   }
