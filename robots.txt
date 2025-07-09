@@ -1,0 +1,22 @@
+User-agent: *
+Disallow: /
+│   ├── components
+│   │   ├── Header.tsx
+│   │   ├── Navigation.tsx
+│   │   ├── Footer.tsx
+│   │   └── sections
+│   │       ├── ProfessionalBio.tsx
+│   │       ├── CompanyValue.tsx
+│   │       └── FreelanceIntro.tsx
+│   ├── hooks
+│   │   └── index.ts
+│   ├── styles
+│   │   └── index.css
+│   ├── types
+│   │   └── index.ts
+│   ├── utils
+│   │   └── index.ts
+│   └── App.tsx
+├── package.json
+├── tsconfig.json
+└── README.md
