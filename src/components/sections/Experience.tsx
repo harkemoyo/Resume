@@ -107,8 +107,8 @@ const mockExperiences = [
     title: 'Junior Frontend Developer',
     company: 'Tech Startup',
     location: 'Nairobi, Kenya',
-    startDate: '2020-06-01',
-    endDate: '2020-12-31',
+    startDate: '2021-01-01',
+    endDate: '2022-12-31',
     description: 'Started as a junior developer in a supportive mentorship environment. Gained foundational experience in frontend development, contributing to web applications and learning modern development practices. Focused on building strong coding fundamentals and collaborative development methodologies.',
     skills: ['JavaScript', 'React', 'HTML5', 'CSS3', 'Git', 'Agile Methodology'],
     achievements: [
