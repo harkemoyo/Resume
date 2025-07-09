@@ -104,18 +104,18 @@ const mockExperiences = [
   },
   {
     id: '3',
-    title: 'Junior Full-Stack Developer',
+    title: 'Junior Frontend Developer',
     company: 'Tech Startup',
     location: 'Nairobi, Kenya',
     startDate: '2020-06-01',
     endDate: '2020-12-31',
-    description: 'Started as a junior developer in a supportive mentorship environment. Gained foundational experience in full-stack development, contributing to web applications and learning agile methodologies. Focused on building strong coding fundamentals and collaborative development practices.',
-    skills: ['JavaScript', 'Node.js', 'MongoDB', 'Express', 'React', 'Git', 'Agile Methodology'],
+    description: 'Started as a junior developer in a supportive mentorship environment. Gained foundational experience in frontend development, contributing to web applications and learning modern development practices. Focused on building strong coding fundamentals and collaborative development methodologies.',
+    skills: ['JavaScript', 'React', 'HTML5', 'CSS3', 'Git', 'Agile Methodology'],
     achievements: [
       'Completed 6-month mentorship program with senior developers',
-      'Built binary arithmetic calculator demonstrating algorithmic thinking',
+      'Built interactive UI components demonstrating modern frontend practices',
       'Contributed to team knowledge sharing sessions',
-      'Developed problem-solving skills through diverse project challenges'
+      'Developed problem-solving skills through diverse frontend challenges'
     ]
   }
 ];

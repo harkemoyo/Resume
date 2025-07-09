@@ -58,6 +58,7 @@ const Contact: FC = () => {
     { 
       title: 'Location', 
       value: 'Nairobi, Kenya', 
+      link: 'https://www.google.com/maps/place/Nairobi',
       icon: 'M17.657 16.657L13.414 20.9a1.998 1.998 0 01-2.827 0l-4.244-4.243a8 8 0 1111.314 0z',
     },
     { 
@@ -120,7 +121,26 @@ const Contact: FC = () => {
                 <div className={styles.contactText}>
                   <h4>{item.title}</h4>
                   {item.link ? (
-                    <a href={item.link} target="_blank" rel="noopener noreferrer">
+                    <a 
+                      href={item.link} 
+                      target="_blank" 
+                      rel="noopener noreferrer"
+                      style={{
+                        textDecoration: 'none',
+                        color: 'inherit',
+                        borderBottom: '1px dashed #0a2472',
+                        transition: 'all 0.2s ease',
+                        paddingBottom: '1px'
+                      }}
+                      onMouseOver={(e) => {
+                        e.currentTarget.style.color = '#0a2472';
+                        e.currentTarget.style.borderBottom = '2px solid #0a2472';
+                      }}
+                      onMouseOut={(e) => {
+                        e.currentTarget.style.color = 'inherit';
+                        e.currentTarget.style.borderBottom = '1px dashed #0a2472';
+                      }}
+                    >
                       {item.value}
                     </a>
                   ) : (
