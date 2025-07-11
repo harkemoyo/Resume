@@ -10,7 +10,7 @@ interface HeaderProps {
 }
 
 const Header: React.FC<HeaderProps> = ({ 
-  profileImage = '/images/passport.jpg', 
+  profileImage = '/images/passport.jpg', // Image should be in public/images folder
   name = 'Hark',
   children
 }) => {
@@ -80,8 +80,9 @@ const Header: React.FC<HeaderProps> = ({
               <div className={styles['header-avatar']}>
                 {!imageError ? (
                   <img 
-                    src={profileImage} 
+                    src={`${process.env.PUBLIC_URL}${profileImage}`}
                     alt={name}
+                    onLoad={handleImageLoad}
                     onError={handleImageError}
                     className={styles['avatar-image']}
                   />
@@ -105,8 +106,9 @@ const Header: React.FC<HeaderProps> = ({
               <div className={styles['avatar-gradient']}>
                 {!imageError ? (
                   <img 
-                    src={profileImage} 
+                    src={`${process.env.PUBLIC_URL}${profileImage}`}
                     alt={name}
+                    onLoad={handleImageLoad}
                     onError={handleImageError}
                     className={styles['avatar-image']}
                   />
