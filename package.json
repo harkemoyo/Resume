@@ -1,7 +1,7 @@
 {
   "name": "react-resume-app",
   "version": "0.1.0",
-  "homepage": "https://harkemoyo.github.io/Resume",
+  "homepage": "https://harkemoyo.github.io/Resume/",
   "private": true,
   "dependencies": {
     "@apollo/client": "^3.13.8",
