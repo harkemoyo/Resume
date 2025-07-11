@@ -13,6 +13,8 @@ import Experience from './components/sections/Experience';
 import AIChat from './components/sections/AIChat';
 import Contact from './components/sections/Contact';
 import Footer from './components/Footer';
+import PrivacyPolicy from './components/sections/PrivacyPolicy';
+import TermsOfService from './components/sections/TermsOfService';
 
 // Initialize Apollo Client with Shopify Admin API
 const httpLink = createHttpLink({
@@ -116,6 +118,16 @@ const App: React.FC = () => {
           <Route path="/ai-chat" element={
             <Layout>
               <AIChat />
+            </Layout>
+          } />
+          <Route path="/privacy-policy" element={
+            <Layout>
+              <PrivacyPolicy />
+            </Layout>
+          } />
+          <Route path="/terms" element={
+            <Layout>
+              <TermsOfService />
             </Layout>
           } />
           <Route path="*" element={<Navigate to="/" replace />} />
