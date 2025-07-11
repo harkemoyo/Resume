@@ -53,13 +53,8 @@ const mockExperiences = [
         title: 'AOS Magazine Platform',
         category: 'Content Management'
       },
-      {
-        id: 'counterpart-store-1',
-        src: '/images/counterpart-store-dashboard.png',
-        alt: 'Counterpart Store Dashboard',
-        title: 'Multi-vendor Marketplace',
-        category: 'E-commerce Platform'
-      }
+    
+   
     ]
   },
   {

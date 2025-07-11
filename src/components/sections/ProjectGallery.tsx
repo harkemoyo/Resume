@@ -35,7 +35,15 @@ const ProjectGallery: React.FC<ProjectGalleryProps> = ({ images, projectTitle })
       <div className="gallery-grid">
         {images.map((image) => (
           <div key={image.id} className="gallery-item" onClick={() => openModal(image)}>
-            <img src={image.src} alt={image.alt} />
+            <img 
+              src={`${process.env.PUBLIC_URL}${image.src}`} 
+              alt={image.alt} 
+              onError={(e) => {
+                const target = e.target as HTMLImageElement;
+                console.error(`Failed to load image: ${image.src}`);
+                target.style.display = 'none';
+              }}
+            />
             <div className="gallery-overlay">
               <span className="gallery-title">{image.title}</span>
               <span className="gallery-category">{image.category}</span>
