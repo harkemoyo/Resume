@@ -9,57 +9,54 @@ const PrivacyPolicy = () => {
       
       <section>
         <h2>1. Introduction</h2>
-        <p>Welcome to Hark's Portfolio. This Privacy Policy explains how we collect, use, disclose, and safeguard your information when you visit our website.</p>
+        <p>Welcome to my personal portfolio website. This Privacy Policy explains how your information is collected, used, and protected when you visit my site. As a portfolio, I value your privacy and am committed to being transparent about the data I collect.</p>
       </section>
 
       <section>
-        <h2>2. Information We Collect</h2>
-        <p>We may collect the following information:</p>
+        <h2>2. Information I Collect</h2>
+        <p>This website is primarily informational, but some interactions may collect:</p>
         <ul>
-          <li>Device information (browser type, operating system)</li>
-          <li>Usage data (pages visited, time spent on site)</li>
-          <li>IP address and location data</li>
+          <li><strong>Contact Information</strong>: If you choose to contact me through the provided email or contact form</li>
+          <li><strong>Usage Data</strong>: Basic analytics about how visitors use my site (pages visited, time spent)</li>
+          <li><strong>Cookies</strong>: This site may use cookies for functionality and analytics</li>
         </ul>
       </section>
 
       <section>
-        <h2>3. How We Use Your Information</h2>
-        <p>We use the collected information to:</p>
+        <h2>3. How I Use Your Information</h2>
+        <p>Any information collected is used to:</p>
         <ul>
-          <li>Improve our website and user experience</li>
-          <li>Monitor and analyze website usage</li>
-          <li>Ensure website security</li>
+          <li>Respond to your inquiries and messages</li>
+          <li>Improve the website's content and user experience</li>
+          <li>Understand how visitors interact with my portfolio</li>
         </ul>
       </section>
 
       <section>
         <h2>4. Third-Party Services</h2>
-        <p>We may use third-party services that collect information used to identify you. These services include:</p>
+        <p>This portfolio may use the following third-party services:</p>
         <ul>
-          <li>Google Analytics (for website analytics)</li>
-          <li>CDN services</li>
+          <li><strong>Vercel</strong>: For website hosting and analytics</li>
+          <li><strong>Google Analytics</strong>: To understand site traffic and usage patterns</li>
+          <li><strong>Email Service</strong>: For handling contact form submissions</li>
         </ul>
       </section>
 
       <section>
-        <h2>5. Your Rights</h2>
+        <h2>5. Your Data Rights</h2>
         <p>You have the right to:</p>
         <ul>
-          <li>Access your personal information</li>
-          <li>Request correction of your personal information</li>
-          <li>Request deletion of your personal information</li>
+          <li>Request access to any personal information I hold about you</li>
+          <li>Ask for corrections to any incorrect information</li>
+          <li>Request deletion of your personal data</li>
+          <li>Opt-out of any communications</li>
         </ul>
       </section>
 
       <section>
-        <h2>6. Changes to This Privacy Policy</h2>
-        <p>We may update our Privacy Policy from time to time. We will notify you of any changes by posting the new Privacy Policy on this page.</p>
-      </section>
-
-      <section>
-        <h2>7. Contact Us</h2>
-        <p>If you have any questions about this Privacy Policy, please contact us at:</p>
-        <p>Email: contact@hark.dev</p>
+        <h2>6. Contact Me</h2>
+        <p>If you have any questions about this Privacy Policy or wish to exercise your data rights, please contact me at:</p>
+        <p>Email: markndeche91@gmail.com</p>
       </section>
     </div>
   );

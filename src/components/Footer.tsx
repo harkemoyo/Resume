@@ -49,14 +49,6 @@ const Footer: React.FC = () => (
       </div>
       
       <div className="footer-section">
-        <h3>Legal</h3>
-        <ul className="legal-links">
-          <li><a href="/privacy-policy">Privacy Policy</a></li>
-          <li><a href="/terms">Terms of Service</a></li>
-        </ul>
-      </div>
-      
-      <div className="footer-section">
         <h3>Quick Links</h3>
         <ul className="footer-links">
           <li><a href="/" className={`footer-link ${window.location.pathname === '/' || window.location.pathname === '/bio' ? 'active' : ''}`}>Home</a></li>
@@ -80,9 +72,9 @@ const Footer: React.FC = () => (
     <div className="footer-bottom">
       <p>&copy; {new Date().getFullYear()} Hark. All rights reserved.</p>
       <div className="footer-legal">
-        <a href="#privacy">Privacy Policy</a>
+        <a href="/privacy-policy">Privacy Policy</a>
         <span className="divider">|</span>
-        <a href="#terms">Terms of Service</a>
+        <a href="/terms">Terms of Service</a>
       </div>
     </div>
   </footer>
