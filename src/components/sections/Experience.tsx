@@ -44,14 +44,16 @@ const mockExperiences = [
         src: '/images/cc-resorts-product.png',
         alt: 'CC Resorts Product Page with Color Variant Selector',
         title: 'CC Resorts Product Page',
-        category: 'E-commerce Design'
+        category: 'E-commerce Product Variants Logic',
+        link: 'https://www.ccresorts.com.au/products/goose-chocolate'
       },
       {
         id: 'aos-magazine-1',
         src: '/images/aos.png',
         alt: 'AOS Magazine Layout',
         title: 'AOS Magazine Platform',
-        category: 'Content Management'
+        category: 'Content Management',
+        link: 'https://aosmagazine.com/'
       },
     
    
@@ -65,7 +67,7 @@ const mockExperiences = [
     startDate: '2021-01-01',
     endDate: '2022-12-31',
     description: 'Developed custom e-commerce solutions with a focus on Shopify platform. Specialized in creating dynamic, data-driven experiences using Shopify metafields and metaobjects. Worked across various industries including healthcare (Gentle Jaw), industrial manufacturing (Toden Industries), and digital asset management (Found Image).',
-    skills: ['Shopify', 'Liquid', 'Metafields', 'Metaobjects', 'JavaScript', 'HTML5', 'CSS3', 'GraphQL', 'REST API', 'Responsive Design'],
+    skills: ['Shopify', 'Liquid', 'Metafields', 'Metaobjects', 'JavaScript', 'HTML5', 'CSS3', 'GraphQL', 'Responsive Design'],
     achievements: [
       'Architected and implemented custom metaobjects for Toden Industries product catalog, enabling dynamic content management',
       'Developed a metafield-based configuration system for product variants and specifications',
@@ -79,21 +81,32 @@ const mockExperiences = [
         src: '/images/gentle-jaw.png',
         alt: 'Gentle Jaw Practice Management Interface',
         title: 'Gentle Jaw System',
-        category: 'Healthcare Management'
+        category: 'Healthcare Management',
+        link: 'https://gentlejaw.com/'
       },
       {
         id: 'toden-shopify',
         src: '/images/toden.png',
         alt: 'Toden Industries Shopify Implementation',
-        title: 'Shopify E-commerce Platform',
-        category: 'E-commerce Development'
+        title: 'Section Implementation',
+        category: 'Metafields and Metaobjects Implementation',
+        link: 'https://todenind.com/collections/ultimate-garage-storage-solutions/products/long-shelving-surface-storage-hook-installation-kit-16-inch'
       },
       {
         id: 'found-image-1',
         src: '/images/found.png',
-        alt: 'Found Image Management Dashboard',
-        title: 'Image Management System',
-        category: 'Content Management'
+        alt: 'Found Image Landing Page',
+        title: 'Found Image Landing Page',
+        category: 'Design to Code',
+        link: 'https://www.foundimage.com/'
+      },
+      {
+        id: 'little-book-1',
+        src: '/images/littlebook.png',
+        link: 'https://littlebookleague.com/',
+        alt: 'Little Book Homepage Design',
+        title: 'Little Book Homepage',
+        category: 'Design to Code'
       }
     ]
   },
