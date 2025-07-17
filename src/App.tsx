@@ -1,20 +1,17 @@
-import React, { useEffect } from 'react';
-import { BrowserRouter as Router, Routes, Route, Navigate, useLocation } from 'react-router-dom';
+import React from 'react';
 import { ApolloClient, InMemoryCache, ApolloProvider, createHttpLink } from '@apollo/client';
 import { setContext } from '@apollo/client/link/context';
+
 // Importing components
 import './App.css';
 import Header from './components/Header';
-import Navigation from './components/Navigation';
-import ProfessionalBio from './components/sections/ProfessionalBio';
+import Navigation from './components/sections/Navigation';
 import CompanyValue from './components/sections/CompanyValue';
 import FreelanceIntro from './components/sections/FreelanceIntro';
-import Experience from './components/sections/Experience';
-import AIChat from './components/sections/AIChat';
-import Contact from './components/sections/Contact';
 import Footer from './components/Footer';
-import PrivacyPolicy from './components/sections/PrivacyPolicy';
-import TermsOfService from './components/sections/TermsOfService';
+import ContactPage from './pages/ContactPage';
+import ExperiencePage from './pages/ExperiencePage';
+import { BrowserRouter as Router, Routes, Route } from 'react-router-dom';
 
 // Initialize Apollo Client with Shopify Admin API
 const httpLink = createHttpLink({
@@ -42,99 +39,50 @@ const client = new ApolloClient({
 /**
  * Main App Component
  * 
- * This is the root component of the application that manages:
- * - Active tab state management
- * - Routing between different content sections
- * - Overall layout structure
+ * This is the root component of the application that renders all content
+ * sequentially on a single page.
  * 
  * @component
- * @returns {JSX.Element} The main application component
  */
-
-// Component to handle scrolling to top on route changes
-const ScrollToTop = () => {
-  const { pathname } = useLocation();
-
-  useEffect(() => {
-    // Scroll to top when path changes
-    window.scrollTo(0, 0);
-  }, [pathname]);
-
-  return null;
-};
-
-// Layout component to wrap all pages with consistent header and footer
-const Layout: React.FC<{ children: React.ReactNode }> = ({ children }) => {
-  const location = useLocation();
-  const activeTab = location.pathname === '/' ? 'bio' : location.pathname.substring(1);
-  
-  return (
-    <div className="app">
-      <Header 
-        profileImage="/images/passport.jpg" 
-        name="Hark" 
-      >
-        <Navigation activeTab={activeTab} />
-      </Header>
-      <ScrollToTop />
-      <main className="main-content">
-        {children}
-      </main>
-      <Footer />
-    </div>
-  );
-};
-
-const App: React.FC = () => {
+function App() {
   return (
     <ApolloProvider client={client}>
       <Router>
-        <Routes>
-          <Route path="/" element={
-            <Layout>
-              <ProfessionalBio />
-            </Layout>
-          } />
-          <Route path="/work" element={
-            <Layout>
-              <Experience />
-            </Layout>
-          } />
-          <Route path="/contact" element={
-            <Layout>
-              <Contact />
-            </Layout>
-          } />
-          <Route path="/company" element={
-            <Layout>
-              <CompanyValue />
-            </Layout>
-          } />
-          <Route path="/freelance" element={
-            <Layout>
-              <FreelanceIntro />
-            </Layout>
-          } />
-          <Route path="/ai-chat" element={
-            <Layout>
-              <AIChat />
-            </Layout>
-          } />
-          <Route path="/privacy-policy" element={
-            <Layout>
-              <PrivacyPolicy />
-            </Layout>
-          } />
-          <Route path="/terms" element={
-            <Layout>
-              <TermsOfService />
-            </Layout>
-          } />
-          <Route path="*" element={<Navigate to="/" replace />} />
-        </Routes>
+        <div className="single-page-app">
+          <Navigation />
+          <Routes>
+            <Route
+              path="/"
+              element={
+                <>
+                  <section id="hero">
+                    <Header
+                      profileImage="/images/passport.jpg"
+                      name="Hark Ndeche"
+                      title="Frontend Developer"
+                      description="Building Digital Experiences That Matter. Hi, I'm Hark—a passionate Frontend Developer based in Nairobi, Kenya. I specialize in building responsive, accessible, and performant web applications. With hands-on experience in JavaScript, Shopify theme customization, and frontend best practices, I create clean, elegant solutions to complex problems. I'm dedicated to crafting user-friendly interfaces that bring digital experiences to life."
+                    />
+                  </section>
+                  <main className="single-page-content">
+                    <section id="company-value">
+                      <CompanyValue />
+                    </section>
+                    <section id="freelance">
+                      <FreelanceIntro />
+                    </section>
+                    
+                  </main>
+                </>
+              }
+            />
+            <Route path="/experience" element={<ExperiencePage />} />
+            <Route path="/contact" element={<ContactPage />} />
+          </Routes>
+          <Footer />
+        </div>
       </Router>
     </ApolloProvider>
   );
-};
+}
 
 export default App;
