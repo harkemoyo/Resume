@@ -52,6 +52,16 @@ const Navigation: React.FC = () => {
         </li>
         <li>
           <NavLink
+            to="/product-showcase"
+            className={({ isActive }) =>
+              isActive ? 'nav-link active' : 'nav-link'}
+            id="nav-product-showcase"
+          >
+            Product Showcase
+          </NavLink>
+        </li>
+        <li>
+          <NavLink
             to="/contact"
             className={({ isActive }) =>
               isActive ? 'nav-link active' : 'nav-link'}

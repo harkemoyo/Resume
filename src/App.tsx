@@ -12,6 +12,7 @@ import Footer from './components/Footer';
 import ContactPage from './pages/ContactPage';
 import ExperiencePage from './pages/ExperiencePage';
 import { BrowserRouter as Router, Routes, Route } from 'react-router-dom';
+import ProductShowcasePage from './components/sections/ProductShowcasePage';
 
 // Initialize Apollo Client with Shopify Admin API
 const httpLink = createHttpLink({
@@ -77,6 +78,7 @@ function App() {
             />
             <Route path="/experience" element={<ExperiencePage />} />
             <Route path="/contact" element={<ContactPage />} />
+            <Route path="/product-showcase" element={<ProductShowcasePage />} />
           </Routes>
           <Footer />
         </div>

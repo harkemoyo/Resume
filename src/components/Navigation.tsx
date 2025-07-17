@@ -14,9 +14,7 @@ interface NavigationProps {
 const tabs: TabType[] = [
   { id: 'bio', label: 'Home' },
   { id: 'work', label: 'Experience' },
-  { id: 'company', label: 'What I Bring' },
-  { id: 'freelance', label: 'Freelance' },
-  { id: 'ai-chat', label: 'AI Assistant' },
+  { id: 'product-showcase', label: 'Product Showcase' },
   { id: 'contact', label: 'Contact' }
 ];
 
