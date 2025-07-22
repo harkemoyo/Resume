@@ -47,14 +47,6 @@ const FreelanceIntro: React.FC = () => {
             <p>Bespoke Shopify applications to extend your store's functionality.</p>
           </div>
         </div>
-
-        <div className="cta-section">
-          <h3>Ready to Start Your Project?</h3>
-          <p>Let's discuss how I can help bring your eCommerce vision to life.</p>
-          <button className="cta-button" onClick={() => (document.querySelector('[data-tab="contact"]') as HTMLElement)?.click()}>
-            Get In Touch
-          </button>
-        </div>
       </div>
     </div>
   );
