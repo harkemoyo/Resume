@@ -58,3 +58,104 @@
   .product-card a:hover {
     background: #345995;
   }
+  
+  .product-showcase-list {
+    display: flex;
+    flex-direction: column;
+    gap: 2.5rem;
+    margin-top: 2rem;
+  }
+  
+  .product-showcase-row {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
+    gap: 2rem;
+    align-items: stretch;
+    background: #fff;
+    border-radius: 1.3rem;
+    box-shadow: 0 4px 24px rgba(10,36,114,0.08);
+    padding: 2rem 1.2rem 1.5rem 1.2rem;
+    transition: box-shadow 0.2s, transform 0.2s;
+  }
+  .product-showcase-row:hover {
+    box-shadow: 0 8px 32px rgba(10,36,114,0.13);
+    transform: translateY(-4px) scale(1.03);
+  }
+  
+  .product-showcase-paragraph {
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    gap: 1rem;
+  }
+  .product-showcase-paragraph h3 {
+    font-size: 1.2rem;
+    color: #0a2472;
+    margin-bottom: 0.6rem;
+    font-weight: 700;
+  }
+  .product-showcase-paragraph p {
+    color: #444e5e;
+    font-size: 1rem;
+    margin-bottom: 1.2rem;
+  }
+  .product-showcase-paragraph a {
+    background: #0a2472;
+    color: #fff;
+    padding: 0.6rem 1.5rem;
+    border-radius: 2rem;
+    text-decoration: none;
+    font-weight: 600;
+    transition: background 0.2s;
+    width: fit-content;
+  }
+  .product-showcase-paragraph a:hover {
+    background: #345995;
+  }
+  
+  .product-showcase-image {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    overflow: hidden;
+    border-radius: 0.8rem;
+    background: #f0f4f8;
+    min-height: 200px;
+  }
+  
+  .product-showcase-image img {
+    width: 100%;
+    height: 100%;
+    object-fit: contain;
+    border-radius: 0.8rem;
+    transition: transform 0.3s ease;
+  }
+  
+  .product-showcase-row:hover .product-showcase-image img {
+    transform: scale(1.05);
+  }
+  
+  .product-showcase-video {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+  }
+  .video-wrapper {
+    width: 100%;
+    aspect-ratio: 16/9;
+    background: #f0f4f8;
+    border-radius: 1rem;
+    overflow: hidden;
+    box-shadow: 0 2px 8px #cad5e2;
+  }
+  
+  @media (max-width: 900px) {
+    .product-showcase-row {
+      grid-template-columns: 1fr;
+      gap: 1.5rem;
+      padding: 1.2rem;
+    }
+    .video-wrapper {
+      aspect-ratio: 16/9;
+    }
+  }
