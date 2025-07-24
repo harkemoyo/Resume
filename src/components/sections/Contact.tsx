@@ -1,6 +1,7 @@
 import React, { useState, FC } from 'react';
 import { useToast } from '../../hooks/use-toast';
 import styles from './Contact.module.css';
+import { supabase } from '../../lib/supabaseClient';
 
 /**
  * Contact Component
@@ -81,8 +82,19 @@ const Contact: FC = () => {
     setIsSubmitting(true);
 
     try {
-          // Mock API call with a timeout
-      await new Promise<void>(resolve => setTimeout(resolve, 1000));
+      // Send form data to Supabase
+      const { data, error } = await supabase
+        .from('Contacts')
+        .insert([
+          { 
+            name: formData.name, 
+            email: formData.email, 
+            message: formData.message 
+          },
+        ])
+        .select();
+
+      if (error) throw error;
       
       // Show success message
       success('Thank you for reaching out. I will get back to you soon!');

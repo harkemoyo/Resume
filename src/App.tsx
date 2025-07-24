@@ -13,7 +13,6 @@ import ContactPage from './pages/ContactPage';
 import ExperiencePage from './pages/ExperiencePage';
 import { BrowserRouter as Router, Routes, Route } from 'react-router-dom';
 import ProductShowcasePage from './components/sections/ProductShowcasePage';
-
 // Initialize Apollo Client with Shopify Admin API
 const httpLink = createHttpLink({
   uri: 'https://your-store.myshopify.com/admin/api/2023-07/graphql.json',
@@ -71,7 +70,6 @@ function App() {
                     <section id="freelance">
                       <FreelanceIntro />
                     </section>
-                    
                   </main>
                 </>
               }
