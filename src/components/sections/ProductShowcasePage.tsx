@@ -4,10 +4,10 @@ import { Link } from "react-router-dom";
 
 const products = [
   {
-    name: "Shopify Store Redesign",
-    description: "A modern, responsive Shopify theme for a fashion retailer.",
+    name: "Custom Product Variations (Color Selector)",
+    description: "In this project, I developed a custom product variation selector that allows customers to seamlessly switch between different versions of a product—such as colors or styles—even though each version exists as a separate product in Shopify. I used Shopify metafields to link related products based on shared attributes (like color) and display them dynamically on the product page. This solution mimics the functionality of a native variant picker but provides greater flexibility and control. I implemented multiple display options for the selector, including color swatches, image thumbnails, text blocks, and combined swatch+block styles. Each variation links to its own unique product page, enhancing inventory management, improving SEO, and delivering a smoother user experience.",
     image: "/images/cc-resorts-product.png",
-    link: "https://yourshopifystore.com",
+    link: "https://www.ccresorts.com.au/products/goose-chocolate",
     loomUrl: "https://www.loom.com/embed/placeholder1"
   },
   {
