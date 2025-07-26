@@ -11,17 +11,24 @@ const products = [
     loomUrl: "https://www.loom.com/embed/placeholder1"
   },
   {
-    name: "Portfolio Website",
-    description: "Personal portfolio with React, animations, and a custom CMS.",
-    image: "/images/toden.png",
-    link: "https://harkemoyo.github.io/Resume",
+    name: "PortfolioScroll-Activated Media Section with Smart Video Fallback",
+    description: "I developed a scroll-activated media section for a Shopify store that enhances the user experience through synchronized visuals and text. As the user scrolls down the page, the accompanying image or video dynamically changes to match the content, creating an engaging storytelling flow. The section supports autoplaying, looping desktop videos with lazy loading for performance optimization, and includes responsive fallback images using srcset for sharp display across devices. A key achievement in this implementation is the smart fallback functionality — when no video is available, a default image is automatically shown, preserving the layout and ensuring consistent visual design. The aspect ratio is maintained using dynamic CSS variables, allowing for seamless integration into any section. This feature elevates the shopping experience by combining rich media, motion, and performance-conscious design.",
+    image: "/images/fireblanket.png",
+    link: "https://fireblanket.com/products/emergency-fire-blanket",
     loomUrl: "https://www.loom.com/embed/placeholder2"
   },
   {
-    name: "E-commerce Dashboard",
-    description: "Admin dashboard for managing products, orders, and analytics.",
+    name: "Dynamic Key Features Section Powered by Metafields",
+    description: "I built a reusable “Key Features” section for product pages that automatically pulls in feature data from multiple custom metafields—such as brackets, surface kits, closet rods, hooks, and more—and displays them in a scrollable, image‑paired layout. The section detects which feature set is populated for a given product, calculates the optimal media aspect ratio based on your settings, and then renders each feature block with its icon, heading, description, and optional segment‑rating UI. As users scroll through the list, the background, image, and text update in sync, while navigation dots indicate the current feature. All styling—colors, gradients, text, and layout—can be controlled through the theme editor, making it easy for merchants to highlight different product highlights without touching any code.",
+    image: "/images/toden.png",
+    link: "https://todenind.com/collections/ultimate-garage-storage-solutions/products/long-shelving-surface-storage-hook-installation-kit-16-inch",
+    loomUrl: "https://www.loom.com/embed/placeholder3"
+  },
+  {
+    name: "Design to Code Landing Page with Carousel",
+    description: "I converted the Little Book landing page from design mockups into a fully responsive and interactive webpage using clean, semantic HTML, CSS, and JavaScript. The layout was meticulously recreated to match the original design, including precise typography, spacing, and visual structure. As part of the interactive features, I implemented a carousel component to showcase content or testimonials in a dynamic, scrollable format, enhancing user engagement. The entire page is optimized for all devices and includes smooth scrolling, fast-loading assets, and a mobile-friendly experience. This project showcases my ability to bring static designs to life with interactive elements and attention to performance and usability.",
     image: "/images/littlebook.png",
-    link: "#",
+    link: "https://littlebookleague.com/",
     loomUrl: "https://www.loom.com/embed/placeholder3"
   }
 ];

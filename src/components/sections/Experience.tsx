@@ -18,6 +18,7 @@ interface ExperienceItem {
     alt: string;
     title: string;
     category: string;
+    link: string;
   }[];
 }
 
@@ -43,17 +44,17 @@ const mockExperiences = [
         id: 'cc-resorts-1',
         src: '/images/cc-resorts-product.png',
         alt: 'CC Resorts Product Page with Color Variant Selector',
-        title: 'CC Resorts Product Page',
-        category: 'E-commerce Product Variants Logic',
-        link: 'https://www.ccresorts.com.au/products/goose-chocolate'
+        title: '',
+        category: 'View Product Showcase',
+        link: '/product-showcase'
       },
       {
         id: 'aos-magazine-1',
         src: '/images/aos.png',
         alt: 'AOS Magazine Layout',
-        title: 'AOS Magazine Platform',
-        category: 'Content Management',
-        link: 'https://aosmagazine.com/'
+        title: '',
+        category: 'View Product Showcase',
+        link: '/product-showcase'
       },
     
    
@@ -80,33 +81,33 @@ const mockExperiences = [
         id: 'gentle-jaw-1',
         src: '/images/gentle-jaw.png',
         alt: 'Gentle Jaw Practice Management Interface',
-        title: 'Gentle Jaw System',
-        category: 'Healthcare Management',
-        link: 'https://gentlejaw.com/'
+        title: '',
+        category: 'View Product Showcase',
+        link: '/product-showcase'
       },
       {
         id: 'toden-shopify',
         src: '/images/toden.png',
         alt: 'Toden Industries Shopify Implementation',
-        title: 'Section Implementation',
-        category: 'Metafields and Metaobjects Implementation',
-        link: 'https://todenind.com/collections/ultimate-garage-storage-solutions/products/long-shelving-surface-storage-hook-installation-kit-16-inch'
+        title: '',
+        category: 'View Product Showcase',
+        link: '/product-showcase'
       },
       {
         id: 'found-image-1',
         src: '/images/found.png',
         alt: 'Found Image Landing Page',
-        title: 'Found Image Landing Page',
-        category: 'Design to Code',
-        link: 'https://www.foundimage.com/'
+        title: '',
+        category: 'View Product Showcase',
+        link: '/product-showcase'
       },
       {
         id: 'little-book-1',
         src: '/images/littlebook.png',
-        link: 'https://littlebookleague.com/',
+        link: '/product-showcase',
         alt: 'Little Book Homepage Design',
-        title: 'Little Book Homepage',
-        category: 'Design to Code'
+        title: '',
+        category: 'View Product Showcase'
       }
     ]
   },
@@ -185,7 +186,10 @@ const Experience: React.FC = () => {
               </div>
             )}
             {exp.projectImages && exp.projectImages.length > 0 && (
-              <ProjectGallery images={exp.projectImages} projectTitle={exp.title} />
+              <ProjectGallery 
+                images={exp.projectImages} 
+                projectTitle={`${''} at ${exp.company}`}
+              />
             )}
             {exp.skills && exp.skills.length > 0 && (
               <div className="experience-skills">

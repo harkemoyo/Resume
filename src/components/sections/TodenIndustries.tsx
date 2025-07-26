@@ -68,14 +68,16 @@ const TodenIndustries: React.FC = () => {
       src: '/images/toden.png',
       alt: 'Toden Industries Heavy-Duty Storage Solutions',
       title: 'Toden Industries',
-      category: 'E-commerce Platform'
+      category: 'E-commerce Platform',
+      link: '/toden-industries'
     },
     {
       id: 'toden-2',
       src: '/images/found.png',
       alt: 'Found Image',
       title: 'Found',
-      category: 'Additional Image'
+      category: 'Additional Image',
+      link: '/found-image'
     }
   ];
 
