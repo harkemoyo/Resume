@@ -32,8 +32,29 @@ const mockExperiences = [
     startDate: '2023-01-01',
     endDate: 'Present',
     description: 'Leading frontend development and Shopify integrations for multiple client projects. Built custom e-commerce solutions including CC Resorts product catalog with advanced color variant selectors, AOS Magazine subscription platform, and Counterpart Store multi-vendor marketplace. Specialized in creating responsive, conversion-optimized user interfaces and custom Shopify theme development.',
-    skills: ['React', 'TypeScript', 'Shopify', 'Liquid', 'CSS3', 'HTML5', 'API Integration', 'E-commerce'],
+    skills: [],
+ 
+    projectImages: [
+
+    
+   
+    ]
+  },
+  {
+    id: '2',
+    title: 'Shopify Developer & Web Solutions Specialist',
+    company: 'Shopify',
+    location: 'Remote',
+    startDate: '2021-01-01',
+    endDate: '2022-12-31',
+    description: 'Developed custom e-commerce solutions with a focus on Shopify platform. Specialized in creating dynamic, data-driven experiences using Shopify metafields and metaobjects. Worked across various industries including healthcare (Gentle Jaw), industrial manufacturing (Toden Industries), and digital asset management (Found Image).',
+    skills: ['Shopify', 'Liquid', 'Metafields', 'Metaobjects', 'JavaScript', 'HTML5', 'CSS3',  'API Integration','GraphQL', 'Responsive Design'],
     achievements: [
+      'Architected and implemented custom metaobjects for Toden Industries product catalog, enabling dynamic content management',
+      'Developed a metafield-based configuration system for product variants and specifications',
+      'Created reusable metaobject definitions for consistent data structures across the platform',
+      'Built custom admin interfaces for managing complex product relationships using metafields',
+      'Optimized GraphQL queries for efficient metaobject data retrieval and display',
       'Developed CC Resorts product catalog with interactive color variant selectors and product options',
       'Built AOS Magazine subscription and content management platform',
       'Created Counterpart Store multi-vendor marketplace',
@@ -56,27 +77,6 @@ const mockExperiences = [
         category: 'View Product Showcase',
         link: '/product-showcase'
       },
-    
-   
-    ]
-  },
-  {
-    id: '2',
-    title: 'Shopify Developer & Web Solutions Specialist',
-    company: 'Freelance',
-    location: 'Remote',
-    startDate: '2021-01-01',
-    endDate: '2022-12-31',
-    description: 'Developed custom e-commerce solutions with a focus on Shopify platform. Specialized in creating dynamic, data-driven experiences using Shopify metafields and metaobjects. Worked across various industries including healthcare (Gentle Jaw), industrial manufacturing (Toden Industries), and digital asset management (Found Image).',
-    skills: ['Shopify', 'Liquid', 'Metafields', 'Metaobjects', 'JavaScript', 'HTML5', 'CSS3', 'GraphQL', 'Responsive Design'],
-    achievements: [
-      'Architected and implemented custom metaobjects for Toden Industries product catalog, enabling dynamic content management',
-      'Developed a metafield-based configuration system for product variants and specifications',
-      'Created reusable metaobject definitions for consistent data structures across the platform',
-      'Built custom admin interfaces for managing complex product relationships using metafields',
-      'Optimized GraphQL queries for efficient metaobject data retrieval and display'
-    ],
-    projectImages: [
       {
         id: 'gentle-jaw-1',
         src: '/images/gentle-jaw.png',
@@ -113,8 +113,8 @@ const mockExperiences = [
   },
   {
     id: '3',
-    title: 'Junior Frontend Developer',
-    company: 'Tech Startup',
+    title: 'Frontend Developer',
+    company: 'Frontend',
     location: 'Nairobi, Kenya',
     startDate: '2021-01-01',
     endDate: '2022-12-31',
@@ -125,8 +125,27 @@ const mockExperiences = [
       'Built interactive UI components demonstrating modern frontend practices',
       'Contributed to team knowledge sharing sessions',
       'Developed problem-solving skills through diverse frontend challenges'
+    ],
+    projectImages: [
+      {
+        id: 'vazi-app-1',
+        src: '/images/vazi.png',
+        alt: 'Vazi App Landing Page',
+        title: '',
+        category: 'View Product Showcase',
+        link: '/product-showcase'
+      },
+      {
+        id: 'funeral-home-1',
+        src: '/images/funeral.png',
+        alt: 'Funeral Home Landing Page',
+        title: '',
+        category: 'View Product Showcase',
+        link: '/product-showcase'
+      },
     ]
-  }
+  },
+  
 ];
 
 const Experience: React.FC = () => {

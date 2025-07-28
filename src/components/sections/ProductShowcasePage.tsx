@@ -30,6 +30,20 @@ const products = [
     image: "/images/littlebook.png",
     link: "https://littlebookleague.com/",
     loomUrl: "https://www.loom.com/embed/placeholder3"
+  },
+  {
+    name: "Funeral Home Landing Page",
+    description: "I converted the funeral home landing page from design mockups into a fully responsive and interactive webpage using clean, semantic HTML, CSS, and JavaScript. The layout was meticulously recreated to match the original design, including precise typography, spacing, and visual structure. As part of the interactive features, I implemented a carousel component to showcase content or testimonials in a dynamic, scrollable format, enhancing user engagement. The entire page is optimized for all devices and includes smooth scrolling, fast-loading assets, and a mobile-friendly experience. This project showcases my ability to bring static designs to life with interactive elements and attention to performance and usability.",
+    image: "/images/funeral.png",
+    link: "https://funeralhomes.contact/",
+    loomUrl: "https://www.loom.com/embed/placeholder3"
+  },
+  {
+    name: "Vazi App Landing Page",
+    description: "I converted the funeral home landing page from design mockups into a fully responsive and interactive webpage using clean, semantic HTML, CSS, and JavaScript. The layout was meticulously recreated to match the original design, including precise typography, spacing, and visual structure. As part of the interactive features, I implemented a carousel component to showcase content or testimonials in a dynamic, scrollable format, enhancing user engagement. The entire page is optimized for all devices and includes smooth scrolling, fast-loading assets, and a mobile-friendly experience. This project showcases my ability to bring static designs to life with interactive elements and attention to performance and usability.",
+    image: "/images/vazi.png",
+    link: "https://vazi.app/",
+    loomUrl: "https://www.loom.com/embed/placeholder3"
   }
 ];
 
