@@ -1,6 +1,7 @@
 import React from 'react';
 import { ApolloClient, InMemoryCache, ApolloProvider, createHttpLink } from '@apollo/client';
 import { setContext } from '@apollo/client/link/context';
+import { BrowserRouter as Router, Routes, Route, Navigate } from 'react-router-dom';
 
 // Importing components
 import './App.css';
@@ -11,29 +12,29 @@ import FreelanceIntro from './components/sections/FreelanceIntro';
 import Footer from './components/Footer';
 import ContactPage from './pages/ContactPage';
 import ExperiencePage from './pages/ExperiencePage';
-import { BrowserRouter as Router, Routes, Route } from 'react-router-dom';
 import ProductShowcasePage from './components/sections/ProductShowcasePage';
+
+// Base path for GitHub Pages
+const BASE_PATH = process.env.PUBLIC_URL || '';
+
 // Initialize Apollo Client with Shopify Admin API
 const httpLink = createHttpLink({
   uri: 'https://your-store.myshopify.com/admin/api/2023-07/graphql.json',
 });
 
 const authLink = setContext((_, { headers }) => {
-  // Replace with your actual Shopify Admin API access token
-  const token = process.env.REACT_APP_SHOPIFY_ADMIN_API_TOKEN;
-  
+  // return the headers to the context so httpLink can read them
   return {
     headers: {
       ...headers,
-      'X-Shopify-Access-Token': token,
-      'Content-Type': 'application/json',
+      'X-Shopify-Access-Token': process.env.REACT_APP_SHOPIFY_ADMIN_ACCESS_TOKEN || '',
     }
   };
 });
 
 const client = new ApolloClient({
   link: authLink.concat(httpLink),
-  cache: new InMemoryCache(),
+  cache: new InMemoryCache()
 });
 
 /**
@@ -47,12 +48,12 @@ const client = new ApolloClient({
 function App() {
   return (
     <ApolloProvider client={client}>
-      <Router>
+      <Router basename={process.env.PUBLIC_URL}>
         <div className="single-page-app">
           <Navigation />
           <Routes>
-            <Route
-              path="/"
+            <Route 
+              path="/" 
               element={
                 <>
                   <section id="hero">
@@ -72,11 +73,15 @@ function App() {
                     </section>
                   </main>
                 </>
-              }
+              } 
             />
             <Route path="/experience" element={<ExperiencePage />} />
             <Route path="/contact" element={<ContactPage />} />
             <Route path="/product-showcase" element={<ProductShowcasePage />} />
+            {/* Add a catch-all route that redirects to home */}
+            <Route path="*" element={
+              <Navigate to="/" replace />
+            } />
           </Routes>
           <Footer />
         </div>

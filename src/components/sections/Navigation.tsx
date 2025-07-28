@@ -40,26 +40,24 @@ const Navigation: React.FC = () => {
             </svg>
           </Link>
         </div>
-      <ul className="nav-links">
-        <li>
-          <NavLink
-            to="/experience"
-            className={({ isActive }) => isActive ? 'nav-link active' : 'nav-link'}
-            id="nav-experience"
-          >
-            Experience
-          </NavLink>
-        </li>
-        <li>
-          <NavLink
-            to="/contact"
-            className={({ isActive }) =>
-              isActive ? 'nav-link active' : 'nav-link'}
-          >
-            Contact Me
-          </NavLink>
-        </li>
-      </ul>
+        <ul className="nav-links">
+          <li>
+            <NavLink
+              to="/experience"
+              className={({ isActive }) => isActive ? 'nav-link active' : 'nav-link'}
+            >
+              Experience
+            </NavLink>
+          </li>
+          <li>
+            <NavLink
+              to="/contact"
+              className={({ isActive }) => isActive ? 'nav-link active' : 'nav-link'}
+            >
+              Contact Me
+            </NavLink>
+          </li>
+        </ul>
       </div>
     </nav>
   );
