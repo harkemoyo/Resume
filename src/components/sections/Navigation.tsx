@@ -51,8 +51,6 @@ const Navigation: React.FC = () => {
           </NavLink>
         </li>
         <li>
-        </li>
-        <li>
           <NavLink
             to="/contact"
             className={({ isActive }) =>
