@@ -47,7 +47,7 @@ const products = [
   }
 ];
 
-const ProductShowcasePage: React.FC = () => (
+const ProductShowcasePage: React.FC = () => ( 
   <div className="content-section">
     <div className="section-header">
       <h2>Product Showcase</h2>
@@ -72,7 +72,7 @@ const ProductShowcasePage: React.FC = () => (
                 src={product.loomUrl}
                 title={`Loom video for ${product.name}`}
                 frameBorder="0"
-                allow="autoplay; fullscreen"
+                allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture"
                 allowFullScreen
                 style={{ width: '100%', height: '100%' }}
               ></iframe>

@@ -17,24 +17,22 @@ import ProductShowcasePage from './components/sections/ProductShowcasePage';
 // Base path for GitHub Pages
 const BASE_PATH = process.env.PUBLIC_URL || '';
 
-// Initialize Apollo Client with Shopify Admin API
+// Initialize Apollo Client with Shopify Storefront API
 const httpLink = createHttpLink({
-  uri: 'https://your-store.myshopify.com/admin/api/2023-07/graphql.json',
+  uri: 'https://your-store.myshopify.com/api/2023-07/graphql.json',
 });
 
-const authLink = setContext((_, { headers }) => {
-  // return the headers to the context so httpLink can read them
-  return {
-    headers: {
-      ...headers,
-      'X-Shopify-Access-Token': process.env.REACT_APP_SHOPIFY_ADMIN_ACCESS_TOKEN || '',
-    }
-  };
-});
+const middlewareLink = setContext((_, { headers }) => ({
+  headers: {
+    ...headers,
+    'X-Shopify-Storefront-Access-Token': process.env.REACT_APP_SHOPIFY_STOREFRONT_ACCESS_TOKEN || '',
+    'Content-Type': 'application/json',
+  },
+}));
 
 const client = new ApolloClient({
-  link: authLink.concat(httpLink),
-  cache: new InMemoryCache()
+  link: middlewareLink.concat(httpLink),
+  cache: new InMemoryCache(),
 });
 
 /**
@@ -48,7 +46,7 @@ const client = new ApolloClient({
 function App() {
   return (
     <ApolloProvider client={client}>
-      <Router basename={process.env.PUBLIC_URL}>
+      <Router>
         <div className="single-page-app">
           <Navigation />
           <Routes>
