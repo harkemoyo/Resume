@@ -12,7 +12,9 @@ import FreelanceIntro from './components/sections/FreelanceIntro';
 import Footer from './components/Footer';
 import ContactPage from './pages/ContactPage';
 import ExperiencePage from './pages/ExperiencePage';
-import ProductShowcasePage from './components/sections/ProductShowcasePage';
+import ProductShowcasePage from './pages/ProductShowcasePage';
+import PrivacyPolicyPage from './pages/PrivacyPolicyPage';
+import TermsOfServicePage from './pages/TermsOfServicePage';
 
 // Base path for GitHub Pages
 const BASE_PATH = process.env.PUBLIC_URL || '';
@@ -76,6 +78,8 @@ function App() {
             <Route path="/experience" element={<ExperiencePage />} />
             <Route path="/contact" element={<ContactPage />} />
             <Route path="/product-showcase" element={<ProductShowcasePage />} />
+            <Route path="/privacy-policy" element={<PrivacyPolicyPage />} />
+            <Route path="/terms" element={<TermsOfServicePage />} />
             {/* Add a catch-all route that redirects to home */}
             <Route path="*" element={
               <Navigate to="/" replace />

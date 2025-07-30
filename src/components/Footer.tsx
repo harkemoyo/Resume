@@ -71,9 +71,9 @@ const Footer: React.FC = () => (
     <div className="footer-bottom">
       <p>&copy; {new Date().getFullYear()} Hark. All rights reserved.</p>
       <div className="footer-legal">
-        <a href="/privacy-policy">Privacy Policy</a>
+        <Link to="/privacy-policy" className="footer-link">Privacy Policy</Link>
         <span className="divider">|</span>
-        <a href="/terms">Terms of Service</a>
+        <Link to="/terms" className="footer-link">Terms of Service</Link>
       </div>
     </div>
   </footer>
