@@ -1,5 +1,6 @@
 import React from 'react';
 import './modal.css';
+import { Link } from 'react-router-dom';
 
 interface ProjectImage {
   id: string;
@@ -32,14 +33,12 @@ const ProjectGallery: React.FC<ProjectGalleryProps> = ({ images, projectTitle })
               }}
             />
             <div className="gallery-overlay">
-              <a 
-                href={image.link} 
-                target="_blank" 
-                rel="noopener noreferrer"
+              <Link 
+                to='/product-showcase'
                 className="gallery-link"
               >
                 {image.category}
-              </a>
+              </Link>
             </div>
           </div>
         ))}
