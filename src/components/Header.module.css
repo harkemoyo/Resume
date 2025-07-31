@@ -135,67 +135,101 @@
 
 .velstar-header {
   background: #f0f4f8;
-  padding: 0;
-  min-height: 60vh;
-  display: flex;
-  align-items: flex-start;
-  justify-content: center;
-  position: relative;
-  box-shadow: 0 4px 30px rgba(0, 0, 0, 0.06);
+  padding: 2rem 0;
+  min-height: auto;
 }
 
 .header-content {
-  width: 100%;
   max-width: 1200px;
   margin: 0 auto;
-  padding: 2.5rem 2rem 2rem 2rem;
-  display: flex;
-  flex-direction: column;
-  gap: 2rem;
-}
-
-.logo-row {
-  display: flex;
-  align-items: center;
-  margin-bottom: 2rem;
-}
-
-.logo {
-  display: flex;
-  align-items: center;
+  padding: 0 1.5rem;
 }
 
 .columns {
   display: grid;
   grid-template-columns: 1fr 1fr;
-  gap: 3rem;
+  gap: 2rem;
   align-items: center;
 }
 
 .left-col {
   display: flex;
   flex-direction: column;
-  justify-content: center;
   gap: 1.5rem;
+}
+
+.hero-badge {
+  background: rgba(10, 36, 114, 0.1);
+  border-radius: 50px;
+  padding: 0.5rem 1rem;
+  display: inline-flex;
+  align-items: center;
+  width: fit-content;
+}
+
+.badge-text {
+  color: #0a2472;
+  font-size: 0.9rem;
+  font-weight: 600;
+}
+
+.hero-title {
+  font-size: 2.5rem;
+  font-weight: 800;
+  color: #0a2472;
+  line-height: 1.2;
+  margin: 0;
+}
+
+.hero-description {
+  color: #4a5568;
+  line-height: 1.7;
+  margin: 0 0 1.5rem 0;
+}
+
+.button-row {
+  display: flex;
+  gap: 1rem;
+  flex-wrap: wrap;
+}
+
+.cta-btn,
+.cta-btn-outline {
+  padding: 0.8rem 1.8rem;
+  border-radius: 8px;
+  font-weight: 600;
+  text-decoration: none;
+  transition: all 0.3s ease;
+  text-align: center;
+  min-width: 140px;
+}
+
+.cta-btn {
+  background: #0a2472;
+  color: white;
+  border: 2px solid #0a2472;
+}
+
+.cta-btn-outline {
+  background: transparent;
+  color: #0a2472;
+  border: 2px solid #0a2472;
 }
 
 .right-col {
   display: flex;
   flex-direction: column;
   align-items: center;
-  justify-content: center;
   gap: 1.5rem;
 }
 
 .avatar-card {
-  background: #fff;
+  background: white;
   border-radius: 1.5rem;
-  box-shadow: 0 6px 32px 0 rgba(10,36,114,0.08);
-  width: 320px;
-  height: 320px;
-  display: flex;
-  align-items: center;
-  justify-content: center;
+  box-shadow: 0 6px 32px rgba(10, 36, 114, 0.08);
+  width: 100%;
+  max-width: 320px;
+  aspect-ratio: 1;
   overflow: hidden;
 }
 
@@ -203,85 +237,68 @@
   width: 100%;
   height: 100%;
   object-fit: cover;
-  border-radius: 1.5rem;
 }
 
-.avatar-fallback {
-  width: 100%;
-  height: 100%;
+.hero-location {
   display: flex;
   align-items: center;
-  justify-content: center;
-  font-size: 5rem;
-  font-weight: bold;
-  color: #0a2472;
-  background: #cad5e2;
-  border-radius: 1.5rem;
-}
-
-.hero-title {
-  font-size: 2.8rem;
-  font-weight: 700;
-  color: #0a2472;
-  margin-bottom: 0;
-}
-
-.highlight {
-  color: #345995;
-}
-
-.hero-description {
-  font-size: 1.2rem;
-  color: #222e50;
-  line-height: 1.6;
-}
-
-.button-row {
-  display: flex;
-  gap: 1.5rem;
-}
-
-.cta-btn {
-  background: #0a2472;
-  color: #fff;
-  padding: 0.9rem 2.2rem;
-  border-radius: 2rem;
-  font-size: 1.1rem;
-  font-weight: 600;
-  border: none;
+  gap: 0.5rem;
+  color: #4a5568;
   text-decoration: none;
-  transition: background 0.2s, color 0.2s;
-  box-shadow: 0 2px 12px 0 rgba(10,36,114,0.04);
-  cursor: pointer;
 }
 
-.cta-btn:hover, .cta-btn:focus {
-  background: #345995;
-  color: #fff;
-  outline: none;
+@media (max-width: 992px) {
+  .hero-title {
+    font-size: 2.2rem;
+  }
 }
 
-@media (max-width: 900px) {
+@media (max-width: 768px) {
   .columns {
     grid-template-columns: 1fr;
-    gap: 2rem;
+    gap: 3rem;
   }
-  .avatar-card {
-    width: 220px;
-    height: 220px;
+  
+  .left-col {
+    order: 2;
+    text-align: center;
+    align-items: center;
   }
-}
-
-@media (max-width: 600px) {
-  .header-content {
-    padding: 1.2rem 0.5rem;
+  
+  .right-col {
+    order: 1;
   }
+  
+  .hero-badge {
+    margin: 0 auto;
+  }
+  
+  .button-row {
+    flex-direction: column;
+    width: 100%;
+  }
+  
+  .cta-btn,
+  .cta-btn-outline {
+    width: 100%;
+  }
+  
   .hero-title {
     font-size: 2rem;
   }
-  .avatar-card {
-    width: 120px;
-    height: 120px;
+}
+
+@media (max-width: 480px) {
+  .header-content {
+    padding: 0 1rem;
+  }
+  
+  .hero-title {
+    font-size: 1.8rem;
+  }
+  
+  .hero-description {
+    font-size: 1rem;
   }
 }
 

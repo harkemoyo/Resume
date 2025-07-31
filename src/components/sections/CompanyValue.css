@@ -1,0 +1,279 @@
+/* Company Value Section */
+.company-value-section {
+  padding: 5rem 0;
+  background-color: #f8fafc;
+  position: relative;
+  overflow: hidden;
+}
+
+.company-value-section .content-section {
+  max-width: 1200px;
+  margin: 0 auto;
+  padding: 0 1.5rem;
+  position: relative;
+  z-index: 1;
+}
+
+/* Section Header */
+.section-header {
+  text-align: center;
+  margin-bottom: 3.5rem;
+  position: relative;
+}
+
+.section-header h2 {
+  font-size: 2.5rem;
+  color: #0a2472;
+  margin-bottom: 0.75rem;
+  font-weight: 800;
+  line-height: 1.2;
+}
+
+.section-subtitle {
+  display: inline-block;
+  color: #4f46e5;
+  font-size: 1.1rem;
+  font-weight: 600;
+  text-transform: uppercase;
+  letter-spacing: 1px;
+  margin-bottom: 1.5rem;
+  position: relative;
+  padding-bottom: 0.5rem;
+}
+
+.section-subtitle::after {
+  content: '';
+  position: absolute;
+  bottom: 0;
+  left: 50%;
+  transform: translateX(-50%);
+  width: 60px;
+  height: 3px;
+  background: linear-gradient(90deg, #4f46e5, #818cf8);
+  border-radius: 3px;
+}
+
+/* Value Card */
+.value-card {
+  background: white;
+  border-radius: 1rem;
+  padding: 3rem;
+  box-shadow: 0 10px 30px rgba(0, 0, 0, 0.05);
+  transition: transform 0.3s ease, box-shadow 0.3s ease;
+  position: relative;
+  overflow: hidden;
+  border: 1px solid rgba(0, 0, 0, 0.05);
+}
+
+.value-card:hover {
+  transform: translateY(-5px);
+  box-shadow: 0 15px 40px rgba(0, 0, 0, 0.1);
+}
+
+.value-card h3 {
+  font-size: 1.75rem;
+  color: #0a2472;
+  margin-bottom: 1.5rem;
+  text-align: center;
+  font-weight: 700;
+}
+
+.value-card .highlight {
+  font-size: 1.2rem;
+  line-height: 1.7;
+  color: #4a5568;
+  text-align: center;
+  max-width: 800px;
+  margin: 0 auto 3rem;
+  position: relative;
+  padding: 0 1rem;
+}
+
+/* Value Points Grid */
+.value-points {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+  gap: 2rem;
+  margin-top: 2rem;
+}
+
+/* Individual Value Point */
+.value-point {
+  display: flex;
+  gap: 1.5rem;
+  padding: 1.5rem;
+  border-radius: 0.75rem;
+  transition: all 0.3s ease;
+  background: rgba(249, 250, 251, 0.7);
+  border: 1px solid rgba(226, 232, 240, 0.7);
+}
+
+.value-point:hover {
+  transform: translateY(-3px);
+  box-shadow: 0 10px 25px rgba(0, 0, 0, 0.05);
+  background: white;
+  border-color: rgba(226, 232, 240, 0.9);
+}
+
+.value-icon {
+  font-size: 2rem;
+  flex-shrink: 0;
+  width: 60px;
+  height: 60px;
+  border-radius: 50%;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  background: rgba(79, 70, 229, 0.1);
+  color: #4f46e5;
+  transition: all 0.3s ease;
+}
+
+.value-point:hover .value-icon {
+  transform: scale(1.1);
+  background: #4f46e5;
+  color: white;
+}
+
+.value-point h4 {
+  font-size: 1.25rem;
+  color: #0a2472;
+  margin-bottom: 0.75rem;
+  font-weight: 700;
+}
+
+.value-point p {
+  color: #4a5568;
+  line-height: 1.7;
+  margin: 0;
+  font-size: 1rem;
+}
+
+/* Responsive Adjustments */
+@media (max-width: 1024px) {
+    .content-section {
+        flex-direction: column;
+    }
+  .value-card {
+    padding: 2.5rem;
+  }
+  
+  .value-points {
+    gap: 1.5rem;
+  }
+  
+  .section-header h2 {
+    font-size: 2.25rem;
+  }
+}
+/* Tablet */
+@media (max-width: 768px) {
+  .company-value-section {
+    padding: 4rem 0;
+  }
+  
+  .section-header {
+    margin-bottom: 2.5rem;
+  }
+  
+  .section-header h2 {
+    font-size: 2rem;
+  }
+  
+  .value-card {
+    padding: 2rem 1.5rem;
+  }
+  
+  .value-card h3 {
+    font-size: 1.5rem;
+  }
+  
+  .value-card .highlight {
+    font-size: 1.1rem;
+    margin-bottom: 2rem;
+  }
+  
+  .value-points {
+    grid-template-columns: 1fr;
+  }
+  
+  .value-point {
+    padding: 1.25rem;
+  }
+  
+  .value-icon {
+    width: 50px;
+    height: 50px;
+    font-size: 1.5rem;
+  }
+}
+
+/* Mobile */
+@media (max-width: 480px) {
+  .company-value-section {
+    padding: 3rem 0;
+  }
+  
+  .section-header h2 {
+    font-size: 1.75rem;
+    margin-bottom: 0.5rem;
+  }
+  
+  .section-subtitle {
+    font-size: 1rem;
+  }
+  
+  .value-card {
+    padding: 1.5rem 1rem;
+    border-radius: 0.75rem;
+  }
+  
+  .value-card h3 {
+    font-size: 1.4rem;
+    margin-bottom: 1.25rem;
+  }
+  
+  .value-card .highlight {
+    font-size: 1.05rem;
+    margin-bottom: 1.5rem;
+    padding: 0;
+  }
+  
+  .value-point {
+    flex-direction: column;
+    text-align: center;
+    align-items: center;
+    padding: 1.5rem 1rem;
+  }
+  
+  .value-icon {
+    margin-bottom: 1rem;
+  }
+  
+  .value-point h4 {
+    margin-bottom: 0.5rem;
+  }
+}
+
+/* Animation */
+@keyframes fadeInUp {
+  from {
+    opacity: 0;
+    transform: translateY(20px);
+  }
+  to {
+    opacity: 1;
+    transform: translateY(0);
+  }
+}
+
+/* Apply animation to value points */
+.value-point {
+  opacity: 0;
+  animation: fadeInUp 0.6s ease-out forwards;
+}
+
+.value-point:nth-child(1) { animation-delay: 0.1s; }
+.value-point:nth-child(2) { animation-delay: 0.2s; }
+.value-point:nth-child(3) { animation-delay: 0.3s; }
+.value-point:nth-child(4) { animation-delay: 0.4s; }
