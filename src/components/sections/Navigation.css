@@ -1,0 +1,244 @@
+/* Navigation.css */
+
+/* Base Navigation Styles */
+.header-navigation {
+  width: 100%;
+  background: #fff;
+  box-shadow: 0 2px 10px rgba(10, 36, 114, 0.08);
+  position: sticky;
+  top: 0;
+  z-index: 1000;
+  padding: 0.5rem 0;
+}
+
+.nav-container {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  width: 100%;
+  max-width: 1200px;
+  margin: 0 auto;
+  padding: 0 2rem;
+  box-sizing: border-box;
+}
+
+/* Logo Styles */
+.logo a {
+  display: flex;
+  align-items: center;
+  text-decoration: none;
+  z-index: 1001; /* Above mobile menu */
+}
+
+/* Navigation Links */
+.nav-links {
+  display: flex;
+  gap: 2.5rem;
+  list-style: none;
+  margin: 0;
+  padding: 0;
+  align-items: center;
+}
+
+.nav-link {
+  color: #0a2472;
+  font-size: 1.1rem;
+  font-weight: 600;
+  text-decoration: none;
+  padding: 0.75rem 1rem;
+  border-radius: 8px;
+  transition: all 0.3s ease;
+  display: block;
+  position: relative;
+  text-align: center;
+}
+
+.nav-link:hover,
+.nav-link:focus {
+  background: #e8edf5;
+  color: #345995;
+  outline: none;
+}
+
+.nav-link.active {
+  color: #0a2472;
+  font-weight: 700;
+  position: relative;
+}
+
+.nav-link.active::after {
+  content: '';
+  position: absolute;
+  bottom: 0.5rem;
+  left: 1rem;
+  right: 1rem;
+  height: 2px;
+  background-color: #0a2472;
+  border-radius: 1px;
+}
+
+/* Mobile Menu Button (Hamburger) */
+.hamburger {
+  padding: 0.75rem;
+  background: none;
+  border: none;
+  cursor: pointer;
+  z-index: 1001; /* Above mobile menu */
+  display: none;
+}
+
+.hamburger-box {
+  width: 30px;
+  height: 24px;
+  display: inline-block;
+  position: relative;
+}
+
+.hamburger-inner {
+  display: block;
+  top: 50%;
+  margin-top: -2px;
+}
+
+.hamburger-inner,
+.hamburger-inner::before,
+.hamburger-inner::after {
+  width: 30px;
+  height: 3px;
+  background-color: #0a2472;
+  border-radius: 3px;
+  position: absolute;
+  transition: transform 0.15s ease;
+}
+
+.hamburger-inner::before,
+.hamburger-inner::after {
+  content: "";
+  display: block;
+}
+
+.hamburger-inner::before {
+  top: -8px;
+}
+
+.hamburger-inner::after {
+  bottom: -8px;
+}
+
+/* Active state for hamburger */
+.hamburger.is-active .hamburger-inner {
+  transform: rotate(45deg);
+  transition-delay: 0.12s;
+  transition-timing-function: cubic-bezier(0.215, 0.61, 0.355, 1);
+}
+
+.hamburger.is-active .hamburger-inner::before {
+  top: 0;
+  opacity: 0;
+  transition: top 0.075s ease, opacity 0.075s 0.12s ease;
+}
+
+.hamburger.is-active .hamburger-inner::after {
+  bottom: 0;
+  transform: rotate(-90deg);
+  transition: bottom 0.075s ease, transform 0.075s 0.12s cubic-bezier(0.215, 0.61, 0.355, 1);
+}
+
+/* Mobile Menu */
+.nav-links-container {
+  display: flex;
+  align-items: center;
+}
+
+/* Responsive Styles */
+@media (max-width: 992px) {
+  .nav-container {
+    padding: 0 1.5rem;
+  }
+  
+  .nav-links {
+    gap: 1.5rem;
+  }
+}
+
+@media (max-width: 768px) {
+  .hamburger {
+    display: inline-block;
+  }
+  
+  .nav-links-container {
+    position: fixed;
+    top: 0;
+    right: -100%;
+    width: 80%;
+    max-width: 300px;
+    height: 100vh;
+    background: #fff;
+    box-shadow: -5px 0 15px rgba(0, 0, 0, 0.1);
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+    transition: right 0.3s ease-in-out;
+    z-index: 1000;
+    padding: 5rem 1rem 2rem;
+  }
+  
+  .nav-links-container.is-open {
+    right: 0;
+  }
+  
+  .nav-links {
+    flex-direction: column;
+    width: 100%;
+    gap: 1.5rem;
+    padding: 2rem 0;
+  }
+  
+  .nav-link {
+    width: 100%;
+    padding: 1rem;
+    font-size: 1.2rem;
+  }
+  
+  .nav-link.active::after {
+    left: 2rem;
+    right: 2rem;
+  }
+  
+  /* Overlay for when menu is open */
+  .nav-links-container::before {
+    content: '';
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    background: rgba(10, 36, 114, 0.5);
+    backdrop-filter: blur(2px);
+    z-index: -1;
+    opacity: 0;
+    transition: opacity 0.3s ease-in-out;
+    pointer-events: none;
+  }
+  
+  .nav-links-container.is-open::before {
+    opacity: 1;
+    pointer-events: auto;
+  }
+}
+
+/* Small Mobile Devices */
+@media (max-width: 480px) {
+  .nav-container {
+    padding: 0 1rem;
+  }
+  
+  .nav-links-container {
+    width: 85%;
+  }
+  
+  .nav-link {
+    font-size: 1.1rem;
+    padding: 0.9rem;
+  }
+}
