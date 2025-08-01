@@ -540,22 +540,15 @@ a {
   border-bottom-color: var(--primary-color);
 }
 
-/* Content Sections */
-.content-section {
-  background: white;
-  border-radius: 0.5rem;
-  padding-block: 2rem;
-}
+
 
 .section-header {
   text-align: center;
-  margin-bottom: 2rem;
 }
 
 .section-header h2 {
   font-size: 1.875rem;
   font-weight: 700;
-  margin-bottom: 0.5rem;
 }
 
 .section-subtitle {
@@ -665,9 +658,13 @@ a {
 
 .services-grid {
   display: grid;
-  grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
   gap: 1.5rem;
   margin: 2.5rem 0;
+}
+@media (min-width: 992px) {
+    .services-grid {
+        grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
+    }
 }
 
 .service-card {
@@ -1969,7 +1966,6 @@ a {
   justify-content: center;
   gap: 2rem;
   padding: 2rem;
-  background-color: #f9fafb; /* light background */
 }
 
 .bio-card {
