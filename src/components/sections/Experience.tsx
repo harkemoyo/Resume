@@ -63,7 +63,7 @@ const mockExperiences = [
     projectImages: [
       {
         id: 'cc-resorts-1',
-        src: '/images/cc-resorts-product.png',
+        src: '/images/cc-resorts-product.webp',
         alt: 'CC Resorts Product Page with Color Variant Selector',
         title: '',
         category: 'View Product Showcase',
@@ -71,7 +71,7 @@ const mockExperiences = [
       },
       {
         id: 'aos-magazine-1',
-        src: '/images/aos.png',
+        src: '/images/aos.webp',
         alt: 'AOS Magazine Layout',
         title: '',
         category: 'View Product Showcase',
@@ -79,7 +79,7 @@ const mockExperiences = [
       },
       {
         id: 'gentle-jaw-1',
-        src: '/images/gentle-jaw.png',
+        src: '/images/gentle-jaw.webp',
         alt: 'Gentle Jaw Practice Management Interface',
         title: '',
         category: 'View Product Showcase',
@@ -87,7 +87,7 @@ const mockExperiences = [
       },
       {
         id: 'toden-shopify',
-        src: '/images/toden.png',
+        src: '/images/toden.webp',
         alt: 'Toden Industries Shopify Implementation',
         title: '',
         category: 'View Product Showcase',
@@ -95,7 +95,7 @@ const mockExperiences = [
       },
       {
         id: 'found-image-1',
-        src: '/images/found.png',
+        src: '/images/found.webp',
         alt: 'Found Image Landing Page',
         title: '',
         category: 'View Product Showcase',
@@ -103,7 +103,7 @@ const mockExperiences = [
       },
       {
         id: 'little-book-1',
-        src: '/images/littlebook.png',
+        src: '/images/littlebook.webp',
         link: '/product-showcase',
         alt: 'Little Book Homepage Design',
         title: '',
@@ -129,7 +129,7 @@ const mockExperiences = [
     projectImages: [
       {
         id: 'vazi-app-1',
-        src: '/images/vazi.png',
+        src: '/images/vazi.webp',
         alt: 'Vazi App Landing Page',
         title: '',
         category: 'View Product Showcase',
@@ -137,7 +137,7 @@ const mockExperiences = [
       },
       {
         id: 'funeral-home-1',
-        src: '/images/funeral.png',
+        src: '/images/funeral.webp',
         alt: 'Funeral Home Landing Page',
         title: '',
         category: 'View Product Showcase',
