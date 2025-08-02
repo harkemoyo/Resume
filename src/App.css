@@ -26,8 +26,7 @@ body {
 
 /* App Layout */
 .single-page-app {
-  display: flex;
-  flex-direction: column;
+  display: grid;
   min-height: 100vh;
 }
 
@@ -174,7 +173,6 @@ html {
 .hero-description {
   font-size: 1.25rem;
   color: var(--text-light);
-  margin-bottom: 2.5rem;
   line-height: 1.7;
   max-width: 90%;
 }
@@ -192,7 +190,7 @@ html {
   }
   
   .hero-description {
-    margin: 0 auto 2rem;
+    margin: 0 auto;
   }
   
   .hero-cta {
@@ -543,13 +541,9 @@ a {
 
 
 .section-header {
-  text-align: center;
+  text-align: left;
 }
 
-.section-header h2 {
-  font-size: 1.875rem;
-  font-weight: 700;
-}
 
 .section-subtitle {
   color: var(--text-light);
@@ -655,11 +649,14 @@ a {
   max-width: 1000px;
   margin: 0 auto;
 }
+.freelance-content {
+  display: grid;
+  gap: 1.5rem;
+}
 
 .services-grid {
   display: grid;
   gap: 1.5rem;
-  margin: 2.5rem 0;
 }
 @media (min-width: 992px) {
     .services-grid {
