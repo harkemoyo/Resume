@@ -58,7 +58,7 @@ function App() {
                 <>
                   <section id="hero">
                     <Header
-                      profileImage="/images/passport.jpg"
+                      profileImage="/images/passport"
                       name="Hark Ndeche"
                       title="Frontend Developer"
                       description="Building Digital Experiences That Matter. Hi, I'm Hark—a passionate Frontend Developer based in Nairobi, Kenya. I specialize in building responsive, accessible, and performant web applications. With hands-on experience in JavaScript, Shopify theme customization, and frontend best practices, I create clean, elegant solutions to complex problems. I'm dedicated to crafting user-friendly interfaces that bring digital experiences to life."
