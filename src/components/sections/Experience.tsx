@@ -1,6 +1,7 @@
 import React, { useState, useEffect } from 'react';
 import ProjectGallery from './ProjectGallery';
 import TodenIndustries from './TodenIndustries';
+import './Experience.css';
 
 interface ExperienceItem {
   id: string;
@@ -71,7 +72,7 @@ const mockExperiences = [
       },
       {
         id: 'aos-magazine-1',
-        src: '/images/aos.webp',
+        src: '/images/until.webp',
         alt: 'AOS Magazine Layout',
         title: '',
         category: 'View Product Showcase',
@@ -158,7 +159,7 @@ const Experience: React.FC = () => {
 
   if (experiences.length === 0) {
     return (
-      <div className="content-section">
+      <div className="experience-section">
         <div className="section-header">
           <h2>Experience</h2>
           <p className="section-subtitle">Loading professional journey...</p>
@@ -169,14 +170,13 @@ const Experience: React.FC = () => {
   }
 
   return (
-    <div className="content-section">
+    <div className="experience-section">
       <div className="section-header">
         <h2>Experience</h2>
         <p className="section-subtitle">Professional Journey</p>
       </div>
       
       {/* Featured Project: Toden Industries */}
-      <TodenIndustries />
       
       <div className="experience-container">
         {experiences.map((exp: ExperienceItem) => (

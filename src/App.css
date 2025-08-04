@@ -1126,107 +1126,7 @@ a {
   transform: none;
 }
 
-/* Experience Section */
-.experience-container {
-  display: flex;
-  flex-direction: column;
-  gap: 2rem;
-  margin-top: 2rem;
-}
 
-.experience-card {
-  background: var(--background);
-  border-radius: 8px;
-  padding: 2rem;
-  box-shadow: var(--shadow);
-  border: 1px solid var(--border-color);
-  transition: transform 0.2s ease, box-shadow 0.2s ease;
-}
-
-.experience-card:hover {
-  transform: translateY(-2px);
-  box-shadow: 0 10px 20px rgba(0, 0, 0, 0.1);
-}
-
-.experience-header {
-  margin-bottom: 1rem;
-}
-
-.experience-header h3 {
-  color: var(--primary-color);
-  margin-bottom: 0.5rem;
-  font-size: 1.25rem;
-}
-
-.experience-meta {
-  display: flex;
-  flex-wrap: wrap;
-  gap: 1rem;
-  color: var(--text-light);
-  font-size: 0.9rem;
-  margin-bottom: 1rem;
-}
-
-.experience-meta span {
-  display: flex;
-  align-items: center;
-  gap: 0.25rem;
-}
-
-.experience-meta span:not(:last-child)::after {
-  content: '•';
-  margin-left: 1rem;
-  color: var(--border-color);
-}
-
-.experience-description {
-  color: var(--text-color);
-  line-height: 1.6;
-  margin-bottom: 1.5rem;
-}
-
-.experience-achievements {
-  margin: 1.5rem 0;
-  padding: 1rem;
-  background-color: #f8f9fa;
-  border-radius: 6px;
-  border-left: 4px solid var(--primary-color);
-}
-
-.experience-achievements h4 {
-  color: var(--primary-color);
-  margin-bottom: 0.75rem;
-  font-size: 1rem;
-  font-weight: 600;
-}
-
-.experience-achievements ul {
-  list-style: none;
-  padding: 0;
-  margin: 0;
-}
-
-.experience-achievements li {
-  padding: 0.25rem 0;
-  color: var(--text-color);
-  position: relative;
-  padding-left: 1.5rem;
-}
-
-.experience-achievements li::before {
-  content: '✓';
-  position: absolute;
-  left: 0;
-  color: var(--primary-color);
-  font-weight: bold;
-}
-
-.experience-skills {
-  display: flex;
-  flex-wrap: wrap;
-  gap: 0.5rem;
-  margin-top: 1rem;
-}
 
 /* Project Gallery Styles */
 .project-gallery {
@@ -1964,6 +1864,11 @@ a {
   justify-content: center;
   gap: 2rem;
   padding: 2rem;
+}
+@media (max-width: 768px) {
+  .content-section {
+    padding: 0;
+    }
 }
 
 .bio-card {
