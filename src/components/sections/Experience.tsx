@@ -160,7 +160,7 @@ const Experience: React.FC = () => {
   if (experiences.length === 0) {
     return (
       <div className="experience-section">
-        <div className="section-header">
+        <div className="experience__title">
           <h2>Experience</h2>
           <p className="section-subtitle">Loading professional journey...</p>
         </div>
