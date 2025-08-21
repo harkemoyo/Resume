@@ -4,18 +4,30 @@ import { Link } from "react-router-dom";
 
 const products = [
   {
+    name: "Hark Theme - Custom Shopify Theme",
+    description: "A modern, clean, and highly customizable Shopify theme built from scratch. The Mark Theme features a minimalist design with a focus on typography and product imagery. Key features include a mega menu, quick view, AJAX cart, and mobile-optimized layout. The theme is built with performance in mind, using lazy loading for images and optimized asset loading.",
+    image: "/images/becute.webp", 
+    link: "https://sh-mark.myshopify.com/",
+    isTheme: true
+  },
+  {
+    name: "Carrot Theme - Custom Shopify Theme",
+    description: "A bold and engaging Shopify theme designed to maximize conversions. The Carrot Theme includes unique features like a sticky add-to-cart bar, product image zoom, and a dynamic color swatch selector. The theme is fully responsive and includes advanced customization options through the theme editor, making it easy for merchants to match their brand identity.",
+    image: "/images/carrot.webp", 
+    link: "https://sh-carrot.myshopify.com",
+    isTheme: true
+  },
+  {
     name: "Custom Product Variations (Color Selector)",
     description: "In this project, I developed a custom product variation selector that allows customers to seamlessly switch between different versions of a product—such as colors or styles—even though each version exists as a separate product in Shopify. I used Shopify metafields to link related products based on shared attributes (like color) and display them dynamically on the product page. This solution mimics the functionality of a native variant picker but provides greater flexibility and control. I implemented multiple display options for the selector, including color swatches, image thumbnails, text blocks, and combined swatch+block styles. Each variation links to its own unique product page, enhancing inventory management, improving SEO, and delivering a smoother user experience.",
     image: "/images/cc-resorts-product.webp",
     link: "https://www.ccresorts.com.au/products/goose-chocolate",
-    loomUrl: "https://www.loom.com/embed/placeholder1"
   },
   {
     name: "PortfolioScroll-Activated Media Section with Smart Video Fallback",
     description: "I developed a scroll-activated media section for a Shopify store that enhances the user experience through synchronized visuals and text. As the user scrolls down the page, the accompanying image or video dynamically changes to match the content, creating an engaging storytelling flow. The section supports autoplaying, looping desktop videos with lazy loading for performance optimization, and includes responsive fallback images using srcset for sharp display across devices. A key achievement in this implementation is the smart fallback functionality — when no video is available, a default image is automatically shown, preserving the layout and ensuring consistent visual design. The aspect ratio is maintained using dynamic CSS variables, allowing for seamless integration into any section. This feature elevates the shopping experience by combining rich media, motion, and performance-conscious design.",
     image: "/images/fireblanket.webp",
     link: "https://fireblanket.com/products/emergency-fire-blanket",
-    loomUrl: "https://www.loom.com/embed/placeholder2"
   },
   {
     name: "Dynamic Key Features Section Powered by Metafields",
@@ -63,21 +75,33 @@ const ProductShowcasePage: React.FC = () => (
             <img src={process.env.PUBLIC_URL + product.image} alt={product.name} />
           </div>
             <a href={product.link} target="_blank" rel="noopener noreferrer">
-              View Project
+              {product.isTheme ? 'View Theme Demo' : 'View Project'}
             </a>
+            {product.loomUrl && (
+              <a 
+                href={product.loomUrl} 
+                target="_blank" 
+                rel="noopener noreferrer"
+                className="btn secondary"
+              >
+                Watch Demo
+              </a>
+            )}
           </div>
-          <div className="product-showcase-video">
-            <div className="video-wrapper">
-              <iframe
-                src={product.loomUrl}
-                title={`Loom video for ${product.name}`}
-                frameBorder="0"
-                allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture"
-                allowFullScreen
-                style={{ width: '100%', height: '100%' }}
-              ></iframe>
+          {product.loomUrl && (
+            <div className="product-showcase-video">
+              <div className="video-wrapper">
+                <iframe
+                  src={product.loomUrl}
+                  title={`Loom video for ${product.name}`}
+                  frameBorder="0"
+                  allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture"
+                  allowFullScreen
+                  style={{ width: '100%', height: '100%' }}
+                ></iframe>
+              </div>
             </div>
-          </div>
+          )}
         </div>
       ))}
     </div>
