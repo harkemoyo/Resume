@@ -113,6 +113,42 @@ const mockExperiences = [
     ]
   },
   {
+    id: 'shopify-theme-dev',
+    title: 'Shopify Theme Developer',
+    company: 'Theme Development',
+    location: 'Remote',
+    startDate: '2021-01-01',
+    endDate: 'Present',
+    description: 'Specialized in custom Shopify theme development, creating pixel-perfect, performant, and conversion-optimized e-commerce experiences. Expert in building responsive themes from scratch, customizing existing themes, and implementing advanced features using Shopify Liquid, JavaScript, and modern CSS.',
+    skills: ['Shopify Theme Development'],
+    achievements: [
+      'Developed 15+ custom Shopify themes from scratch, each optimized for performance and conversion',
+      'Created Hark Theme - A modern, clean, and highly customizable Shopify theme with mega menu, quick view, AJAX cart, and mobile-optimized layout',
+      'Built Carrot Theme - A bold and engaging Shopify theme featuring sticky add-to-cart bar, product image zoom, and dynamic color swatch selector',
+      'Created a reusable theme starter kit with modern development workflows using Shopify CLI and version control',
+      'Optimized theme performance to achieve Google PageSpeed scores above 90 on desktop and mobile',
+      'Implemented best practices for accessibility and SEO in all theme development projects'
+    ],
+    projectImages: [
+      {
+        id: 'hark-theme',
+        src: '/images/becute.webp',
+        alt: 'Hark Theme - Custom Shopify Theme',
+        title: 'Hark Theme',
+        category: 'Product Showcase',
+        link: 'https://sh-mark.myshopify.com/'
+      },
+      {
+        id: 'carrot-theme',
+        src: '/images/carrot.webp',
+        alt: 'Carrot Theme - Custom Shopify Theme',
+        title: 'Carrot Theme',
+        category: 'Product Showcase',
+        link: 'https://sh-carrot.myshopify.com'
+      }
+    ]
+  },
+  {
     id: '3',
     title: 'Frontend Developer',
     company: 'Frontend',

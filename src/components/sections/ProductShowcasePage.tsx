@@ -1,11 +1,10 @@
 import React from "react";
 import "./ProductShowcasePage.css";
-import { Link } from "react-router-dom";
 
 const products = [
   {
     name: "Hark Theme - Custom Shopify Theme",
-    description: "A modern, clean, and highly customizable Shopify theme built from scratch. The Mark Theme features a minimalist design with a focus on typography and product imagery. Key features include a mega menu, quick view, AJAX cart, and mobile-optimized layout. The theme is built with performance in mind, using lazy loading for images and optimized asset loading.",
+    description: "A modern, clean, and highly customizable Shopify theme built from scratch. The Hark Theme features a minimalist design with a focus on typography and product imagery. Key features include a mega menu, quick view, AJAX cart, and mobile-optimized layout. The theme is built with performance in mind, using lazy loading for images and optimized asset loading.",
     image: "/images/becute.webp", 
     link: "https://sh-mark.myshopify.com/",
     isTheme: true
@@ -83,6 +82,8 @@ const ProductShowcasePage: React.FC = () => (
                 target="_blank" 
                 rel="noopener noreferrer"
                 className="btn secondary"
+                aria-disabled={true}
+                onClick={(e) => e.preventDefault()}
               >
                 Watch Demo
               </a>
