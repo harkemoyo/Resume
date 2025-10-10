@@ -1,7 +1,8 @@
 import React, { useState, FC } from 'react';
 import { useToast } from '../../hooks/use-toast';
 import styles from './Contact.module.css';
-import { supabase } from '../../lib/supabaseClient';
+import { supabase, type Database } from '../../lib/supabaseClient';
+import { useUser } from '@clerk/clerk-react';
 
 /**
  * Contact Component
@@ -34,6 +35,7 @@ interface SocialLink {
 
 const Contact: FC = () => {
   const { success, error } = useToast();
+  const { isSignedIn, user } = useUser();
   const [formData, setFormData] = useState<FormData>({
     name: '',
     email: '',
@@ -79,19 +81,24 @@ const Contact: FC = () => {
 
   const handleSubmit = async (e: React.FormEvent) => {
     e.preventDefault();
+    if (!isSignedIn || !user) {
+      error('Please sign in to send a message.');
+      return;
+    }
     setIsSubmitting(true);
 
     try {
       // Send form data to Supabase
+      const payload = {
+        clerk_user_id: user.id,
+        name: formData.name,
+        email: formData.email,
+        message: formData.message,
+      };
+
       const { data, error } = await supabase
-        .from('Contacts')
-        .insert([
-          { 
-            name: formData.name, 
-            email: formData.email, 
-            message: formData.message 
-          },
-        ])
+        .from('contacts')
+        .insert([payload])
         .select();
 
       if (error) throw error;

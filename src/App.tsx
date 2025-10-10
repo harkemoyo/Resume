@@ -48,7 +48,7 @@ const client = new ApolloClient({
 function App() {
   return (
     <ApolloProvider client={client}>
-      <Router>
+      <Router basename={BASE_PATH}>
         <div className="single-page-app">
           <Navigation />
           <Routes>

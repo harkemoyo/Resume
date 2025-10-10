@@ -2,12 +2,14 @@ import { createClient } from '@supabase/supabase-js';
 
 type Contact = {
   id: number;
+  clerk_user_id: string;
   name: string;
-  phone: string;
+  email: string;
+  message: string;
   created_at: string;
 };
 
-type Database = {
+export type Database = {
   public: {
     Tables: {
       contacts: {
@@ -22,4 +24,4 @@ type Database = {
 const supabaseUrl = 'https://xlqygozztfmuhmmsaehh.supabase.co';
 const supabaseKey = 'eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpc3MiOiJzdXBhYmFzZSIsInJlZiI6InhscXlnb3p6dGZtdWhtbXNhZWhoIiwicm9sZSI6ImFub24iLCJpYXQiOjE3NTMyMDE1NzYsImV4cCI6MjA2ODc3NzU3Nn0.2BNjZtfHnSonfSsDoHApXd0bWDDfVIMbOtsEgegNXok';
 
-export const supabase = createClient<Database>(supabaseUrl, supabaseKey);
+export const supabase = createClient(supabaseUrl, supabaseKey);

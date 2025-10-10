@@ -1,4 +1,5 @@
 import React, { ReactNode, useState } from 'react';
+import { SignInButton, SignUpButton, UserButton, useUser } from '@clerk/clerk-react';
 import styles from './Header.module.css';
 import { Link } from 'react-router-dom';
 
@@ -19,6 +20,7 @@ const Header: React.FC<HeaderProps> = ({
 }) => {
   const [imageError, setImageError] = useState(false);
   const initial = name.charAt(0);
+  const { isSignedIn } = useUser();
 
   const handleImageError = () => setImageError(true);
 
@@ -45,6 +47,16 @@ const Header: React.FC<HeaderProps> = ({
           <Link to="/contact" className={styles['cta-btn-outline']}>
             Get in Touch
           </Link>
+          <div style={{ display: 'flex', gap: 12 }}>
+            {!isSignedIn ? (
+              <>
+                <SignInButton />
+                <SignUpButton />
+              </>
+            ) : (
+              <UserButton />
+            )}
+          </div>
           </div>
 
         </div>
