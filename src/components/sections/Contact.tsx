@@ -81,38 +81,72 @@ const Contact: FC = () => {
 
   const handleSubmit = async (e: React.FormEvent) => {
     e.preventDefault();
-    if (!isSignedIn || !user) {
-      error('Please sign in to send a message.');
+    
+    console.log('🚀 Form submission started');
+    console.log('📝 Form data:', formData);
+    console.log('👤 User signed in:', isSignedIn);
+    console.log('🆔 User ID:', user?.id);
+    
+    // Basic validation
+    if (!formData.name.trim() || !formData.email.trim() || !formData.message.trim()) {
+      console.log('❌ Validation failed: Missing required fields');
+      error('Please fill in all required fields.');
       return;
     }
+
+    // Email validation
+    const emailRegex = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
+    if (!emailRegex.test(formData.email)) {
+      console.log('❌ Validation failed: Invalid email');
+      error('Please enter a valid email address.');
+      return;
+    }
+
     setIsSubmitting(true);
+    console.log('⏳ Setting isSubmitting to true');
 
     try {
-      // Send form data to Supabase
+      // Prepare payload with only existing columns
       const payload = {
-        clerk_user_id: user.id,
-        name: formData.name,
-        email: formData.email,
-        message: formData.message,
+        name: formData.name.trim(),
+        email: formData.email.trim(),
+        message: formData.message.trim(),
       };
 
+      console.log('📦 Payload prepared:', payload);
+      console.log('🔗 Supabase client:', supabase);
+
       const { data, error } = await supabase
-        .from('contacts')
+        .from('Contacts')
         .insert([payload])
         .select();
 
-      if (error) throw error;
+      console.log('📊 Supabase response - Data:', data);
+      console.log('📊 Supabase response - Error:', error);
+
+      if (error) {
+        console.log('❌ Supabase error:', error);
+        throw error;
+      }
+      
+      console.log('✅ Success! Data inserted:', data);
       
       // Show success message
-      success('Thank you for reaching out. I will get back to you soon!');
+      const message = isSignedIn 
+        ? 'Thank you for reaching out! I will get back to you soon.'
+        : 'Thank you for reaching out! I will get back to you soon.';
+      success(message);
       
       // Reset form
       setFormData({ name: '', email: '', message: '' });
+      console.log('🔄 Form reset');
     } catch (err: unknown) {
+      console.log('💥 Error caught:', err);
       const errorMessage = err instanceof Error ? err.message : 'An unknown error occurred';
       error(`There was an error sending your message: ${errorMessage}`);
     } finally {
       setIsSubmitting(false);
+      console.log('🏁 Setting isSubmitting to false');
     }
   };
 

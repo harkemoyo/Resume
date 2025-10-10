@@ -2,11 +2,18 @@ import { createClient } from '@supabase/supabase-js';
 
 type Contact = {
   id: number;
-  clerk_user_id: string;
+  clerk_user_id: string | null; // Allow null for anonymous submissions
   name: string;
   email: string;
   message: string;
+  subject: string;
+  status: 'new' | 'read' | 'replied' | 'archived';
+  user_agent: string | null;
+  ip_address: string | null;
+  is_spam: boolean;
+  replied_at: string | null;
   created_at: string;
+  updated_at: string;
 };
 
 export type Database = {

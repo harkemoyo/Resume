@@ -15,6 +15,8 @@ import ExperiencePage from './pages/ExperiencePage';
 import ProductShowcasePage from './pages/ProductShowcasePage';
 import PrivacyPolicyPage from './pages/PrivacyPolicyPage';
 import TermsOfServicePage from './pages/TermsOfServicePage';
+import ClerkSupabaseTest from './components/ClerkSupabaseTest';
+import AdminDashboard from './components/AdminDashboard';
 
 // Base path for GitHub Pages
 const BASE_PATH = process.env.PUBLIC_URL || '';
@@ -80,6 +82,8 @@ function App() {
             <Route path="/product-showcase" element={<ProductShowcasePage />} />
             <Route path="/privacy-policy" element={<PrivacyPolicyPage />} />
             <Route path="/terms" element={<TermsOfServicePage />} />
+            <Route path="/test" element={<ClerkSupabaseTest />} />
+            <Route path="/admin" element={<AdminDashboard />} />
             {/* Add a catch-all route that redirects to home */}
             <Route path="*" element={
               <Navigate to="/" replace />
