@@ -18,7 +18,7 @@
   width: 100%;
   max-width: 1200px;
   margin: 0 auto;
-  padding: 0 2rem;
+  padding:2rem;
   box-sizing: border-box;
 }
 
@@ -213,6 +213,110 @@
   }
 }
 
+/* Authentication Buttons in Navigation */
+.auth-buttons {
+  display: flex;
+  align-items: center;
+}
+.auth-buttons a {
+  color: #fff;
+}
+.auth-buttons a:hover{
+  color: #fff;
+}
+/* Login Trigger Button */
+.login-trigger-button {
+  display: flex;
+  align-items: center;
+  gap: 0.5rem;
+  padding: 0.6rem 1.2rem;
+  background: #0a2472;
+  color: white;
+  border: 2px solid #0a2472;
+  border-radius: 25px;
+  font-weight: 600;
+  font-size: 0.95rem;
+  cursor: pointer;
+  transition: all 0.3s ease;
+  text-decoration: none;
+  min-width: 100px;
+  justify-content: center;
+}
+
+.login-trigger-button:hover {
+  background: #345995;
+  border-color: #345995;
+  transform: translateY(-1px);
+  box-shadow: 0 4px 12px rgba(10, 36, 114, 0.2);
+}
+
+.login-trigger-button svg {
+  flex-shrink: 0;
+}
+
+.login-trigger-button span {
+  font-size: 0.9rem;
+}
+
+/* User Button Container */
+.user-button-container {
+  display: flex;
+  align-items: center;
+  margin-left: 0.5rem;
+}
+
+/* Clerk UserButton Styling in Navigation */
+.cl-userButton-root {
+  background: none !important;
+  border: none !important;
+  padding: 0 !important;
+  margin: 0 !important;
+}
+
+.cl-userButtonTrigger {
+  background: none !important;
+  border: none !important;
+  padding: 0 !important;
+  margin: 0 !important;
+  border-radius: 50% !important;
+  transition: all 0.3s ease !important;
+}
+
+.cl-userButtonTrigger:hover {
+  transform: scale(1.05) !important;
+  box-shadow: 0 4px 12px rgba(10, 36, 114, 0.15) !important;
+}
+
+.cl-userButtonAvatarBox {
+  border: 2px solid #0a2472 !important;
+  border-radius: 50% !important;
+  transition: all 0.3s ease !important;
+}
+
+.cl-userButtonTrigger:hover .cl-userButtonAvatarBox {
+  border-color: #345995 !important;
+  box-shadow: 0 0 0 3px rgba(10, 36, 114, 0.1) !important;
+}
+
+/* Mobile Responsive for Auth Buttons */
+@media (max-width: 768px) {
+  .auth-buttons {
+    margin-left: 0;
+    width: 100%;
+  }
+
+  .login-trigger-button {
+    width: 100%;
+    padding: 0.8rem 1.5rem;
+    font-size: 1rem;
+  }
+
+  .user-button-container {
+    margin-left: 0;
+    margin-top: 0.5rem;
+  }
+}
+
 /* Small Mobile Devices */
 @media (max-width: 480px) {
   .nav-container {
@@ -226,5 +330,10 @@
   .nav-link {
     font-size: 1.1rem;
     padding: 0.9rem;
+  }
+  
+  .login-trigger-button {
+    padding: 0.7rem 1.2rem;
+    font-size: 0.95rem;
   }
 }

@@ -1,10 +1,12 @@
 import React, { useState, useEffect } from 'react';
 import { Link, NavLink } from 'react-router-dom';
+import { UserButton, useUser } from '@clerk/clerk-react';
 import './Navigation.css';
 
 const Navigation: React.FC = () => {
   const [activeSection, setActiveSection] = useState<string>('');
   const [isMenuOpen, setIsMenuOpen] = useState(false);
+  const { isSignedIn } = useUser();
 
   useEffect(() => {
     const handleScroll = () => {
@@ -79,6 +81,33 @@ const Navigation: React.FC = () => {
               >
                 Contact Me
               </NavLink>
+            </li>
+            {isSignedIn && (
+              <li>
+                <Link to="/my-submissions" className="nav-link">
+                  My Submissions
+                </Link>
+              </li>
+            )}
+            <li className="auth-buttons">
+              {!isSignedIn ? (
+                <Link 
+                  to="/login"
+                  className="login-trigger-button"
+                  title="Sign In / Sign Up"
+                >
+                  <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round">
+                    <path d="M15 3h4a2 2 0 0 1 2 2v14a2 2 0 0 1-2 2h-4"></path>
+                    <polyline points="10,17 15,12 10,7"></polyline>
+                    <line x1="15" y1="12" x2="3" y2="12"></line>
+                  </svg>
+                  <span>Login</span>
+                </Link>
+              ) : (
+                <div className="user-button-container">
+                  <UserButton />
+                </div>
+              )}
             </li>
           </ul>
         </div>

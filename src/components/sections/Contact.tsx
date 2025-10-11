@@ -82,14 +82,8 @@ const Contact: FC = () => {
   const handleSubmit = async (e: React.FormEvent) => {
     e.preventDefault();
     
-    console.log('🚀 Form submission started');
-    console.log('📝 Form data:', formData);
-    console.log('👤 User signed in:', isSignedIn);
-    console.log('🆔 User ID:', user?.id);
-    
     // Basic validation
     if (!formData.name.trim() || !formData.email.trim() || !formData.message.trim()) {
-      console.log('❌ Validation failed: Missing required fields');
       error('Please fill in all required fields.');
       return;
     }
@@ -97,39 +91,28 @@ const Contact: FC = () => {
     // Email validation
     const emailRegex = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
     if (!emailRegex.test(formData.email)) {
-      console.log('❌ Validation failed: Invalid email');
       error('Please enter a valid email address.');
       return;
     }
 
     setIsSubmitting(true);
-    console.log('⏳ Setting isSubmitting to true');
 
     try {
-      // Prepare payload with only existing columns
+      // Prepare payload with Clerk user ID if authenticated
       const payload = {
+        clerk_user_id: isSignedIn ? user?.id : null, // Track Clerk user
         name: formData.name.trim(),
         email: formData.email.trim(),
         message: formData.message.trim(),
+        subject: 'Contact Form Submission',
       };
-
-      console.log('📦 Payload prepared:', payload);
-      console.log('🔗 Supabase client:', supabase);
 
       const { data, error } = await supabase
         .from('Contacts')
         .insert([payload])
         .select();
 
-      console.log('📊 Supabase response - Data:', data);
-      console.log('📊 Supabase response - Error:', error);
-
-      if (error) {
-        console.log('❌ Supabase error:', error);
-        throw error;
-      }
-      
-      console.log('✅ Success! Data inserted:', data);
+      if (error) throw error;
       
       // Show success message
       const message = isSignedIn 
@@ -139,14 +122,11 @@ const Contact: FC = () => {
       
       // Reset form
       setFormData({ name: '', email: '', message: '' });
-      console.log('🔄 Form reset');
     } catch (err: unknown) {
-      console.log('💥 Error caught:', err);
       const errorMessage = err instanceof Error ? err.message : 'An unknown error occurred';
       error(`There was an error sending your message: ${errorMessage}`);
     } finally {
       setIsSubmitting(false);
-      console.log('🏁 Setting isSubmitting to false');
     }
   };
 

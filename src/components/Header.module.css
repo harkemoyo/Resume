@@ -905,3 +905,109 @@
 .header-content {
   animation: fadeIn 0.3s ease-out forwards;
 }
+
+/* Clerk Button Styling */
+.cl-signInButton,
+.cl-signUpButton {
+  background: none !important;
+  border: none !important;
+  padding: 0 !important;
+  margin: 0 !important;
+  font-family: inherit !important;
+}
+
+.cl-signInButton button,
+.cl-signUpButton button {
+  font-family: inherit !important;
+  font-size: inherit !important;
+  line-height: inherit !important;
+  cursor: pointer !important;
+  border: none !important;
+  outline: none !important;
+  box-shadow: none !important;
+  transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1) !important;
+}
+
+.cl-signInButton button:hover,
+.cl-signUpButton button:hover {
+  transform: translateY(-2px) !important;
+}
+
+/* Ensure Clerk buttons match your design system */
+.cl-signInButton button,
+.cl-signUpButton button {
+  min-width: 120px !important;
+  height: auto !important;
+  padding: 0.9rem 2.2rem !important;
+  border-radius: 50px !important;
+  font-weight: 600 !important;
+  font-size: 1.05rem !important;
+  text-align: center !important;
+  position: relative !important;
+  overflow: hidden !important;
+  z-index: 1 !important;
+  display: inline-flex !important;
+  align-items: center !important;
+  justify-content: center !important;
+}
+
+/* Sign In Button (Outline Style) */
+.cl-signInButton button {
+  background-color: white !important;
+  color: #0a2472 !important;
+  border: 2px solid #0a2472 !important;
+  box-shadow: 0 4px 16px rgba(10,36,114,0.08) !important;
+}
+
+.cl-signInButton button:hover {
+  background: #f0f4f8 !important;
+  color: #345995 !important;
+  border-color: #345995 !important;
+  box-shadow: 0 8px 32px rgba(10,36,114,0.13) !important;
+}
+
+/* Sign Up Button (Solid Style) */
+.cl-signUpButton button {
+  background: #0a2472 !important;
+  color: white !important;
+  border: 2px solid #0a2472 !important;
+  box-shadow: 0 4px 16px rgba(10,36,114,0.08) !important;
+}
+
+.cl-signUpButton button:hover {
+  background: #345995 !important;
+  color: white !important;
+  box-shadow: 0 8px 32px rgba(10,36,114,0.13) !important;
+}
+
+/* Focus states for accessibility */
+.cl-signInButton button:focus,
+.cl-signUpButton button:focus {
+  outline: 2px solid #0a2472 !important;
+  outline-offset: 2px !important;
+}
+
+/* Active states */
+.cl-signInButton button:active,
+.cl-signUpButton button:active {
+  transform: translateY(0) !important;
+}
+
+/* Responsive adjustments for Clerk buttons */
+@media (max-width: 768px) {
+  .cl-signInButton button,
+  .cl-signUpButton button {
+    min-width: 100px !important;
+    padding: 0.8rem 1.5rem !important;
+    font-size: 1rem !important;
+  }
+}
+
+@media (max-width: 480px) {
+  .cl-signInButton button,
+  .cl-signUpButton button {
+    min-width: 90px !important;
+    padding: 0.7rem 1.2rem !important;
+    font-size: 0.95rem !important;
+  }
+}

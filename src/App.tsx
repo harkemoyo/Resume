@@ -17,6 +17,8 @@ import PrivacyPolicyPage from './pages/PrivacyPolicyPage';
 import TermsOfServicePage from './pages/TermsOfServicePage';
 import ClerkSupabaseTest from './components/ClerkSupabaseTest';
 import AdminDashboard from './components/AdminDashboard';
+import UserDashboard from './components/UserDashboard';
+import LoginPage from './components/LoginPage';
 
 // Base path for GitHub Pages
 const BASE_PATH = process.env.PUBLIC_URL || '';
@@ -84,6 +86,8 @@ function App() {
             <Route path="/terms" element={<TermsOfServicePage />} />
             <Route path="/test" element={<ClerkSupabaseTest />} />
             <Route path="/admin" element={<AdminDashboard />} />
+            <Route path="/my-submissions" element={<UserDashboard />} />
+            <Route path="/login" element={<LoginPage />} />
             {/* Add a catch-all route that redirects to home */}
             <Route path="*" element={
               <Navigate to="/" replace />
