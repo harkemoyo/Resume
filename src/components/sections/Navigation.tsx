@@ -1,5 +1,7 @@
 import React, { useState, useEffect, useRef } from 'react';
 import { Link, NavLink, useNavigate } from 'react-router-dom';
+import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
+import { faUser, faChevronDown } from '@fortawesome/free-solid-svg-icons';
 import { useAuth } from '../../contexts/AuthContext';
 import './Navigation.css';
 
@@ -7,7 +9,7 @@ const Navigation: React.FC = () => {
   const [activeSection, setActiveSection] = useState<string>('');
   const [isMenuOpen, setIsMenuOpen] = useState(false);
   const [isUserDropdownOpen, setIsUserDropdownOpen] = useState(false);
-  const { isAuthenticated, user, isLoading, signOut } = useAuth();
+  const { isAuthenticated, user, signOut } = useAuth();
   const navigate = useNavigate();
   const dropdownRef = useRef<HTMLDivElement>(null);
 
@@ -114,22 +116,16 @@ const Navigation: React.FC = () => {
               </li>
             )}
             <li className="auth-buttons">
-              {isLoading ? (
-                <div className="auth-loading">
-                  <div className="loading-spinner"></div>
-                </div>
-              ) : !isAuthenticated ? (
+              {!isAuthenticated ? (
                 <Link 
                   to="/login"
-                  className="login-trigger-button"
+                  className="user-avatar-button"
                   title="Sign In / Sign Up"
                 >
-                  <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round">
-                    <path d="M15 3h4a2 2 0 0 1 2 2v14a2 2 0 0 1-2 2h-4"></path>
-                    <polyline points="10,17 15,12 10,7"></polyline>
-                    <line x1="15" y1="12" x2="3" y2="12"></line>
-                  </svg>
-                  <span>Login</span>
+                  <FontAwesomeIcon 
+                    icon={faUser} 
+                    className="user-icon"
+                  />
                 </Link>
               ) : (
                 <div className="user-dropdown-container" ref={dropdownRef}>
@@ -137,7 +133,6 @@ const Navigation: React.FC = () => {
                     className="user-avatar-button"
                     onClick={toggleUserDropdown}
                     aria-label="User menu"
-                    aria-expanded={isUserDropdownOpen}
                   >
                     <img 
                       src={user?.imageUrl || '/images/passport.webp'} 
@@ -151,21 +146,15 @@ const Navigation: React.FC = () => {
                       }}
                     />
                     <div className="user-avatar-fallback" style={{ display: 'none' }}>
-                      {user?.firstName?.charAt(0) || user?.fullName?.charAt(0) || 'U'}
+                      <FontAwesomeIcon 
+                        icon={faUser} 
+                        className="user-icon-fallback"
+                      />
                     </div>
-                    <svg 
-                      className={`dropdown-arrow ${isUserDropdownOpen ? 'open' : ''}`} 
-                      width="12" 
-                      height="12" 
-                      viewBox="0 0 24 24" 
-                      fill="none" 
-                      stroke="currentColor" 
-                      strokeWidth="2" 
-                      strokeLinecap="round" 
-                      strokeLinejoin="round"
-                    >
-                      <polyline points="6,9 12,15 18,9"></polyline>
-                    </svg>
+                    <FontAwesomeIcon 
+                      icon={faChevronDown} 
+                      className={`dropdown-arrow ${isUserDropdownOpen ? 'open' : ''}`}
+                    />
                   </button>
 
                   {isUserDropdownOpen && (
@@ -183,7 +172,10 @@ const Navigation: React.FC = () => {
                           }}
                         />
                         <div className="dropdown-avatar-fallback" style={{ display: 'none' }}>
-                          {user?.firstName?.charAt(0) || user?.fullName?.charAt(0) || 'U'}
+                          <FontAwesomeIcon 
+                            icon={faUser} 
+                            className="user-icon-fallback"
+                          />
                         </div>
                         <div className="user-details">
                           <div className="user-name">{user?.fullName || 'User'}</div>

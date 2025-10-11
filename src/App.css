@@ -65,7 +65,6 @@ body {
   text-decoration: none;
   font-weight: 500;
   transition: color 0.3s ease;
-  padding: 0.5rem 1rem;
   border-radius: 4px;
   border-bottom: 2px solid transparent;
 }

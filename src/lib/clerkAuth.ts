@@ -80,6 +80,10 @@ export const useClerkAuthWrapper = () => {
       if (result.status === 'complete') {
         return { success: true };
       } else if (result.status === 'missing_requirements') {
+        // For email code verification, we need to prepare the email verification
+        await clerkSignUp.prepareEmailAddressVerification({
+          strategy: 'email_code',
+        });
         return { success: true, needsVerification: true };
       } else {
         return { success: false, error: 'Sign up failed. Please try again.' };
@@ -90,41 +94,62 @@ export const useClerkAuthWrapper = () => {
   };
 
   const verifyCode = async (code: string) => {
-    if (!clerkSignIn) return { success: false, error: 'Verification not available' };
-
     try {
-      const result = await clerkSignIn.attemptFirstFactor({
-        strategy: 'email_code',
-        code: code,
-      });
+      // Try sign-in verification first
+      if (clerkSignIn && clerkSignIn.status === 'needs_first_factor') {
+        const result = await clerkSignIn.attemptFirstFactor({
+          strategy: 'email_code',
+          code: code,
+        });
 
-      if (result.status === 'complete') {
-        return { success: true };
-      } else {
-        return { success: false, error: 'Invalid verification code. Please try again.' };
+        if (result.status === 'complete') {
+          return { success: true };
+        }
       }
+
+      // Try sign-up verification
+      if (clerkSignUp && clerkSignUp.status === 'missing_requirements') {
+        const result = await clerkSignUp.attemptEmailAddressVerification({
+          code: code,
+        });
+
+        if (result.status === 'complete') {
+          return { success: true };
+        }
+      }
+
+      return { success: false, error: 'Invalid verification code. Please try again.' };
     } catch (err: any) {
       return { success: false, error: err.errors?.[0]?.message || 'Verification failed. Please try again.' };
     }
   };
 
   const resendCode = async () => {
-    if (!clerkSignIn) return { success: false, error: 'Resend not available' };
-
     try {
-      const firstFactor = clerkSignIn.supportedFirstFactors?.find(
-        factor => factor.strategy === 'email_code'
-      ) as any;
-      
-      if (!firstFactor || !firstFactor.emailAddressId) {
-        return { success: false, error: 'Email verification not available' };
+      // Try sign-in resend first
+      if (clerkSignIn && clerkSignIn.status === 'needs_first_factor') {
+        const firstFactor = clerkSignIn.supportedFirstFactors?.find(
+          factor => factor.strategy === 'email_code'
+        ) as any;
+        
+        if (firstFactor && firstFactor.emailAddressId) {
+          await clerkSignIn.prepareFirstFactor({
+            strategy: 'email_code',
+            emailAddressId: firstFactor.emailAddressId,
+          });
+          return { success: true };
+        }
       }
 
-      await clerkSignIn.prepareFirstFactor({
-        strategy: 'email_code',
-        emailAddressId: firstFactor.emailAddressId,
-      });
-      return { success: true };
+      // Try sign-up resend
+      if (clerkSignUp && clerkSignUp.status === 'missing_requirements') {
+        await clerkSignUp.prepareEmailAddressVerification({
+          strategy: 'email_code',
+        });
+        return { success: true };
+      }
+
+      return { success: false, error: 'Email verification not available' };
     } catch (err: any) {
       return { success: false, error: err.errors?.[0]?.message || 'Failed to resend code. Please try again.' };
     }
