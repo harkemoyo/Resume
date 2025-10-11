@@ -2,7 +2,7 @@ import React, { useState, FC } from 'react';
 import { useToast } from '../../hooks/use-toast';
 import styles from './Contact.module.css';
 import { supabase, type Database } from '../../lib/supabaseClient';
-import { useUser } from '@clerk/clerk-react';
+import { useAuth } from '../../contexts/AuthContext';
 
 /**
  * Contact Component
@@ -35,7 +35,7 @@ interface SocialLink {
 
 const Contact: FC = () => {
   const { success, error } = useToast();
-  const { isSignedIn, user } = useUser();
+  const { isAuthenticated, user } = useAuth();
   const [formData, setFormData] = useState<FormData>({
     name: '',
     email: '',
@@ -100,7 +100,7 @@ const Contact: FC = () => {
     try {
       // Prepare payload with Clerk user ID if authenticated
       const payload = {
-        clerk_user_id: isSignedIn ? user?.id : null, // Track Clerk user
+        clerk_user_id: isAuthenticated ? user?.id : null, // Track Clerk user
         name: formData.name.trim(),
         email: formData.email.trim(),
         message: formData.message.trim(),
@@ -115,7 +115,7 @@ const Contact: FC = () => {
       if (error) throw error;
       
       // Show success message
-      const message = isSignedIn 
+      const message = isAuthenticated 
         ? 'Thank you for reaching out! I will get back to you soon.'
         : 'Thank you for reaching out! I will get back to you soon.';
       success(message);

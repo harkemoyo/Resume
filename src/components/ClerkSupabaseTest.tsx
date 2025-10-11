@@ -1,10 +1,10 @@
 import React, { useState } from 'react';
-import { useUser } from '@clerk/clerk-react';
+import { useAuth } from '../contexts/AuthContext';
 import { supabase } from '../lib/supabaseClient';
 import { useToast } from '../hooks/use-toast';
 
 const ClerkSupabaseTest: React.FC = () => {
-  const { user, isSignedIn } = useUser();
+  const { user, isAuthenticated } = useAuth();
   const { success, error } = useToast();
   const [testResults, setTestResults] = useState<any>(null);
   const [loading, setLoading] = useState(false);
@@ -39,7 +39,7 @@ const ClerkSupabaseTest: React.FC = () => {
   };
 
   const testAuthenticatedSubmission = async () => {
-    if (!isSignedIn || !user) {
+    if (!isAuthenticated || !user) {
       error('Please sign in first to test authenticated submission');
       return;
     }
@@ -85,8 +85,8 @@ const ClerkSupabaseTest: React.FC = () => {
 
       <div style={{ marginBottom: '2rem' }}>
         <h3>Authentication Status:</h3>
-        <p><strong>Signed In:</strong> {isSignedIn ? '✅ Yes' : '❌ No'}</p>
-        {isSignedIn && user && (
+        <p><strong>Signed In:</strong> {isAuthenticated ? '✅ Yes' : '❌ No'}</p>
+        {isAuthenticated && user && (
           <div>
             <p><strong>User ID:</strong> {user.id}</p>
             <p><strong>Name:</strong> {user.fullName}</p>
@@ -112,7 +112,7 @@ const ClerkSupabaseTest: React.FC = () => {
           {loading ? 'Testing...' : 'Test Anonymous Submission'}
         </button>
 
-        {isSignedIn && (
+        {isAuthenticated && (
           <button
             onClick={testAuthenticatedSubmission}
             disabled={loading}

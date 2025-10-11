@@ -1,5 +1,5 @@
-import React, { useState, useEffect } from 'react';
-import { useUser } from '@clerk/clerk-react';
+import React, { useState, useEffect, useCallback } from 'react';
+import { useAuth } from '../contexts/AuthContext';
 import { supabase } from '../lib/supabaseClient';
 import { useToast } from '../hooks/use-toast';
 import '../styles/admin-dashboard.css';
@@ -26,7 +26,7 @@ interface Contact {
  * @returns {JSX.Element} Rendered admin dashboard
  */
 const AdminDashboard: React.FC = () => {
-  const { user, isSignedIn } = useUser();
+  const { user, isAuthenticated } = useAuth();
   const { success, error } = useToast();
   const [contacts, setContacts] = useState<Contact[]>([]);
   const [loading, setLoading] = useState(true);
@@ -35,13 +35,7 @@ const AdminDashboard: React.FC = () => {
   // Check if user is admin
   const isAdmin = user?.publicMetadata?.role === 'admin';
 
-  useEffect(() => {
-    if (isSignedIn && isAdmin) {
-      fetchContacts();
-    }
-  }, [isSignedIn, isAdmin]);
-
-  const fetchContacts = async () => {
+  const fetchContacts = useCallback(async () => {
     try {
       setLoading(true);
       console.log('🔍 Fetching contacts from Contacts table...');
@@ -63,7 +57,13 @@ const AdminDashboard: React.FC = () => {
     } finally {
       setLoading(false);
     }
-  };
+  }, [error]);
+
+  useEffect(() => {
+    if (isAuthenticated && isAdmin) {
+      fetchContacts();
+    }
+  }, [isAuthenticated, isAdmin, fetchContacts]);
 
   const updateContactStatus = async (contactId: number, newStatus: string) => {
     try {
@@ -93,7 +93,7 @@ const AdminDashboard: React.FC = () => {
     }
   };
 
-  if (!isSignedIn) {
+  if (!isAuthenticated) {
     return (
       <div className="admin-dashboard">
         <h2>Admin Dashboard</h2>

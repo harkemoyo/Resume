@@ -2,6 +2,7 @@ import React from 'react';
 import { ApolloClient, InMemoryCache, ApolloProvider, createHttpLink } from '@apollo/client';
 import { setContext } from '@apollo/client/link/context';
 import { BrowserRouter as Router, Routes, Route, Navigate } from 'react-router-dom';
+import { AuthProvider } from './contexts/AuthContext';
 
 // Importing components
 import './App.css';
@@ -51,11 +52,12 @@ const client = new ApolloClient({
  */
 function App() {
   return (
-    <ApolloProvider client={client}>
-      <Router basename={BASE_PATH}>
-        <div className="single-page-app">
-          <Navigation />
-          <Routes>
+    <AuthProvider>
+      <ApolloProvider client={client}>
+        <Router basename={BASE_PATH}>
+          <div className="single-page-app">
+            <Navigation />
+            <Routes>
             <Route 
               path="/" 
               element={
@@ -93,10 +95,11 @@ function App() {
               <Navigate to="/" replace />
             } />
           </Routes>
-          <Footer />
-        </div>
-      </Router>
-    </ApolloProvider>
+            <Footer />
+          </div>
+        </Router>
+      </ApolloProvider>
+    </AuthProvider>
   );
 }
 

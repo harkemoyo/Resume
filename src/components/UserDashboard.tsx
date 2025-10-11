@@ -1,5 +1,5 @@
 import React, { useState, useEffect } from 'react';
-import { useUser } from '@clerk/clerk-react';
+import { useAuth } from '../contexts/AuthContext';
 import { supabase } from '../lib/supabaseClient';
 import { useToast } from '../hooks/use-toast';
 import '../styles/user-dashboard.css';
@@ -26,7 +26,7 @@ interface Contact {
  * @returns {JSX.Element} Rendered user dashboard
  */
 const UserDashboard: React.FC = () => {
-  const { user, isSignedIn } = useUser();
+  const { user, isAuthenticated, isLoading } = useAuth();
   const { success, error } = useToast();
   const [contacts, setContacts] = useState<Contact[]>([]);
   const [loading, setLoading] = useState(true);
@@ -39,10 +39,10 @@ const UserDashboard: React.FC = () => {
   });
 
   useEffect(() => {
-    if (isSignedIn && user) {
+    if (isAuthenticated && user) {
       fetchUserContacts();
     }
-  }, [isSignedIn, user]);
+  }, [isAuthenticated, user]);
 
   const fetchUserContacts = async () => {
     try {
@@ -145,7 +145,7 @@ const UserDashboard: React.FC = () => {
     });
   };
 
-  if (!isSignedIn) {
+  if (!isAuthenticated) {
     return (
       <div className="user-dashboard">
         <div className="dashboard-header">

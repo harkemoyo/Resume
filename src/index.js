@@ -1,6 +1,6 @@
 import React from 'react';
 import ReactDOM from 'react-dom/client';
-import { ClerkProvider } from '@clerk/clerk-react';
+import { ClerkProvider } from './lib/clerkAuth';
 import './index.css';
 import App from './App';
 
@@ -11,7 +11,7 @@ if (!PUBLISHABLE_KEY) {
 
 const root = ReactDOM.createRoot(document.getElementById('root'));
 root.render(
-  <ClerkProvider publishableKey={PUBLISHABLE_KEY} afterSignOutUrl="/">
+  <ClerkProvider publishableKey={PUBLISHABLE_KEY}>
     <React.StrictMode>
       <App />
     </React.StrictMode>
