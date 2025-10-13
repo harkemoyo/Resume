@@ -45,6 +45,7 @@ const Navigation: React.FC = () => {
   const handleSignOut = async () => {
     await signOut();
     setIsUserDropdownOpen(false);
+    navigate('/');
   };
 
   const handleAccountDetails = () => {
