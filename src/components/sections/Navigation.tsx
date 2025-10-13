@@ -3,32 +3,16 @@ import { Link, NavLink, useNavigate } from 'react-router-dom';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import { faUser, faChevronDown } from '@fortawesome/free-solid-svg-icons';
 import { useAuth } from '../../contexts/AuthContext';
+import AccountModal from '../AccountModal';
 import './Navigation.css';
 
 const Navigation: React.FC = () => {
-  const [activeSection, setActiveSection] = useState<string>('');
   const [isMenuOpen, setIsMenuOpen] = useState(false);
   const [isUserDropdownOpen, setIsUserDropdownOpen] = useState(false);
+  const [isAccountModalOpen, setIsAccountModalOpen] = useState(false);
   const { isAuthenticated, user, signOut } = useAuth();
   const navigate = useNavigate();
   const dropdownRef = useRef<HTMLDivElement>(null);
-
-  useEffect(() => {
-    const handleScroll = () => {
-      const experienceSection = document.getElementById('experience');
-      if (experienceSection) {
-        const rect = experienceSection.getBoundingClientRect();
-        if (rect.top <= 100 && rect.bottom >= 100) {
-          setActiveSection('experience');
-        } else {
-          setActiveSection('');
-        }
-      }
-    };
-
-    window.addEventListener('scroll', handleScroll);
-    return () => window.removeEventListener('scroll', handleScroll);
-  }, []);
 
   // Close dropdown when clicking outside
   useEffect(() => {
@@ -60,6 +44,11 @@ const Navigation: React.FC = () => {
 
   const handleSignOut = async () => {
     await signOut();
+    setIsUserDropdownOpen(false);
+  };
+
+  const handleAccountDetails = () => {
+    setIsAccountModalOpen(true);
     setIsUserDropdownOpen(false);
   };
 
@@ -108,13 +97,6 @@ const Navigation: React.FC = () => {
                 Contact Me
               </NavLink>
             </li>
-            {isAuthenticated && (
-              <li>
-                <Link to="/my-submissions" className="nav-link">
-                  My Submissions
-                </Link>
-              </li>
-            )}
             <li className="auth-buttons">
               {!isAuthenticated ? (
                 <Link 
@@ -151,10 +133,6 @@ const Navigation: React.FC = () => {
                         className="user-icon-fallback"
                       />
                     </div>
-                    <FontAwesomeIcon 
-                      icon={faChevronDown} 
-                      className={`dropdown-arrow ${isUserDropdownOpen ? 'open' : ''}`}
-                    />
                   </button>
 
                   {isUserDropdownOpen && (
@@ -186,12 +164,22 @@ const Navigation: React.FC = () => {
                       <div className="dropdown-divider"></div>
                       
                       <div className="dropdown-menu">
-                        <button className="dropdown-item" onClick={() => navigate('/my-submissions')}>
+                        <button className="dropdown-item" onClick={handleAccountDetails}>
                           <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round">
                             <circle cx="12" cy="12" r="3"></circle>
                             <path d="M12 1v6m0 6v6m11-7h-6m-6 0H1"></path>
                           </svg>
-                          Manage account
+                          Account Details
+                        </button>
+                        <button className="dropdown-item" onClick={() => navigate('/my-submissions')}>
+                          <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round">
+                            <path d="M14 2H6a2 2 0 0 0-2 2v16a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2V8z"></path>
+                            <polyline points="14,2 14,8 20,8"></polyline>
+                            <line x1="16" y1="13" x2="8" y2="13"></line>
+                            <line x1="16" y1="17" x2="8" y2="17"></line>
+                            <polyline points="10,9 9,9 8,9"></polyline>
+                          </svg>
+                          My Submissions
                         </button>
                         <button className="dropdown-item" onClick={handleSignOut}>
                           <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round">
@@ -216,6 +204,11 @@ const Navigation: React.FC = () => {
           </ul>
         </div>
       </div>
+      
+      <AccountModal 
+        isOpen={isAccountModalOpen} 
+        onClose={() => setIsAccountModalOpen(false)} 
+      />
     </nav>
   );
 };
