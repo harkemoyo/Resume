@@ -1,10 +1,10 @@
 import React, { useState, useEffect } from 'react';
-import { useNavigate } from 'react-router-dom';
+import { Navigate, useNavigate } from 'react-router-dom';
 import { useAuth } from '../contexts/AuthContext';
 import './LoginPage.css';
 
 const LoginPage: React.FC = () => {
-  const { isAuthenticated, isLoading, signIn, signUp, verifyCode, resendCode, pendingVerification } = useAuth();
+  const { isAuthenticated, isLoading, signIn, signUp, verifyCode, resendCode, pendingVerification, setPendingVerification } = useAuth();
   const navigate = useNavigate();
   const [activeTab, setActiveTab] = useState<'signin' | 'signup'>('signin');
   
@@ -14,15 +14,32 @@ const LoginPage: React.FC = () => {
   const [firstName, setFirstName] = useState('');
   const [lastName, setLastName] = useState('');
   const [verificationCode, setVerificationCode] = useState('');
+  const [isRedirecting, setIsRedirecting] = useState(false);
   const [error, setError] = useState('');
   const [success, setSuccess] = useState('');
 
-  // Redirect if already signed in
+  // Redirect as soon as auth state flips (don't gate on loading)
   useEffect(() => {
-    if (isAuthenticated) {
-      navigate('/my-submissions');
+    // Only redirect if we're not in the middle of verification process
+    if (isAuthenticated && !pendingVerification) {
+      console.log('LoginPage: Auth state changed, redirecting to /user');
+      navigate('/user', { replace: true });
     }
-  }, [isAuthenticated, navigate]);
+  }, [isAuthenticated, pendingVerification, navigate]);
+
+  // Initialize tab from URL param (?tab=signup)
+  useEffect(() => {
+    const params = new URLSearchParams(window.location.search);
+    const tab = params.get('tab');
+    if (tab === 'signup') setActiveTab('signup');
+  }, []);
+
+  // No session-task handling; Clerk will surface required tasks within its UI components if used
+
+  // Render-time guard: if already authenticated, redirect immediately
+  if (isAuthenticated && !pendingVerification) {
+    return <Navigate to="/user-profile" replace />;
+  }
 
   // Handle sign in
   const handleSignIn = async (e: React.FormEvent) => {
@@ -36,7 +53,7 @@ const LoginPage: React.FC = () => {
       if (result.needsVerification) {
         setSuccess('Please check your email for a verification code.');
       } else {
-        navigate('/my-submissions');
+        // Let the auth state flip trigger the redirect effect
       }
     } else {
       setError(result.error || 'Sign in failed. Please try again.');
@@ -55,7 +72,7 @@ const LoginPage: React.FC = () => {
       if (result.needsVerification) {
         setSuccess('Please check your email for a verification code.');
       } else {
-        navigate('/my-submissions');
+        // Let the auth state flip trigger the redirect effect
       }
     } else {
       setError(result.error || 'Sign up failed. Please try again.');
@@ -71,7 +88,14 @@ const LoginPage: React.FC = () => {
     const result = await verifyCode(verificationCode);
     
     if (result.success) {
-      navigate('/my-submissions');
+      setSuccess('Verification successful. Signing you in...');
+      setIsRedirecting(true);
+      
+      // Add a small delay to ensure verification is fully processed
+      setTimeout(() => {
+        console.log('LoginPage: Verification complete, navigating to /user');
+        navigate('/user', { replace: true });
+      }, 200);
     } else {
       setError(result.error || 'Verification failed. Please try again.');
     }
@@ -108,7 +132,7 @@ const LoginPage: React.FC = () => {
       <div className="login-container">
         <div className="login-header">
           <h1>Welcome to Hark's Portfolio</h1>
-          <p>Sign in to manage your contact submissions or create a new account.</p>
+          <p>Sign in to manage your account or create a new account.</p>
         </div>
 
         <div className="login-content">
@@ -149,10 +173,46 @@ const LoginPage: React.FC = () => {
               </div>
             )}
 
-            {pendingVerification ? (
+          {pendingVerification ? (
               <div className="auth-section">
-                <h2>Verify Your Email</h2>
-                <p>We've sent a verification code to <strong>{email}</strong>. Please enter it below.</p>
+              {isRedirecting ? (
+                <>
+                  <h2>Signing you in</h2>
+                  <div style={{ 
+                    display: 'flex', 
+                    alignItems: 'center', 
+                    justifyContent: 'center', 
+                    flexDirection: 'column',
+                    gap: 16,
+                    padding: '1rem 0'
+                  }}>
+                    <div 
+                      className="loading-spinner" 
+                      style={{
+                        width: '28px',
+                        height: '28px',
+                        border: '3px solid #f3f3f3',
+                        borderTop: '3px solid #007bff',
+                        borderRadius: '50%',
+                        animation: 'spin 1s linear infinite'
+                      }}
+                    />
+                    <p style={{ 
+                      fontSize: '14px', 
+                      color: '#666', 
+                      margin: 0,
+                      textAlign: 'center'
+                    }}>
+                      {success || 'Verification successful. Signing you in...'}
+                    </p>
+                  </div>
+                </>
+              ) : (
+                <>
+                  <h2>Verify Your Email</h2>
+                  <p>We've sent a verification code to <strong>{email}</strong>. Please enter it below.</p>
+                </>
+              )}
                 
                 <form onSubmit={handleVerifyCode} className="auth-form">
                   <div className="form-group">
@@ -165,15 +225,16 @@ const LoginPage: React.FC = () => {
                       required
                       placeholder="Enter 6-digit code"
                       maxLength={6}
+                    disabled={isRedirecting}
                     />
                   </div>
                   
                   <button 
                     type="submit" 
                     className="auth-button signin-button"
-                    disabled={isLoading}
+                  disabled={isLoading || isRedirecting}
                   >
-                    {isLoading ? (
+                  {isLoading || isRedirecting ? (
                       <div className="loading-spinner"></div>
                     ) : (
                       <>
@@ -190,13 +251,19 @@ const LoginPage: React.FC = () => {
                 <div className="verification-actions">
                   <button 
                     onClick={handleResendCode}
-                    disabled={isLoading}
+                  disabled={isLoading || isRedirecting}
                     className="resend-button"
                   >
                     {isLoading ? 'Sending...' : 'Resend Code'}
                   </button>
                   <button 
-                    onClick={() => window.location.reload()}
+                    onClick={() => {
+                      setVerificationCode('');
+                      setSuccess('');
+                      setError('');
+                      setPendingVerification(false);
+                    setIsRedirecting(false);
+                    }}
                     className="back-button"
                   >
                     Back to Login
@@ -246,17 +313,17 @@ const LoginPage: React.FC = () => {
                 <div className="login-features">
                   <h3>What you can do:</h3>
                   <ul>
-                    <li>View your contact form submissions</li>
-                    <li>Edit or delete your messages</li>
-                    <li>Track your communication history</li>
                     <li>Manage your profile settings</li>
+                    <li>Update your account information</li>
+                    <li>Access exclusive content and updates</li>
+                    <li>Track your communication history</li>
                   </ul>
                 </div>
               </div>
             ) : (
               <div className="auth-section">
                 <h2>Create Your Account</h2>
-                <p>Join to track your contact submissions and manage your profile.</p>
+                <p>Join to manage your profile and access exclusive content.</p>
                 
                 <form onSubmit={handleSignUp} className="auth-form">
                   <div className="form-row">
@@ -334,8 +401,8 @@ const LoginPage: React.FC = () => {
                 <div className="signup-benefits">
                   <h3>Why create an account?</h3>
                   <ul>
-                    <li>Track all your contact form submissions</li>
-                    <li>Edit or update your messages anytime</li>
+                    <li>Manage your profile settings</li>
+                    <li>Update your account information</li>
                     <li>Get notifications about responses</li>
                     <li>Access exclusive content and updates</li>
                   </ul>
@@ -362,6 +429,12 @@ const LoginPage: React.FC = () => {
           </div>
         </div>
       </div>
+      <style>{`
+        @keyframes spin {
+          0% { transform: rotate(0deg); }
+          100% { transform: rotate(360deg); }
+        }
+      `}</style>
     </div>
   );
 };

@@ -41,7 +41,9 @@ export interface ClerkUser {
 // Custom hook that wraps Clerk's hooks
 export const useClerkAuthWrapper = () => {
   const { isSignedIn, user, isLoaded } = useUser();
-  const { signOut: clerkSignOut } = useClerkAuth();
+  const authCtx: any = useClerkAuth() as any;
+  const { signOut: clerkSignOut } = authCtx;
+  const setActive: undefined | ((opts: { session: string }) => Promise<void>) = authCtx?.setActive;
   const { signIn: clerkSignIn, isLoaded: signInLoaded } = useSignIn();
   const { signUp: clerkSignUp, isLoaded: signUpLoaded } = useSignUp();
 
@@ -55,6 +57,8 @@ export const useClerkAuthWrapper = () => {
       });
 
       if (result.status === 'complete') {
+        // If Clerk returned a complete sign-in with a session, activate it
+        try { if (result.createdSessionId) await setActive?.({ session: result.createdSessionId }); } catch {}
         return { success: true };
       } else if (result.status === 'needs_first_factor') {
         return { success: true, needsVerification: true };
@@ -103,6 +107,18 @@ export const useClerkAuthWrapper = () => {
         });
 
         if (result.status === 'complete') {
+          console.log('Sign-in verification complete, activating session:', result.createdSessionId);
+          try { 
+            if (result.createdSessionId && setActive) {
+              await setActive({ session: result.createdSessionId });
+              console.log('Session activated successfully');
+              // Add a small delay to ensure session is fully activated
+              await new Promise(resolve => setTimeout(resolve, 300));
+              console.log('Session activation delay completed');
+            }
+          } catch (sessionError) {
+            console.error('Session activation error:', sessionError);
+          }
           return { success: true };
         }
       }
@@ -114,6 +130,18 @@ export const useClerkAuthWrapper = () => {
         });
 
         if (result.status === 'complete') {
+          console.log('Sign-up verification complete, activating session:', result.createdSessionId);
+          try { 
+            if (result.createdSessionId && setActive) {
+              await setActive({ session: result.createdSessionId });
+              console.log('Session activated successfully');
+              // Add a small delay to ensure session is fully activated
+              await new Promise(resolve => setTimeout(resolve, 300));
+              console.log('Session activation delay completed');
+            }
+          } catch (sessionError) {
+            console.error('Session activation error:', sessionError);
+          }
           return { success: true };
         }
       }
@@ -164,6 +192,67 @@ export const useClerkAuthWrapper = () => {
     }
   };
 
+  const updateUserProfile = async (updates: { firstName?: string; lastName?: string; imageUrl?: string }) => {
+    if (!user) return { success: false, error: 'No signed-in user' };
+    try {
+      // Clerk's user resource supports update on profile fields
+      const clerkUser: any = user as any;
+      await clerkUser.update({
+        firstName: updates.firstName,
+        lastName: updates.lastName,
+        // imageUrl updates typically require upload APIs; keeping placeholder here
+      });
+      return { success: true };
+    } catch (err: any) {
+      return { success: false, error: err.errors?.[0]?.message || 'Failed to update profile' };
+    }
+  };
+
+  // Email update helpers
+  const startEmailUpdate = async (newEmail: string) => {
+    if (!user) return { success: false, error: 'No signed-in user' };
+    try {
+      const clerkUser: any = user as any;
+      const created = await clerkUser.createEmailAddress({ email: newEmail });
+      await created.prepareVerification({ strategy: 'email_code' });
+      return { success: true, emailId: created.id } as const;
+    } catch (err: any) {
+      return { success: false, error: err.errors?.[0]?.message || 'Failed to start email update' };
+    }
+  };
+
+  const verifyNewEmail = async (emailId: string, code: string) => {
+    if (!user) return { success: false, error: 'No signed-in user' };
+    try {
+      const clerkUser: any = user as any;
+      const email = clerkUser.emailAddresses?.find((e: any) => e.id === emailId);
+      if (!email) return { success: false, error: 'Email not found' };
+      await email.attemptVerification({ code });
+      return { success: true };
+    } catch (err: any) {
+      return { success: false, error: err.errors?.[0]?.message || 'Verification failed' };
+    }
+  };
+
+  const makePrimaryAndCleanup = async (emailId: string, removeOld: boolean = true) => {
+    if (!user) return { success: false, error: 'No signed-in user' };
+    try {
+      const clerkUser: any = user as any;
+      await clerkUser.update({ primaryEmailAddressId: emailId });
+      if (removeOld) {
+        const emails: any[] = clerkUser.emailAddresses || [];
+        for (const e of emails) {
+          if (e.id !== emailId) {
+            try { await e.destroy(); } catch {}
+          }
+        }
+      }
+      return { success: true };
+    } catch (err: any) {
+      return { success: false, error: err.errors?.[0]?.message || 'Failed to set primary email' };
+    }
+  };
+
   return {
     isAuthenticated: isSignedIn || false,
     user: user as ClerkUser | null,
@@ -173,6 +262,10 @@ export const useClerkAuthWrapper = () => {
     verifyCode,
     resendCode,
     signOut,
+    updateUserProfile,
+    startEmailUpdate,
+    verifyNewEmail,
+    makePrimaryAndCleanup,
   };
 };
 

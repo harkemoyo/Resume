@@ -11,7 +11,17 @@ if (!PUBLISHABLE_KEY) {
 
 const root = ReactDOM.createRoot(document.getElementById('root'));
 root.render(
-  <ClerkProvider publishableKey={PUBLISHABLE_KEY}>
+  <ClerkProvider 
+    publishableKey={PUBLISHABLE_KEY}
+    // SPA navigation handlers (React Router handled outside; these keep Clerk in sync)
+    routerPush={(to) => window.history.pushState(null, '', to)}
+    routerReplace={(to) => window.history.replaceState(null, '', to)}
+    // Auth URLs per Clerk React docs
+    signInUrl="/login"
+    signUpUrl="/login?tab=signup"
+    signInFallbackRedirectUrl="/user-profile"
+    signUpFallbackRedirectUrl="/user-profile"
+  >
     <React.StrictMode>
       <App />
     </React.StrictMode>

@@ -1,4 +1,4 @@
-import React, { createContext, useContext, useState, ReactNode } from 'react';
+import React, { createContext, useContext, useState, ReactNode, useMemo } from 'react';
 import { useClerkAuthWrapper, ClerkUser } from '../lib/clerkAuth';
 
 interface AuthContextType {
@@ -13,6 +13,10 @@ interface AuthContextType {
   setPendingVerification: (pending: boolean) => void;
   pendingVerification: boolean;
   refreshUser: () => Promise<void>;
+  updateUserProfile: (updates: { firstName?: string; lastName?: string; imageUrl?: string }) => Promise<{ success: boolean; error?: string }>;
+  startEmailUpdate: (newEmail: string) => Promise<{ success: boolean; error?: string; emailId?: string }>;
+  verifyNewEmail: (emailId: string, code: string) => Promise<{ success: boolean; error?: string }>;
+  makePrimaryAndCleanup: (emailId: string, removeOld?: boolean) => Promise<{ success: boolean; error?: string }>;
 }
 
 const AuthContext = createContext<AuthContextType | undefined>(undefined);
@@ -32,6 +36,11 @@ interface AuthProviderProps {
 export const AuthProvider: React.FC<AuthProviderProps> = ({ children }) => {
   const [pendingVerification, setPendingVerification] = useState(false);
   const clerkAuth = useClerkAuthWrapper();
+
+  // Debug auth state changes
+  React.useEffect(() => {
+    console.log('AuthContext: Auth state changed - isAuthenticated:', clerkAuth.isAuthenticated, 'isLoading:', clerkAuth.isLoading);
+  }, [clerkAuth.isAuthenticated, clerkAuth.isLoading]);
 
   const signIn = async (email: string) => {
     const result = await clerkAuth.signIn(email);
@@ -71,7 +80,24 @@ export const AuthProvider: React.FC<AuthProviderProps> = ({ children }) => {
     return Promise.resolve();
   };
 
-  const value: AuthContextType = {
+  const updateUserProfile = async (updates: { firstName?: string; lastName?: string; imageUrl?: string }) => {
+    const result = await (clerkAuth as any).updateUserProfile?.(updates);
+    return result || { success: false, error: 'Update not available' };
+  };
+
+  const startEmailUpdate = async (newEmail: string) => {
+    return await (clerkAuth as any).startEmailUpdate?.(newEmail) || { success: false, error: 'Start email update not available' };
+  };
+
+  const verifyNewEmail = async (emailId: string, code: string) => {
+    return await (clerkAuth as any).verifyNewEmail?.(emailId, code) || { success: false, error: 'Verify email not available' };
+  };
+
+  const makePrimaryAndCleanup = async (emailId: string, removeOld: boolean = true) => {
+    return await (clerkAuth as any).makePrimaryAndCleanup?.(emailId, removeOld) || { success: false, error: 'Make primary not available' };
+  };
+
+  const value: AuthContextType = useMemo(() => ({
     isAuthenticated: clerkAuth.isAuthenticated,
     user: clerkAuth.user,
     isLoading: clerkAuth.isLoading,
@@ -83,7 +109,16 @@ export const AuthProvider: React.FC<AuthProviderProps> = ({ children }) => {
     setPendingVerification,
     pendingVerification,
     refreshUser,
-  };
+    updateUserProfile,
+    startEmailUpdate,
+    verifyNewEmail,
+    makePrimaryAndCleanup,
+  }), [
+    clerkAuth.isAuthenticated,
+    clerkAuth.user,
+    clerkAuth.isLoading,
+    pendingVerification,
+  ]);
 
   return <AuthContext.Provider value={value}>{children}</AuthContext.Provider>;
 };
