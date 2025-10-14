@@ -3,8 +3,8 @@ import ReactDOM from 'react-dom/client';
 import { ClerkProvider } from './lib/clerkAuth';
 import { clerkAppearance } from './styles/clerkAppearance';
 import './index.css';
-import './styles/clerk-branding-hide.css';
-import './utils/hideClerkBranding';
+// import './styles/clerk-branding-hide.css';
+// import './utils/hideClerkBranding';
 import App from './App';
 
 const PUBLISHABLE_KEY = process.env.REACT_APP_CLERK_PUBLISHABLE_KEY;
