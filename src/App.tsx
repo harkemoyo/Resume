@@ -2,7 +2,7 @@ import React from 'react';
 import { ApolloClient, InMemoryCache, ApolloProvider, createHttpLink } from '@apollo/client';
 import { setContext } from '@apollo/client/link/context';
 import { BrowserRouter as Router, Routes, Route, Navigate } from 'react-router-dom';
-import { useAuth, UserProfile } from '@clerk/clerk-react';
+import { useAuth } from '@clerk/clerk-react';
 import { AuthProvider } from './contexts/AuthContext';
 
 // Importing components
@@ -20,9 +20,9 @@ import TermsOfServicePage from './pages/TermsOfServicePage';
 import ClerkSupabaseTest from './components/ClerkSupabaseTest';
 import AdminDashboard from './components/AdminDashboard';
 import LoginPage from './components/LoginPage';
-import UserAccountDetails from './components/UserAccountDetails';
+import CustomUserProfile from './components/CustomUserProfile';
 import LogoutPage from './components/LogoutPage';
-import RedirectToUserProfile from './components/RedirectToUserProfile';
+// import RedirectToUserProfile from './components/RedirectToUserProfile';
 
 // ProtectedRoute wrapper
 
@@ -109,10 +109,10 @@ function App() {
             <Route path="/test" element={<ClerkSupabaseTest />} />
             {/** No Clerk-hosted UI routes */}
             <Route path="/admin" element={<ProtectedRoute><AdminDashboard /></ProtectedRoute>} />
-            <Route path="/account" element={<ProtectedRoute><UserAccountDetails /></ProtectedRoute>} />
-            {/* Spinner route that then redirects to the protected Clerk UserProfile */}
-            <Route path="/user" element={<RedirectToUserProfile />} />
-            <Route path="/user-profile" element={<ProtectedRoute><UserProfile /></ProtectedRoute>} />
+            <Route path="/account" element={<ProtectedRoute><CustomUserProfile /></ProtectedRoute>} />
+            {/* Route user pages to CustomUserProfile */}
+            <Route path="/user" element={<ProtectedRoute><CustomUserProfile /></ProtectedRoute>} />
+            <Route path="/user-profile" element={<ProtectedRoute><CustomUserProfile /></ProtectedRoute>} />
             <Route path="/logout" element={<LogoutPage />} />
             <Route path="/login" element={<LoginPage />} />
             {/* Add a catch-all route that redirects to home */}

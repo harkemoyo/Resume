@@ -1,0 +1,50 @@
+/* Global CSS to hide ONLY specific Clerk branding elements */
+
+/* Hide ONLY the main branding container */
+.cl-internal-gr8mll {
+  display: none !important;
+  visibility: hidden !important;
+  opacity: 0 !important;
+  height: 0 !important;
+  width: 0 !important;
+  overflow: hidden !important;
+  position: absolute !important;
+  left: -9999px !important;
+  top: -9999px !important;
+}
+
+/* Hide ONLY the specific back button element */
+.cl-internal-114tq5k {
+  display: none !important;
+  visibility: hidden !important;
+  opacity: 0 !important;
+  height: 0 !important;
+  width: 0 !important;
+  overflow: hidden !important;
+  position: absolute !important;
+  left: -9999px !important;
+  top: -9999px !important;
+}
+
+/* Hide ONLY specific branding text elements */
+.cl-internal-1bhx3gv, /* "Secured by" text */
+.cl-internal-1axx6jt, /* Clerk logo link */
+.cl-internal-5ghyhf,  /* Clerk logo SVG */
+.cl-internal-10qfs6u { /* "Development mode" text */
+  display: none !important;
+  visibility: hidden !important;
+  opacity: 0 !important;
+  height: 0 !important;
+  width: 0 !important;
+  overflow: hidden !important;
+}
+
+/* Hide ONLY links to clerk.com */
+a[href*="clerk.com"] {
+  display: none !important;
+  visibility: hidden !important;
+  opacity: 0 !important;
+  height: 0 !important;
+  width: 0 !important;
+  overflow: hidden !important;
+}
