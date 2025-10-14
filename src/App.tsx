@@ -28,7 +28,15 @@ import RedirectToUserProfile from './components/RedirectToUserProfile';
 
 const ProtectedRoute: React.FC<{ children: React.ReactElement }> = ({ children }) => {
   const { isLoaded, isSignedIn } = useAuth();
-  if (!isLoaded) return null;
+  // Show a minimal loading state while Clerk initializes
+  if (!isLoaded) {
+    return (
+      <div style={{ display: 'flex', alignItems: 'center', justifyContent: 'center', padding: '2rem' }}>
+        <div style={{ width: 24, height: 24, border: '3px solid #eee', borderTop: '3px solid #007bff', borderRadius: '50%', animation: 'spin 1s linear infinite' }} />
+        <style>{`@keyframes spin { 0% { transform: rotate(0deg);} 100% { transform: rotate(360deg);} }`}</style>
+      </div>
+    );
+  }
   if (!isSignedIn) return <Navigate to="/login" replace />;
   return children;
 };

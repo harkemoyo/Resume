@@ -5,8 +5,8 @@ interface AuthContextType {
   isAuthenticated: boolean;
   user: ClerkUser | null;
   isLoading: boolean;
-  signIn: (email: string) => Promise<{ success: boolean; error?: string; needsVerification?: boolean }>;
-  signUp: (email: string, password: string, firstName: string, lastName: string) => Promise<{ success: boolean; error?: string; needsVerification?: boolean }>;
+  signIn: (email: string) => Promise<{ success: boolean; error?: string; needsVerification?: boolean; status?: string; missingFields?: string[] }>;
+  signUp: (email: string, password: string, firstName: string, lastName: string) => Promise<{ success: boolean; error?: string; needsVerification?: boolean; status?: string; missingFields?: string[] }>;
   verifyCode: (code: string) => Promise<{ success: boolean; error?: string }>;
   resendCode: () => Promise<{ success: boolean; error?: string }>;
   signOut: () => Promise<void>;
@@ -17,6 +17,12 @@ interface AuthContextType {
   startEmailUpdate: (newEmail: string) => Promise<{ success: boolean; error?: string; emailId?: string }>;
   verifyNewEmail: (emailId: string, code: string) => Promise<{ success: boolean; error?: string }>;
   makePrimaryAndCleanup: (emailId: string, removeOld?: boolean) => Promise<{ success: boolean; error?: string }>;
+  getAvailableStrategies: () => Array<{ strategy: string; emailAddressId?: string; phoneNumberId?: string; safeIdentifier?: string }>;
+  switchVerificationStrategy: (strategy: string, identifier?: string) => Promise<{ success: boolean; error?: string }>;
+  signInStatus?: string | null;
+  signUpStatus?: string | null;
+  isSignInLoading: boolean;
+  isSignUpLoading: boolean;
 }
 
 const AuthContext = createContext<AuthContextType | undefined>(undefined);
@@ -113,11 +119,32 @@ export const AuthProvider: React.FC<AuthProviderProps> = ({ children }) => {
     startEmailUpdate,
     verifyNewEmail,
     makePrimaryAndCleanup,
+    getAvailableStrategies: clerkAuth.getAvailableStrategies,
+    switchVerificationStrategy: clerkAuth.switchVerificationStrategy,
+    signInStatus: clerkAuth.signInStatus,
+    signUpStatus: clerkAuth.signUpStatus,
+    isSignInLoading: clerkAuth.isSignInLoading,
+    isSignUpLoading: clerkAuth.isSignUpLoading,
   }), [
     clerkAuth.isAuthenticated,
     clerkAuth.user,
     clerkAuth.isLoading,
     pendingVerification,
+    clerkAuth.signInStatus,
+    clerkAuth.signUpStatus,
+    clerkAuth.isSignInLoading,
+    clerkAuth.isSignUpLoading,
+    clerkAuth.getAvailableStrategies,
+    clerkAuth.switchVerificationStrategy,
+    signIn,
+    signUp,
+    verifyCode,
+    resendCode,
+    signOut,
+    updateUserProfile,
+    startEmailUpdate,
+    verifyNewEmail,
+    makePrimaryAndCleanup,
   ]);
 
   return <AuthContext.Provider value={value}>{children}</AuthContext.Provider>;

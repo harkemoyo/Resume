@@ -1,40 +1,21 @@
-import React, { useEffect, useState } from 'react';
+import React, { useEffect } from 'react';
 import { useNavigate } from 'react-router-dom';
-import { useAuth } from '@clerk/clerk-react';
+import { useUser } from '@clerk/clerk-react';
 
 const RedirectToUserProfile: React.FC = () => {
   const navigate = useNavigate();
-  const { isSignedIn, isLoaded } = useAuth();
-  const [attempts, setAttempts] = useState(0);
-  const maxAttempts = 10; // Maximum attempts to check auth state
+  const { isLoaded, isSignedIn } = useUser();
 
   useEffect(() => {
-    console.log('RedirectToUserProfile: isLoaded=', isLoaded, 'isSignedIn=', isSignedIn, 'attempts=', attempts);
-    
     if (!isLoaded) return;
-
-    // If we've tried too many times, redirect to login
-    if (attempts >= maxAttempts) {
-      console.log('RedirectToUserProfile: max attempts reached, redirecting to login');
-      navigate('/login', { replace: true });
-      return;
-    }
-
-    // If signed in, redirect to user profile
     if (isSignedIn) {
-      console.log('RedirectToUserProfile: user is signed in, navigating to /user-profile');
+      console.log('RedirectToUserProfile: signed in, navigating to /user-profile');
       navigate('/user-profile', { replace: true });
-      return;
+    } else {
+      console.log('RedirectToUserProfile: not signed in, redirecting to /login');
+      navigate('/login', { replace: true });
     }
-
-    // If not signed in yet, wait and try again
-    const timer = setTimeout(() => {
-      console.log('RedirectToUserProfile: not signed in yet, retrying...');
-      setAttempts(prev => prev + 1);
-    }, 500); // Check every 500ms
-
-    return () => clearTimeout(timer);
-  }, [isSignedIn, isLoaded, attempts, navigate]);
+  }, [isLoaded, isSignedIn, navigate]);
 
   return (
     <div style={{ 
@@ -58,7 +39,7 @@ const RedirectToUserProfile: React.FC = () => {
         }}
       />
       <p style={{ fontSize: '16px', color: '#666', margin: 0, textAlign: 'center' }}>
-        Redirecting to your profile…
+        Redirecting…
       </p>
       <style>{`
         @keyframes spin {

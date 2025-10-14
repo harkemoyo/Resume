@@ -56,16 +56,29 @@ export const useClerkAuthWrapper = () => {
         strategy: 'email_code',
       });
 
+      console.log('SignIn result:', result);
+
       if (result.status === 'complete') {
         // If Clerk returned a complete sign-in with a session, activate it
-        try { if (result.createdSessionId) await setActive?.({ session: result.createdSessionId }); } catch {}
+        try { 
+          if (result.createdSessionId) {
+            await setActive?.({ session: result.createdSessionId });
+            console.log('Session activated successfully');
+          }
+        } catch (sessionError) {
+          console.error('Session activation error:', sessionError);
+          return { success: false, error: 'Failed to activate session. Please try again.' };
+        }
         return { success: true };
       } else if (result.status === 'needs_first_factor') {
-        return { success: true, needsVerification: true };
+        return { success: true, needsVerification: true, status: result.status };
+      } else if (result.status === 'needs_identifier') {
+        return { success: false, error: 'Please provide a valid email address.' };
       } else {
-        return { success: false, error: 'Sign in failed. Please try again.' };
+        return { success: false, error: `Sign in failed with status: ${result.status}. Please try again.` };
       }
     } catch (err: any) {
+      console.error('SignIn error:', err);
       return { success: false, error: err.errors?.[0]?.message || 'Sign in failed. Please try again.' };
     }
   };
@@ -81,18 +94,42 @@ export const useClerkAuthWrapper = () => {
         lastName: lastName,
       });
 
+      console.log('SignUp result:', result);
+
       if (result.status === 'complete') {
+        // If signup is complete, activate the session
+        try {
+          if (result.createdSessionId) {
+            await setActive?.({ session: result.createdSessionId });
+            console.log('SignUp session activated successfully');
+          }
+        } catch (sessionError) {
+          console.error('SignUp session activation error:', sessionError);
+          return { success: false, error: 'Account created but failed to sign you in. Please try signing in manually.' };
+        }
         return { success: true };
       } else if (result.status === 'missing_requirements') {
+        // Check what requirements are missing
+        const missingFields = result.missingFields || [];
+        console.log('Missing requirements:', missingFields);
+        
         // For email code verification, we need to prepare the email verification
-        await clerkSignUp.prepareEmailAddressVerification({
-          strategy: 'email_code',
-        });
-        return { success: true, needsVerification: true };
+        try {
+          await clerkSignUp.prepareEmailAddressVerification({
+            strategy: 'email_code',
+          });
+          return { success: true, needsVerification: true, status: result.status, missingFields };
+        } catch (verificationError) {
+          console.error('Email verification preparation error:', verificationError);
+          return { success: false, error: 'Failed to prepare email verification. Please try again.' };
+        }
+      } else if (result.status === 'abandoned') {
+        return { success: false, error: 'Sign up was cancelled. Please try again.' };
       } else {
-        return { success: false, error: 'Sign up failed. Please try again.' };
+        return { success: false, error: `Sign up failed with status: ${result.status}. Please try again.` };
       }
     } catch (err: any) {
+      console.error('SignUp error:', err);
       return { success: false, error: err.errors?.[0]?.message || 'Sign up failed. Please try again.' };
     }
   };
@@ -110,7 +147,9 @@ export const useClerkAuthWrapper = () => {
           console.log('Sign-in verification complete, activating session:', result.createdSessionId);
           try { 
             if (result.createdSessionId && setActive) {
-              await setActive({ session: result.createdSessionId });
+              await setActive({ 
+                session: result.createdSessionId
+              });
               console.log('Session activated successfully');
               // Add a small delay to ensure session is fully activated
               await new Promise(resolve => setTimeout(resolve, 300));
@@ -118,9 +157,12 @@ export const useClerkAuthWrapper = () => {
             }
           } catch (sessionError) {
             console.error('Session activation error:', sessionError);
+            return { success: false, error: 'Failed to activate session. Please try again.' };
           }
           return { success: true };
-        }
+      } else if (result.status === 'needs_second_factor') {
+        return { success: false, error: 'Additional verification required. Please contact support.' };
+      }
       }
 
       // Try sign-up verification
@@ -133,7 +175,9 @@ export const useClerkAuthWrapper = () => {
           console.log('Sign-up verification complete, activating session:', result.createdSessionId);
           try { 
             if (result.createdSessionId && setActive) {
-              await setActive({ session: result.createdSessionId });
+              await setActive({ 
+                session: result.createdSessionId
+              });
               console.log('Session activated successfully');
               // Add a small delay to ensure session is fully activated
               await new Promise(resolve => setTimeout(resolve, 300));
@@ -141,13 +185,18 @@ export const useClerkAuthWrapper = () => {
             }
           } catch (sessionError) {
             console.error('Session activation error:', sessionError);
+            return { success: false, error: 'Failed to activate session. Please try again.' };
           }
           return { success: true };
+        } else if (result.status === 'missing_requirements') {
+          const missingFields = result.missingFields || [];
+          return { success: false, error: `Still missing requirements: ${missingFields.join(', ')}` };
         }
       }
 
       return { success: false, error: 'Invalid verification code. Please try again.' };
     } catch (err: any) {
+      console.error('Verification error:', err);
       return { success: false, error: err.errors?.[0]?.message || 'Verification failed. Please try again.' };
     }
   };
@@ -179,7 +228,71 @@ export const useClerkAuthWrapper = () => {
 
       return { success: false, error: 'Email verification not available' };
     } catch (err: any) {
+      console.error('Resend code error:', err);
       return { success: false, error: err.errors?.[0]?.message || 'Failed to resend code. Please try again.' };
+    }
+  };
+
+  // Get available verification strategies
+  const getAvailableStrategies = () => {
+    const strategies = [];
+    
+    if (clerkSignIn && clerkSignIn.status === 'needs_first_factor') {
+      const supportedFactors = clerkSignIn.supportedFirstFactors || [];
+      strategies.push(...supportedFactors.map((factor: any) => ({
+        strategy: factor.strategy,
+        emailAddressId: factor.emailAddressId,
+        phoneNumberId: factor.phoneNumberId,
+        safeIdentifier: factor.safeIdentifier,
+      })));
+    }
+    
+    if (clerkSignUp && clerkSignUp.status === 'missing_requirements') {
+      // For signup, we'll just return email_code strategy for now
+      strategies.push({
+        strategy: 'email_code',
+        safeIdentifier: 'email',
+      });
+    }
+    
+    return strategies;
+  };
+
+  // Switch verification strategy (e.g., from email to SMS)
+  const switchVerificationStrategy = async (strategy: string, identifier?: string) => {
+    try {
+      if (clerkSignIn && clerkSignIn.status === 'needs_first_factor') {
+        const firstFactor = clerkSignIn.supportedFirstFactors?.find(
+          factor => factor.strategy === strategy
+        ) as any;
+        
+        if (firstFactor) {
+          await clerkSignIn.prepareFirstFactor({
+            strategy: strategy as any,
+            emailAddressId: firstFactor.emailAddressId,
+            phoneNumberId: firstFactor.phoneNumberId,
+          });
+          return { success: true };
+        }
+      }
+
+      if (clerkSignUp && clerkSignUp.status === 'missing_requirements') {
+        if (strategy === 'email_code') {
+          await clerkSignUp.prepareEmailAddressVerification({
+            strategy: 'email_code',
+          });
+        } else if (strategy === 'phone_code') {
+          await clerkSignUp.preparePhoneNumberVerification({
+            strategy: 'phone_code',
+          });
+        }
+        return { success: true };
+      }
+
+      return { success: false, error: 'Strategy not available' };
+    } catch (err: any) {
+      console.error('Switch strategy error:', err);
+      return { success: false, error: err.errors?.[0]?.message || 'Failed to switch verification method.' };
     }
   };
 
@@ -243,7 +356,12 @@ export const useClerkAuthWrapper = () => {
         const emails: any[] = clerkUser.emailAddresses || [];
         for (const e of emails) {
           if (e.id !== emailId) {
-            try { await e.destroy(); } catch {}
+            // Avoid deleting verified or primary emails to prevent 403s
+            const isVerified = e.verification?.status === 'verified';
+            const isPrimary = e.id === clerkUser.primaryEmailAddressId;
+            if (!isPrimary && !isVerified) {
+              try { await e.destroy(); } catch {}
+            }
           }
         }
       }
@@ -266,6 +384,13 @@ export const useClerkAuthWrapper = () => {
     startEmailUpdate,
     verifyNewEmail,
     makePrimaryAndCleanup,
+    getAvailableStrategies,
+    switchVerificationStrategy,
+    // Additional status information for better UX
+    signInStatus: clerkSignIn?.status,
+    signUpStatus: clerkSignUp?.status,
+    isSignInLoading: !signInLoaded,
+    isSignUpLoading: !signUpLoaded,
   };
 };
 
