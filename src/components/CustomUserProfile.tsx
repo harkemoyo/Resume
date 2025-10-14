@@ -49,7 +49,16 @@ const CustomUserProfile: React.FC = () => {
 
   return (
     <div className="cup-container">
-
+      <style>{`
+        .cl-internal-114tq5k {
+          display: none !important;
+          visibility: hidden !important;
+          opacity: 0 !important;
+          background: none !important;
+          mask-image: none !important;
+        }
+      `}</style>
+      
       <UserProfile
         appearance={{
           variables: {

@@ -46,8 +46,20 @@ export const hideClerkBranding = () => {
     'cl-internal-1axx6jt',   // Clerk logo link
     'cl-internal-5ghyhf',    // Clerk logo SVG
     'cl-internal-10qfs6u',   // "Development mode" text
-    'cl-internal-114tq5k'    // Back button element
+    'cl-internal-114tq5k'    // Back button element and development overlay
   ]);
+
+  // Specifically target the development overlay element
+  const overlayElements = document.querySelectorAll('.cl-internal-114tq5k');
+  overlayElements.forEach(element => {
+    (element as HTMLElement).style.display = 'none';
+    (element as HTMLElement).style.visibility = 'hidden';
+    (element as HTMLElement).style.opacity = '0';
+    (element as HTMLElement).style.background = 'none';
+    (element as HTMLElement).style.maskImage = 'none';
+    (element as HTMLElement).style.pointerEvents = 'none';
+    (element as HTMLElement).style.userSelect = 'none';
+  });
 
   // Hide elements containing branding text
   hideElementsByText([

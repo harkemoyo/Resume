@@ -13,7 +13,7 @@
   top: -9999px !important;
 }
 
-/* Hide ONLY the specific back button element */
+/* Hide ONLY the specific back button element and development overlay */
 .cl-internal-114tq5k {
   display: none !important;
   visibility: hidden !important;
@@ -24,6 +24,10 @@
   position: absolute !important;
   left: -9999px !important;
   top: -9999px !important;
+  background: none !important;
+  mask-image: none !important;
+  pointer-events: none !important;
+  user-select: none !important;
 }
 
 /* Hide ONLY specific branding text elements */
